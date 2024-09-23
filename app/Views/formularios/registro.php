@@ -27,9 +27,6 @@
   <p style="text-align:left;"><span class="error"> (*) Campos obligatorios</span></p>
     <h4 style="text-align:left;"> Datos personales:</h4><br>
 
-  <span class="error">*</span> E-mail: <br>   
-    <input type="text" name="email" required ><br><br>
-
   <span class="error">*</span> Nombre: <br>   
     <input type="text" name="nombre" required ><br><br>
         
@@ -39,32 +36,31 @@
   <span class="error">*</span> Edad:<br>
     <input type="number" name="edad" required></input><br><br>
   
-  <span class="error">*</span> Telefono:<br>
+  <span class="error">*</span> Tel&eacutefono:<br>
     <input type="number" name="telefono" required></input><br><br>
   
   <span class="error">*</span> Direcci&oacuten:<br>
     <input type="text" name="dire" required></input><br><br>
 
-    Categor&iacute;a:<br>
-      <select id="categoria" name="categoria" required>
-        <option value="seleccione">Seleccione...</option>
-        <option value="economia">Economia</option>
-        <option value="politica">Politica</option>
-        <option value="turismo">Turismo</option>
-        <option value="deporte">Deporte</option>
-      </select><br><br>
+  <span class="error">*</span> <label for="image">Certificado M&eacutedico:</label><br>
+      <input type="file" name="image" id="image" accept="image/jpeg, image/png, application/pdf"><br>
+  
+  <h4 style="text-align:left;"> Datos registro:</h4><br>
 
-    Certificado M&eacutedico:<br>  
-      <input type="file" name="image" id="image" accept="image/jpeg,image/png,pdf"><br>
+  <span class="error">*</span> E-mail: <br>   
+  <input type="text" name="email" required ><br><br>  
+  
+  <span class="error">*</span> Contraseña: <br>   
+  <input type="password" name="contra" required ><br><br>  
+  
+  <span class="error">*</span> Confirmar contraseña: <br>   
+  <input type="password" name="contra2" required ><br><br> 
 
-<!-- Correo oculto-->
-        <input type="hidden" name="usuario" value="">
-        
-        <input type="submit" name="noticia" value="REGISTRARSE" style="background-color: #df7718;">
+    <input type="submit" name="noticia" value="REGISTRARSE" style="background-color: #df7718;">
   </form><br>
   <?php
     echo $this->include('plantilla/footer');
-?>
+  ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
