@@ -46,6 +46,7 @@
       <input type="file" name="image" id="image" accept="image/jpeg, image/png, application/pdf"><br>
   
   <h4 style="text-align:left;"> Datos registro:</h4><br>
+  
 
   <span class="error">*</span> E-mail: <br>   
   <input type="text" name="email" required ><br><br>  
