@@ -1,6 +1,6 @@
 <nav class="navbar bg-body-tertiary">
   <form class="container-fluid d-flex justify-content-between align-items-center">
-    <a href="<?= base_url(''); ?>">
+    <a href="<?= base_url('/inguz/index'); ?>">
       <img src="/inguz/public/assets/img/logo2.png" alt="Logo" width="70" height="70">
     </a>
     
@@ -8,11 +8,18 @@
       <a href="<?= base_url('/inguz/index'); ?>">
       <button type="button" class="btn" style="background-color: #df7718; color: white; border: none; margin-right: 10px; font-size: 18px;"> Inicio</button> 
      </a>
-     <a href="<?= base_url('/inguz/index'); ?>">
+
+    <a href="<?= base_url('/inguz/actividades'); ?>">
       <button type="button" class="btn" style="background-color: #df7718; color: white; border: none; margin-right: 10px;  font-size: 18px;"> Actividades</button>
-</a>
+    </a>
+
+    <a href="<?= base_url('/inguz/informacion'); ?>">
       <button type="button" class="btn" style="background-color: #df7718; color: white; border: none; margin-right: 10px;font-size: 18px;"> Información</button>
+    </a>
+
+    <a href="<?= base_url('/inguz/reserva'); ?>">
       <button type="button" class="btn" style="background-color: #df7718; color: white; border: none;  font-size: 18px;"> Reserva</button>
+    </a>
     </div>
 
     <div class="dropdown" style="margin-left: center;">
