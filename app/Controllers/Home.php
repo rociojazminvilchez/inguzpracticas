@@ -25,4 +25,9 @@ class Home extends BaseController
     public function registro(){
         return view('formularios/registro');
     }
+
+    #BARRA
+    public function informacion(){
+        return view('inguz/informacion');
+    }
 }
