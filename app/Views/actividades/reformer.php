@@ -14,29 +14,38 @@
     echo $this->include('plantilla/navbar');
 ?>
 <br>
-<h3 style="text-align: center;"> Pilates Reformer </h3>
-<br>
 
 <div class="card text-center">
-  <div class="card-header">
+<div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
+    
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="#">Informaci&oacuten</a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/actividades/reformer'); ?>>Pilates Reformer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actividades/hiit'); ?>">Pilates Hiit</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actividades/terapeutico'); ?>" >Pilates Terap&eacuteutico</a>
       </li>
     </ul>
   </div><br>
   <div class="container text-center">
     <div class="row">
-        <div class="col">
-            <h4>Actividades</h4>
-            <section style="text-align: justify;">
-            El Pilates Reformer es un equipo de ejercicio utilizado en la práctica del pilates que consiste en una cama con un marco y un sistema de poleas y resortes.<br>
-  Este equipo permite realizar una variedad de ejercicios que se enfocan en fortalecer y tonificar el cuerpo,<br> mejorar la flexibilidad, y promover una mejor alineación postural.<br>
-  Cada sesión de 50 minutos está totalmente guiada por un instructor certificado que te acompañará en cada movimiento,<br> asegurando que realices los ejercicios con la técnica adecuada y la máxima seguridad.
+      <div class="col">
+        <h4>Pilates Reformer</h4>
+        <section style="text-align: justify;">
+            <?php foreach ($actividades as $actividad): 
+              if($actividad['id']=='6'){ 
+            ?>
+            <p><?= esc($actividad['Descripcion']) ?></p>
+            <?php
+            }?>
+            <?php endforeach; ?>
+        </section>
+      </div>
 
-            </section>
-        </div>
-        <div class="col">
+    <div class="col">
             <div id="carouselActividades" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselActividades" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -59,95 +68,76 @@
     </div>
 </div>
 
-  <div class="card-body">
+<div class="card-body">
     <h5>Horarios</h5>
     <table class="table">
       <thead>
-    <tr>
-      <th scope="col">Horario</th>
-      <th scope="col">Lunes</th>
-      <th scope="col">Martes</th>
-      <th scope="col">Mi&eacutercoles</th>
-      <th scope="col">Jueves</th>
-      <th scope="col">Viernes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">8-9hs</th>
-      <td></td>
-      <td>Reformer</td>
-      <td></td>
-      <td> Reformer </td>
-      <td> </td>
-    </tr>
-    <tr>
-      <th scope="row">9-10hs</th>
-      <td>Reformer</td>
-      <td></td>
-      <td>Reformer</td>
-      <td></td>
-      <td>Reformer</td>
-    </tr>
-    <tr>
-      <th scope="row">11-12hs</th>
-      <td></td>
-      <td>Reformer</td>
-      <td></td>
-      <td>Reformer</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">16-17hs</th>
-      <td></td>
-      <td>Reformer</td>
-      <td></td>
-      <td>Reformer</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">18-19hs</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">19-20hs</th>
-      <td>Reformer</td>
-      <td></td>
-      <td>Reformer</td>
-      <td></td>
-      <td>Reformer</td>
-    </tr>
-  </tbody>
-</table><br>
+        <tr>
+          <th scope="col">Horario</th>
+          <th scope="col">Lunes</th>
+          <th scope="col">Martes</th>
+          <th scope="col">Miércoles</th>
+          <th scope="col">Jueves</th>
+          <th scope="col">Viernes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        $horas = ['8-9hs', '9-10hs', '10-11hs','11-12hs', '15-16hs','16-17hs', '17-18','18-19hs', '19-20hs','20-21hs'];
+        $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+        
+        foreach ($horas as $hora): ?>
+            <tr>
+            <th scope="row">
+    <?php 
+    foreach ($actividades as $actividad) {
+        if ($actividad['Horario'] == $hora) {
+            echo $hora; // Mostramos la hora si coincide
+            break; // Terminamos el ciclo porque ya encontramos la coincidencia
+        }
+    }
+    ?>
+</th>
+                <?php foreach ($dias as $dia): ?>
+                    <td>
+                        <?php
+                        // Filtrar por día y horario
+                        foreach ($actividades as $actividad) {
+                            if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia) {
+                                echo "Reformer";
+                            }
+                        }
+                        ?>
+                    </td>
+                <?php 
+
+              endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+</div><br>
+
 <h5>Precios</h5>
-    <table class="table">
-      <thead>
+<table class="table">
+  <thead>
     <tr>
       <th scope="col">Clases</th>
       <th scope="col">Precio</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">4</th>
-      <td>323</td>
-    </tr>
-    <tr>
-      <th scope="row">8</th>
-      <td>123</td>
-    </tr>
-    <tr>
-      <th scope="row">12</th>
-      <td>323</td>
-    </tr>
+    <?php foreach ($pilates as $pila): ?>
+      <tr>
+        <td><?= esc($pila['Clases']) ?></td> 
+        <td>$<?= esc($pila['Precio']) ?></td> 
+      </tr>
+    <?php endforeach; ?>
   </tbody>
 </table><br>
+<div>
     <a href="#" class="btn btn-primary" style="background-color: #df7718; border: none;">Reservar</a>
-  </div>
+  </div><br>
 </div>
 
 <?php
