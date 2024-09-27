@@ -3,7 +3,7 @@
           <div class="box">
           </div>
     <div class="box">
-        
+            <h4 style="text-align: center;"> Nuestras redes </h4>
             <div class="red-social" style="text-align: center;">
             <a href="https://www.facebook.com/inguz/" target="_blank">
               <svg width="35" height="35" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">

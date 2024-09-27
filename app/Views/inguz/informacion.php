@@ -21,11 +21,10 @@
 <div class="container text-center">
     <div class="row">
         <div class="col">
-            <h4>¿Quiénes somos?</h4>
+            <h4>¿Qui&eacutenes somos?</h4>
             <section style="text-align: justify;">
-                En INGUZ, nos especializamos en actividades de pilates en tres modalidades: reformer, HIIT y terapéutico. 
-                Con seis años de experiencia en el sector, contamos con un equipo de instructores altamente capacitados y un espacio completamente equipado, diseñado para que te sientas cómodo y logres tus objetivos. 
-                Ofrecemos una variedad de días y horarios que se adaptan a tus necesidades, garantizando un ambiente exclusivo con solo 7 personas por clase. Esto nos permite ofrecerte atención personalizada y de calidad en cada sesión.
+                INGUZ, es un centro de bienestar y salud especializado en pilates. Contamos con seis años de experiencia en el sector, con un equipo de instructores altamente capacitados y un espacio completamente equipado, diseñado para que te sientas cómodo y logres tus objetivos. 
+                Ofrecemos una variedad de días y horarios que se adaptan a tus necesidades, garantizando un ambiente exclusivo con solo 7 personas por clase. Esto nos permite ofrecerte atención personalizada y de calidad en cada sesion.
             </section>
         </div>
         <div class="col">
@@ -59,6 +58,9 @@
             <section style="text-align: justify;">
                 Ofrecemos clases de pilates en sus modalidades: reformer, HIIT y terapéutico. Cada actividad está diseñada para atender diferentes necesidades, desde mejorar la fuerza y flexibilidad hasta la rehabilitación y el bienestar general. 
                 Todos nuestros programas son impartidos por instructores certificados que se enfocan en garantizar una experiencia segura y efectiva para cada participante.
+                <p style="text-align: center;">
+                    <a href="<?= base_url('/inguz/actividades'); ?>" class="btn btn-primary" style="background-color: #df7718;border: none;">Ver m&aacutes informaci&oacuten</a>
+                </p>
             </section>
         </div>
         <div class="col">
@@ -88,18 +90,22 @@
         <div class="row">
             <div class="col">
                 <h4>¿Dónde estamos?</h4>
-                <section style="text-align: justify;">
-                    Nos encontramos en Dominicos Puntanos 823 (A media cuadra de la plaza 9 de julio).
-                </section>
+                <section style="text-align: center;">
+                    Nos encontramos en Dominicos Puntanos 823<br> (A media cuadra de la plaza 9 de julio).
+                </section><br><br><br>
+                <h4>Horarios de atenci&oacuten</h4>
+                <section style="text-align: center;">
+                   Lunes a Viernes<br>
+                   8hs - 12hs <br>
+                   15hs - 21hs
+                </section><br>
             </div>
             <div class="col">
                  <!-- Incluir el iframe del mapa -->
-                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1667.7021363394529!2d-66.33973556153828!3d-33.28208509336416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d439368661a2fb%3A0x4b2dcc49a588827e!2sDominicos%20Puntanos%20823%2C%20D5700%20IFH%2C%20San%20Luis!5e0!3m2!1ses!2sar!4v1727453659826!5m2!1ses!2sar" width="350" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1667.7021363394529!2d-66.33973556153828!3d-33.28208509336416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d439368661a2fb%3A0x4b2dcc49a588827e!2sDominicos%20Puntanos%20823%2C%20D5700%20IFH%2C%20San%20Luis!5e0!3m2!1ses!2sar!4v1727453659826!5m2!1ses!2sar" width="350" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
             </div>
         </div>
-    </div>
-
+    </div> <br>
 
 <?php
     echo $this->include('plantilla/footer');
