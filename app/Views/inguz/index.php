@@ -14,11 +14,14 @@
 <body>
 <?php
     echo $this->include('plantilla/navbar');
-?>
-
-  <div style="text-align: center; ">
-    <h4>Queremos que te SIENTAS BIEN,<br> por eso te brindamos un ESPACIO donde lo ÚNICO que importa SOS VOS, <br> y el contacto de TU MENTE con TU CUERPO </h4>
-  </div><br>
+?><br>
+  <section style="text-align: center;">
+<h3>Bienvenidos a Inguz, tu espacio para conectar cuerpo y mente. </h3>
+En nuestro estudio, creemos en el poder del movimiento consciente para transformar tu bienestar.<br>
+A través del método Pilates, ofrecemos un enfoque equilibrado que fortalece, tonifica y mejora tu flexibilidad.<br>
+Ya sea que busques aliviar tensiones, aumentar tu energía o simplemente encontrar un momento de paz en tu día.<br>
+Te invitamos a explorar nuestras clases personalizadas, diseñadas para ajustarse a tus necesidades y objetivos. <br>
+ </section><br>
 
 <div id="carouselExampleIndicators" class="carousel slide">
   <div class="carousel-indicators">
@@ -28,13 +31,13 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="\inguz\public\assets\img\index\crs1.png" class="d-block w-100" alt="busqueda">
+      <img src="/inguz/public/assets/img/index/crs1.png" class="d-block w-100" alt="busqueda">
     </div>
     <div class="carousel-item">
-      <img src="\inguz\public\assets\img\index\crs2.png" class="d-block w-100" alt="beneficios">
+      <img src="/inguz/public/assets/img/index/crs2.png" class="d-block w-100" alt="beneficios">
     </div>
     <div class="carousel-item">
-      <img src="\inguz\public\assets\img\index\crs3.png" class="d-block w-100" alt="horarios">
+      <img src="/inguz/public/assets/img/index/crs3.png" class="d-block w-100" alt="horarios">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

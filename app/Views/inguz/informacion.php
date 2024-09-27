@@ -8,6 +8,8 @@
     <link rel="icon" href="<?= base_url('img/icon.png')?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="<?= base_url('assets/css/informacion.css') ?>">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+   
   </head>
 <body>
 <?php
@@ -81,15 +83,30 @@
         </div>
     </div>
 </div>
-
 <!-- Donde estamos -->
- 
+<div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h4>¿Dónde estamos?</h4>
+                <section style="text-align: justify;">
+                    Nos encontramos en Dominicos Puntanos 823 (A media cuadra de la plaza 9 de julio).
+                </section>
+            </div>
+            <div class="col">
+                 <!-- Incluir el iframe del mapa -->
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1667.7021363394529!2d-66.33973556153828!3d-33.28208509336416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d439368661a2fb%3A0x4b2dcc49a588827e!2sDominicos%20Puntanos%20823%2C%20D5700%20IFH%2C%20San%20Luis!5e0!3m2!1ses!2sar!4v1727453659826!5m2!1ses!2sar" width="350" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                
+            </div>
+        </div>
+    </div>
+
 
 <?php
     echo $this->include('plantilla/footer');
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 
 </body>
 </html>
