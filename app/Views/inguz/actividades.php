@@ -15,6 +15,20 @@
     echo $this->include('plantilla/navbar');
 ?>
 <br>
+<H3 style="text-align: center;"> Actividades </H3><br>
+<section style="text-align: center;">
+Este es el momento perfecto para ejercitar tu cuerpo de manera entretenida y consciente.<br>
+En INGUZ, te invitamos a: <br>
+<section style="">
+Despejar la mente y encontrar la tranquilidad. <br>
+Mejorar tu postura, equilibrio y coordinación. <br>
+Aumentar tu flexibilidad y reducir el estrés. <br>
+Fortalecer tu sistema inmunológico.<br>
+</section>
+¡Todo esto con un entrenamiento moderado, sin impacto y, lo más importante, con PLACER! <br>
+
+</section><br>
+
 <div class="container">
   <div class="row">
     <div class="col-md-4">

@@ -1,0 +1,25 @@
+html {
+    min-height: 100%;
+    position: relative;    
+}
+
+#carouselQuienes {
+    max-width: 350px; /* Ancho máximo deseado */
+    height: 300px;    /* Altura deseada */
+    margin: auto;     /* Centrar el carrusel */
+    overflow: hidden; /* Evitar desbordamientos */
+}
+
+#carouselActividades {
+    max-width: 350px; /* Ancho máximo deseado */
+    height: 300px;    /* Altura deseada */
+    margin: auto;     /* Centrar el carrusel */
+    overflow: hidden; /* Evitar desbordamientos */
+}
+.carousel-control-prev, 
+.carousel-control-next {
+    border-radius: 50%; /* Hacer los botones redondos */
+    margin-left: -23px; /* Mover el botón hacia el borde izquierdo */
+    margin-right: -23px; /* Mover el botón hacia el borde derecho */
+}
+
