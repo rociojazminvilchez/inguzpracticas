@@ -58,7 +58,7 @@
   <input type="password" name="contra2" required ><br><br> 
 
     <input type="submit" name="noticia" value="REGISTRARSE" style="background-color: #df7718;">
-  </form><br>
+  </form><br><br><br>
   <?php
     echo $this->include('plantilla/footer');
   ?>

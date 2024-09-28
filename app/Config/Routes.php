@@ -11,7 +11,7 @@ $routes->get('/inguz/index', 'Home::index');
 #USUARIO
 $routes->get('/formularios/ingreso', 'Home::ingreso');
 $routes->post('/home/login', 'Home::login');
-
+$routes->get('/formularios/registro', 'Home::registro');
 
 #INSTRUCTOR
 $routes->get('/formularios/opc_instructor', 'Home::instructor');

@@ -133,7 +133,7 @@
 </table><br>
 <h6 style="text-align: center;"> Medios de pago: Efectivo y Transferencia. </h6><br>
 <div>
-    <a href="#" class="btn btn-primary" style="background-color: #df7718; border: none;">Reservar</a>
+    <a href="<?= base_url('/inguz/reserva'); ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Reservar</a>
   </div><br>
 </div>
 <br>
