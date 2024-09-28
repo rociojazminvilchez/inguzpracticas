@@ -51,13 +51,13 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="/inguz/public/assets/img/informacion/crs1_actividades.png" class="d-block w-100" alt="actividades-1">
+                        <img src="/inguz/public/assets/img/actividades/terapeutico1.png" class="d-block w-100" alt="actividades-1">
                     </div>
                     <div class="carousel-item">
-                        <img src="/inguz/public/assets/img/informacion/crs2_actividades.png" class="d-block w-100" alt="actividades-2">
+                        <img src="/inguz/public/assets/img/actividades/terapeutico2.png" class="d-block w-100" alt="actividades-2">
                     </div>
                     <div class="carousel-item">
-                        <img src="/inguz/public/assets/img/informacion/crs3_actividades.png" class="d-block w-100" alt="actividades-3">
+                        <img src="/inguz/public/assets/img/actividades/terapeutico3.png" class="d-block w-100" alt="actividades-3">
                     </div>
                 </div>
             </div><br>
@@ -131,6 +131,7 @@
     <?php endforeach; ?>
   </tbody>
 </table><br>
+<h6 style="text-align: center;"> Medios de pago: Efectivo y Transferencia. </h6><br>
 <div>
     <a href="#" class="btn btn-primary" style="background-color: #df7718; border: none;">Reservar</a>
   </div><br>

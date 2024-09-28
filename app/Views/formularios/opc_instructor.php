@@ -17,24 +17,23 @@
 ?>
 
 <body>
-  <form class="form" action="<?php echo base_url('/noticias/login')?>" method="POST">
+<div class="alert alert-warning" role="alert">
+        <strong>Atención:</strong> Este panel es únicamente para instructores. Por favor, asegúrate de cumplir con los requisitos antes de continuar.
+    </div>
+  <form class="form" action="<?php echo base_url('/inguz/index')?>" method="POST">
+    
     <p style="text-align:right;">
-      <a href="<?php echo base_url('noticia')?>">
+      
+      <a href="<?php echo base_url('/inguz/index')?>">
         <button type="button" class="btn-close" aria-label="Close"> </button>
       </a>
     </p>
-    <h4 style="text-align: center;"> PERFIL INSTRUCTOR </h4>
-    <h3> Iniciar sesi&oacuten:</h3><br>
-      E-mail:<br>    
-        <input type="email" name="usuario" required> <br>
-        <span class="error"> </span><br>
-
-      Contrase&ntildea:<br>
-          <input type="password" name="contra" required><br>
-          <span class="error"> </span><br>
-               
-      <input type="submit" name="ingresar" value="Ingresar" style="background-color: #df7718;"><br><br>
-      <a href="<?php echo base_url('formularios/recuperar_contra')?>"> ¿Olvidaste tu contrase&ntildea? </a>
+    <h3 style="text-align: center;"> ¿Que operaci&oacuten desea realizar?</h3><br>
+<p style="text-align: center;" >    
+  
+    <a href="<?= base_url('/formularios/ingresoinstructor'); ?>" class="btn btn-primary" style="background-color: #df7718; border: none; ">Iniciar sesi&oacuten</a><br><br>
+    <a href="<?= base_url('/formularios/registroinstructor'); ?>"class="btn btn-primary" style="background-color: #df7718; border: none;">Registrarse</a>
+</p>
   </form> 
 
 <?php

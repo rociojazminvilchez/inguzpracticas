@@ -7,13 +7,21 @@ use CodeIgniter\Router\RouteCollection;
  */
 #INICIO
 $routes->get('/inguz/index', 'Home::index');
-#REGISTRO-INGRESO
+
+#USUARIO
 $routes->get('/formularios/ingreso', 'Home::ingreso');
 $routes->post('/home/login', 'Home::login');
 
-$routes->get('/formularios/ingresoadmi', 'Home::loginadmin');
+
+#INSTRUCTOR
+$routes->get('/formularios/opc_instructor', 'Home::instructor');
+$routes->get('/formularios/ingresoinstructor', 'Home::loginadmin');
+$routes->get('/formularios/registroinstructor', 'Home::registroadmin');
+
+#USUARIO - INSTRUCTOR
+$routes->get('/salir', 'Home::salir');
 $routes->get('/formularios/recuperar_contra', 'Home::recuperarcontra');
-$routes->get('/formularios/registro', 'Home::registro');
+
 #NAVBAR
 $routes->get('/inguz/informacion','Home::informacion');
 $routes->get('/inguz/actividades','Home::actividades');

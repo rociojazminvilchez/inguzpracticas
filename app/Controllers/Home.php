@@ -8,7 +8,7 @@ class Home extends BaseController
         return view('inguz/index');
     }
 
-    #INGRESAR SESION
+    #USUARIO
     public function ingreso(){
         return view('formularios/ingreso');
     }
@@ -25,10 +25,11 @@ class Home extends BaseController
            // MANEJO DE SESION
            $data = [
                 'usuario' => $usuario,
+                'tipo' => 'usuario',
            ];
             $session = session();
             $session -> set($data);
-
+            
             return redirect()->to('inguz/index');
         }else{
             ?>
@@ -38,18 +39,33 @@ class Home extends BaseController
         }
     }
 
-    public function loginadmin(){
-        return view('formularios/ingresoadmi');
+    public function registro(){
+        return view('formularios/registro');
     }
-    #RECUCONTRA
+
+   #USUARIO - INTRUCTOR 
+    public function salir() {
+		$session = session();
+        $session->destroy();
+        return redirect()->to(base_url('inguz/index'));
+	}    
+
     public function recuperarcontra(){
         return view('formularios/recuperar_contra');
     }
 
-    #REGISTRO
-    public function registro(){
-        return view('formularios/registro');
+    #INSTRUCTOR
+    public function instructor(){
+        return view('formularios/opc_instructor');
     }
+    public function loginadmin(){
+        return view('formularios/ingresoinstructor');
+    }
+    public function registroadmin(){
+        return view('formularios/registroinstructor');
+    }
+
+
 
     #BARRA
     public function informacion(){

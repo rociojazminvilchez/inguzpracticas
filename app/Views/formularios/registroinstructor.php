@@ -17,7 +17,11 @@
 ?>
 
 <body>
-<form class="form" action="<?= base_url('noticias'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+<div class="alert alert-warning" role="alert">
+        <strong>Atención:</strong> Este registro es únicamente para instructores. Por favor, asegúrate de cumplir con los requisitos antes de continuar.
+    </div>
+    
+<form class="form" action="<?= base_url(''); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
   <p style="text-align:right;">
     <a href="<?php echo base_url('/inguz/index')?>">
       <button type="button" class="btn-close" aria-label="Close"></button>
@@ -38,16 +42,18 @@
   
   <span class="error">*</span> Tel&eacutefono:<br>
     <input type="number" name="telefono" required></input><br><br>
-  
-  <span class="error">*</span> Direcci&oacuten:<br>
-    <input type="text" name="dire" required></input><br><br>
+    
+  <span class="error">*</span> Formaci&oacuten:<br>
+     <textarea name="formacion" > </textarea><br>
+ 
+   <span class="error">*</span> Tipo de pilates:<br>
+    
+        <input type="radio" name="tipo_clase" value="reformer"> Reformer 
+        <input type="radio" name="tipo_clase" value="hiit"> Hiit 
+        <input type="radio" name="tipo_clase" value="terapeutico" > Terap&eacuteutico 
+    <br><br>
 
-  <label for="image">Certificado M&eacutedico:</label><br>
-      <input type="file" name="image" id="image" accept="image/jpeg, image/png, application/pdf"><br>
-  
-  <h4 style="text-align:left;"> Datos registro:</h4><br>
-  
-
+  <h4 style="text-align:left;"> Datos registro:</h4><br>  
   <span class="error">*</span> E-mail: <br>   
   <input type="text" name="email" required ><br><br>  
   
@@ -58,7 +64,7 @@
   <input type="password" name="contra2" required ><br><br> 
 
     <input type="submit" name="noticia" value="REGISTRARSE" style="background-color: #df7718;">
-  </form><br>
+  </form><br><br><br>
   <?php
     echo $this->include('plantilla/footer');
   ?>

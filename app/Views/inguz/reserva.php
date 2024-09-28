@@ -14,7 +14,21 @@
 <?php
     echo $this->include('plantilla/navbar');
 ?>
+<?php   
+    if (!session()->has('usuario')) {
+        ?>
 
+    <p style="text-align:center;">
+    <h4 style="text-align: center;"> Para realizar una reserva, debes: </h4><br>
+          <p style="text-align: center;" >    
+    <a href="<?= base_url('/formularios/ingreso'); ?>" class="btn btn-primary" style="background-color: #df7718; border: none; ">Iniciar sesi&oacuten</a><br><br>
+    <a href="<?= base_url('/formularios/registro'); ?>"class="btn btn-primary" style="background-color: #df7718; border: none;">Registrarse</a>
+</p>
+  </form> 
+
+<?php
+    }
+?><br>
 <?php
     echo $this->include('plantilla/footer');
 ?>

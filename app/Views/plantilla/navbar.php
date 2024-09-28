@@ -1,3 +1,6 @@
+<?php
+  //session_start();
+?>
 <nav class="navbar bg-body-tertiary">
   <form class="container-fluid d-flex justify-content-between align-items-center">
     <a href="<?= base_url('/inguz/index'); ?>">
@@ -28,13 +31,25 @@
           <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0 32c-79.5 0-224 39.8-224 120v24c0 13.3 10.7 24 24 24h400c13.3 0 24-10.7 24-24v-24c0-80.2-144.5-120-224-120z"/>
         </svg>
       </button>
-
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="max-width: 200px;">
+        <?php   
+          if (session()->has('usuario')) {
+            ?>
+           <li><a class="dropdown-item" href="<?= base_url('/formularios/registro'); ?>">Perfil</a></li>
+           <li><a class="dropdown-item" href="<?= base_url('/formularios/ingreso'); ?>"> Historial</a></li>
+           <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>
+           <?php
+           }
+           else{
+            ?>
         <li><a class="dropdown-item" href="<?= base_url('/formularios/registro'); ?>">Registrarse</a></li>
         <li><a class="dropdown-item" href="<?= base_url('/formularios/ingreso'); ?>">Iniciar sesión</a></li>
         <hr>
-        <li><a class="dropdown-item" href="<?= base_url('/formularios/ingresoadmi'); ?>">Instructor</a></li>
+        <li><a class="dropdown-item" href="<?= base_url('/formularios/opc_instructor'); ?>">Instructor</a></li>
       </ul>
+      <?php
+      }
+      ?>
     </div>
   </form>
 </nav>
