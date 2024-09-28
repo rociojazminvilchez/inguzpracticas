@@ -17,8 +17,18 @@
 ?>
 
 <body>
-<form class="form" action="<?= base_url('noticias'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
-  <p style="text-align:right;">
+
+<form class="form" action="<?= base_url('usuario/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+<?php if (session()->get('errors')): ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php foreach (session()->get('errors') as $error): ?>
+                    <li><?= esc($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>  
+<p style="text-align:right;">
     <a href="<?php echo base_url('/inguz/index')?>">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
@@ -28,36 +38,36 @@
     <h4 style="text-align:left;"> Datos personales:</h4><br>
 
   <span class="error">*</span> Nombre: <br>   
-    <input type="text" name="nombre" required ><br><br>
+    <input type="text" name="nombre"  value="<?= old('nombre') ?>"required ><br><br>
         
   <span class="error">*</span> Apellido:<br>
-    <input type="text" name="apellido" required></input><br><br>
+    <input type="text" name="apellido"  value="<?= old('apellido') ?>"required></input><br><br>
        
   <span class="error">*</span> Edad:<br>
-    <input type="number" name="edad" required></input><br><br>
+    <input type="number" name="edad"  value="<?= old('edad') ?>" required></input><br><br>
   
   <span class="error">*</span> Tel&eacutefono:<br>
-    <input type="number" name="telefono" required></input><br><br>
+    <input type="number" name="telefono"  value="<?= old('telefono') ?>"required></input><br><br>
   
   <span class="error">*</span> Direcci&oacuten:<br>
-    <input type="text" name="dire" required></input><br><br>
+    <input type="text" name="dire"  value="<?= old('dire') ?>"required></input><br><br>
 
   <label for="image">Certificado M&eacutedico:</label><br>
       <input type="file" name="image" id="image" accept="image/jpeg, image/png, application/pdf"><br>
   
   <h4 style="text-align:left;"> Datos registro:</h4><br>
   
-
   <span class="error">*</span> E-mail: <br>   
-  <input type="text" name="email" required ><br><br>  
+  <input type="text" name="email"  value="<?= old('email') ?>"required ><br><br>  
   
   <span class="error">*</span> Contraseña: <br>   
-  <input type="password" name="contra" required ><br><br>  
+  <input type="password" name="contra"  value="<?= old('contra') ?>" required ><br><br>  
   
   <span class="error">*</span> Confirmar contraseña: <br>   
-  <input type="password" name="contra2" required ><br><br> 
-
-    <input type="submit" name="noticia" value="REGISTRARSE" style="background-color: #df7718;">
+  <input type="password" name="contra2"  value="<?= old('contra2') ?>"required ><br><br> 
+  <!-- Campo oculto -->
+  <input type="hidden" name="tipo_usuario" value="usuario">
+    <input type="submit" name="registro" value="REGISTRARSE" style="background-color: #df7718;">
   </form><br><br><br>
   <?php
     echo $this->include('plantilla/footer');

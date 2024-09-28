@@ -15,6 +15,12 @@
 <?php
     echo $this->include('plantilla/navbar');
 ?><br>
+<?php if (session()->getFlashdata('mensaje')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('mensaje') ?>
+    </div>
+<?php endif; ?>
+
   <section style="text-align: center;">
 <h3>Bienvenidos a Inguz, tu espacio para conectar cuerpo y mente. </h3>
 En nuestro estudio, creemos en el poder del movimiento consciente para transformar tu bienestar.<br>

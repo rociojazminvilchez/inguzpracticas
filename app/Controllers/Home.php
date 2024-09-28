@@ -43,6 +43,10 @@ class Home extends BaseController
         return view('formularios/registro');
     }
 
+    public function create(){
+
+    }
+
    #USUARIO - INTRUCTOR 
     public function salir() {
 		$session = session();

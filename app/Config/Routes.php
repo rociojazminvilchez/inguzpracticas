@@ -32,3 +32,6 @@ $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');
 $routes->get('/actividades/terapeutico','Actividades::terapeutico');
 
+#REGISTRO USUARIO
+$routes->get('/usuario/create', 'Usuario::create');
+$routes->post('/usuario/create', 'Usuario::create'); // Para procesar el formulario
