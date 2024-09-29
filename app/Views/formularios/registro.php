@@ -67,6 +67,7 @@
   <input type="password" name="contra2"  value="<?= old('contra2') ?>"required ><br><br> 
   <!-- Campo oculto -->
   <input type="hidden" name="tipo_usuario" value="usuario">
+  
     <input type="submit" name="registro" value="REGISTRARSE" style="background-color: #df7718;">
   </form><br><br><br>
   <?php

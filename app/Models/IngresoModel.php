@@ -15,5 +15,11 @@ class IngresoModel extends Model{
 			$Usuario->where($data);
 			return $Usuario->get()->getResultArray();
    }
+
+   public function obtenerInstructor($data){
+      $Usuario = $this->db->table('registroinstructor');
+      $Usuario->where($data);
+      return $Usuario->get()->getResultArray();
+}
 }
 ?>

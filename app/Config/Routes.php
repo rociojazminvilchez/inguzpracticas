@@ -12,11 +12,17 @@ $routes->get('/inguz/index', 'Home::index');
 $routes->get('/formularios/ingreso', 'Home::ingreso');
 $routes->post('/home/login', 'Home::login');
 $routes->get('/formularios/registro', 'Home::registro');
+$routes->get('/usuario/create', 'Usuario::create');
+$routes->post('/usuario/create', 'Usuario::create'); 
 
 #INSTRUCTOR
 $routes->get('/formularios/opc_instructor', 'Home::instructor');
-$routes->get('/formularios/ingresoinstructor', 'Home::loginadmin');
+$routes->get('/formularios/ingresoinstructor', 'Home::ingreso_instructor');
+$routes->get('/formularios/ingresoinstructor', 'Home::logininstructor');
+$routes->post('/home/logininstructor', 'Home::logininstructor');
 $routes->get('/formularios/registroinstructor', 'Home::registroadmin');
+$routes->get('/instructor/create', 'Instructor::create');
+$routes->post('/instructor/create', 'Instructor::create'); 
 
 #USUARIO - INSTRUCTOR
 $routes->get('/salir', 'Home::salir');
@@ -32,6 +38,3 @@ $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');
 $routes->get('/actividades/terapeutico','Actividades::terapeutico');
 
-#REGISTRO USUARIO
-$routes->get('/usuario/create', 'Usuario::create');
-$routes->post('/usuario/create', 'Usuario::create'); // Para procesar el formulario

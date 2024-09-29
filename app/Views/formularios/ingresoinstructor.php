@@ -16,16 +16,17 @@
     echo $this->include('plantilla/navbar');
 ?>
 <body>
-<div class="alert alert-warning" role="alert">
+    <div class="alert alert-warning" role="alert">
         <strong>Atención:</strong> Este inicio de sesi&oacuten es únicamente para instructores. Por favor, asegúrate de cumplir con los requisitos antes de continuar.
     </div>
 
-  <form class="form" action="<?php echo base_url('/inguz/index')?>" method="POST">
+  <form class="form" action="<?php echo base_url('/home/logininstructor')?>" method="POST">
     <p style="text-align:right;">
       <a href="<?php echo base_url('/inguz/index')?>">
         <button type="button" class="btn-close" aria-label="Close"> </button>
       </a>
     </p>
+
     <h3> Iniciar sesi&oacuten:</h3><br>
       E-mail:<br>    
         <input type="email" name="usuario" required> <br>
@@ -37,7 +38,7 @@
                
       <input type="submit" name="ingresar" value="Ingresar" style="background-color: #df7718;"><br><br>
       <a href="<?php echo base_url('formularios/recuperar_contra')?>"> ¿Olvidaste tu contrase&ntildea? </a>
-  </form> 
+  </form> <br><br><br>
 
 <?php
     echo $this->include('plantilla/footer');

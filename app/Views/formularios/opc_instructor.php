@@ -34,7 +34,7 @@
     <a href="<?= base_url('/formularios/ingresoinstructor'); ?>" class="btn btn-primary" style="background-color: #df7718; border: none; ">Iniciar sesi&oacuten</a><br><br>
     <a href="<?= base_url('/formularios/registroinstructor'); ?>"class="btn btn-primary" style="background-color: #df7718; border: none;">Registrarse</a>
 </p>
-  </form> 
+  </form><br><br><br> 
 
 <?php
     echo $this->include('plantilla/footer');

@@ -21,8 +21,17 @@
         <strong>Atención:</strong> Este registro es únicamente para instructores. Por favor, asegúrate de cumplir con los requisitos antes de continuar.
     </div>
     
-<form class="form" action="<?= base_url(''); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
-  <p style="text-align:right;">
+<form class="form" action="<?= base_url('instructor/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+<?php if (session()->get('errors')): ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php foreach (session()->get('errors') as $error): ?>
+                    <li><?= esc($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>  
+<p style="text-align:right;">
     <a href="<?php echo base_url('/inguz/index')?>">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
@@ -32,37 +41,38 @@
     <h4 style="text-align:left;"> Datos personales:</h4><br>
 
   <span class="error">*</span> Nombre: <br>   
-    <input type="text" name="nombre" required ><br><br>
+    <input type="text" name="nombre" value="<?= old('nombre')?>" required ><br><br>
         
   <span class="error">*</span> Apellido:<br>
-    <input type="text" name="apellido" required></input><br><br>
+    <input type="text" name="apellido" value="<?= old('apellido') ?>" required></input><br><br>
        
   <span class="error">*</span> Edad:<br>
-    <input type="number" name="edad" required></input><br><br>
+    <input type="number" name="edad" value="<?= old('edad') ?>" required></input><br><br>
   
   <span class="error">*</span> Tel&eacutefono:<br>
-    <input type="number" name="telefono" required></input><br><br>
+    <input type="number" name="telefono" value="<?= old('telefono') ?>" required></input><br><br>
     
-  <span class="error">*</span> Formaci&oacuten:<br>
-     <textarea name="formacion" > </textarea><br>
+   <span class="error">*</span> Formaci&oacuten:<br>
+     <textarea name="formacion" required><?= old('formacion') ?></textarea><br>
+     
  
    <span class="error">*</span> Tipo de pilates:<br>
-    
-        <input type="radio" name="tipo_clase" value="reformer"> Reformer 
-        <input type="radio" name="tipo_clase" value="hiit"> Hiit 
-        <input type="radio" name="tipo_clase" value="terapeutico" > Terap&eacuteutico 
+        <input type="checkbox" name="tipo_clase[]" value="Reformer"> Reformer 
+        <input type="checkbox" name="tipo_clase[]" value="Hiit"> Hiit 
+        <input type="checkbox" name="tipo_clase[]" value="Terapeutico" > Terap&eacuteutico 
     <br><br>
 
   <h4 style="text-align:left;"> Datos registro:</h4><br>  
   <span class="error">*</span> E-mail: <br>   
-  <input type="text" name="email" required ><br><br>  
+  <input type="text" name="email" value="<?= old('email') ?>" required ><br><br>  
   
   <span class="error">*</span> Contraseña: <br>   
-  <input type="password" name="contra" required ><br><br>  
+  <input type="password" name="contra" value="<?= old('contra') ?>" required ><br><br>  
   
   <span class="error">*</span> Confirmar contraseña: <br>   
-  <input type="password" name="contra2" required ><br><br> 
-
+  <input type="password" name="contra2" value="<?= old('contra2') ?>"required ><br><br> 
+<!-- Campo oculto -->
+  <input type="hidden" name="tipo_usuario" value="instructor">
     <input type="submit" name="noticia" value="REGISTRARSE" style="background-color: #df7718;">
   </form><br><br><br>
   <?php

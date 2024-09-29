@@ -33,7 +33,9 @@ class Home extends BaseController
             return redirect()->to('inguz/index');
         }else{
             ?>
-            <h4 style="text-decoration: solid; text-align:center; color:red;"> Datos incorrectos. Ingrese nuevamente </h4>
+            <div class="alert alert-warning" role="alert" >
+                <strong>Atención:</strong> Datos incorrectos. Ingrese nuevamente
+            </div>
             <?php
            return view('formularios/ingreso'); 
         }
@@ -43,9 +45,6 @@ class Home extends BaseController
         return view('formularios/registro');
     }
 
-    public function create(){
-
-    }
 
    #USUARIO - INTRUCTOR 
     public function salir() {
@@ -62,14 +61,40 @@ class Home extends BaseController
     public function instructor(){
         return view('formularios/opc_instructor');
     }
-    public function loginadmin(){
+    public function ingreso_instructor(){
         return view('formularios/ingresoinstructor');
     }
+    public function logininstructor(){
+        
+        $usuario = $this->request->getPost('usuario');    
+        $contra = $this->request->getPost('contra');
+       
+        $ingresoModel = new IngresoModel();
+
+        $data = $ingresoModel->obtenerInstructor(['correo' => $usuario,'contraseña' => $contra]);
+    
+        if(count($data) > 0){
+           $data = [
+                'usuario' => $usuario,
+           ];
+            $session = session();
+            $session -> set($data);
+            
+            return redirect()->to('inguz/index');
+
+        }else{
+            ?>
+            <div class="alert alert-warning" role="alert" >
+                <strong>Atención:</strong> Datos incorrectos. Ingrese nuevamente
+            </div>
+            <?php
+           return view('formularios/ingresoinstructor'); 
+        }
+    }
+
     public function registroadmin(){
         return view('formularios/registroinstructor');
     }
-
-
 
     #BARRA
     public function informacion(){

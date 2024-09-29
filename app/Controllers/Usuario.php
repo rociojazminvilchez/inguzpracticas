@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\RegistroUsuarioModel;
-use App\Models\RegistroUsuarioModelModel;
+
 
 class Usuario extends BaseController{
 
