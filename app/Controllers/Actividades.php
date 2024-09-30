@@ -65,7 +65,8 @@ class Actividades extends BaseController
      $clases = $this->request->getPost('clases');
      $precios = $this->request->getPost('precios');
      $idDescripcion = $this->request->getPost('id_descripcion');
- 
+     $idInformacion = $this->request->getPost('id_informacion');
+     
      //descripcion
      if (!empty($descripcion) && !empty($idDescripcion)) {
         $id='6';
