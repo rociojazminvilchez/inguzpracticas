@@ -38,3 +38,6 @@ $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');
 $routes->get('/actividades/terapeutico','Actividades::terapeutico');
 
+$routes->get('/actualizar/actualizar_reformer','Actividades::actualizar_reformer');
+$routes->get('/actualizar/hiit','Actividades::actualizar_hiit');
+$routes->get('/actualizar/terapeutico','Actividades::actualizar_terapeutico');

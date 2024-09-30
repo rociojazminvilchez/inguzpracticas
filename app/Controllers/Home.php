@@ -25,7 +25,7 @@ class Home extends BaseController
            // MANEJO DE SESION
            $data = [
                 'usuario' => $usuario,
-                'tipo' => 'usuario',
+                'tipo' => 'Usuario',
            ];
             $session = session();
             $session -> set($data);
@@ -76,6 +76,7 @@ class Home extends BaseController
         if(count($data) > 0){
            $data = [
                 'usuario' => $usuario,
+                'tipo' => 'Instructor'
            ];
             $session = session();
             $session -> set($data);

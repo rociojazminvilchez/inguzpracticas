@@ -41,4 +41,38 @@ class Actividades extends BaseController
         ];
         return view('actividades/terapeutico', $data);
     }
+
+    #ACTUALIZAR INFORMACION
+    public function actualizar_reformer(){
+        $actividadesModel = new ActividadesModel();
+        $pilatesModel = new PilatesModel();
+    
+        $data = [
+            'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'Reformer']),
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Reformer'])
+        ];
+        return view('actualizar/actualizar_reformer', $data);
+    }
+
+    public function actualizar_hiit(){
+        $actividadesModel = new ActividadesModel();
+        $pilatesModel = new PilatesModel();
+    
+        $data = [
+            'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'Hiit']),
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Hiit'])
+        ];
+        return view('actualizar/hiit', $data);
+    }
+
+    public function actualizar_terapeutico(){
+        $actividadesModel = new ActividadesModel();
+        $pilatesModel = new PilatesModel();
+    
+        $data = [
+            'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'Terapeutico']),
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Terapeutico'])
+        ];
+        return view('actualizar/terapeutico', $data);
+    }
 }
