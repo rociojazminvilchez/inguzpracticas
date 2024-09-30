@@ -39,6 +39,7 @@
         <h5>Descripci&oacuten:</h5>
         <?php foreach ($actividades as $actividad): 
         if (!empty($actividad['Descripcion'])) {
+            
             ?>
             <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($actividad['Descripcion']) ?></textarea>
             <input type="hidden" name="id_descripcion" value="<?= esc($actividad['id']) ?>"> <!-- Campo oculto para el ID -->

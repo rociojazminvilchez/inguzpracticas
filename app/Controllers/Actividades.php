@@ -56,34 +56,46 @@ class Actividades extends BaseController
 
     public function updateReformer()
 {
-    // Cargar los modelos
-    $actividadesModel = new ActividadesModel();
-    $pilatesModel = new PilatesModel();
-
-    // Obtener los datos enviados por el formulario
-    $descripcion = $this->request->getPost('descripcion');
-    $horarios = $this->request->getPost('horarios');
-    $clases = $this->request->getPost('clases');
-    $precios = $this->request->getPost('precios');
-
+     // Cargar los modelos
+     $actividadesModel = new ActividadesModel();
+     $pilatesModel = new PilatesModel();
+ 
+     // Obtener los datos enviados por el formulario
+     $descripcion = $this->request->getPost('descripcion');
+     $horarios = $this->request->getPost('horarios');
+     $clases = $this->request->getPost('clases');
+     $precios = $this->request->getPost('precios');
+     $idDescripcion = $this->request->getPost('id_descripcion');
+ 
      // Actualizar la descripción de la actividad
      if (!empty($descripcion) && !empty($idDescripcion)) {
-        $actividadesModel->updateDescripcion($idDescripcion, $descripcion);
-    }
-
-      // Actualizar los horarios
-    foreach ($horarios as $hora => $dias) {
-        foreach ($dias as $dia => $tipo) {
-            // Aquí puedes añadir el ID correspondiente, suponiendo que lo guardas en un campo oculto
-            $id = $this->request->getPost('actividad_id'); // Obtén el ID de alguna manera
-            if ($tipo === 'Reformer') {
-                $actividadesModel->updateHorario($id, $hora, $dia, 'Reformer');
-            } else {
-                // Limpiar el horario si no es 'Reformer'
-                $actividadesModel->clearHorario($hora, $dia);
-            }
-        }
-    }
+         $actividadesModel->updateDescripcion($idDescripcion, $descripcion);
+     }
+ 
+     // Actualizar los horarios
+     foreach ($horarios as $hora => $dias) {
+         foreach ($dias as $dia => $tipo) {
+             // Solo actualizamos si el tipo es 'Reformer'
+             if ($tipo === 'Reformer') {
+                 // Buscamos el ID del horario existente
+                 $horarioId = $actividadesModel->getHorarioId($hora, $dia);
+                 if ($horarioId) {
+                     // Si existe, lo actualizamos
+                     $actividadesModel->updateHorario($horarioId, $hora, $dia, 'Reformer');
+                 } else {
+                     // Si no existe, creamos un nuevo registro
+                     $actividadesModel->insert([
+                         'Horario' => $hora,
+                         'Dia' => $dia,
+                         'Tipo' => 'Reformer'
+                     ]);
+                 }
+             } else {
+                 // Si el tipo no es 'Reformer', aseguramos que no se elimine otra información
+                 // Podemos ignorar esto si no hay acción que tomar
+             }
+         }
+     }
 
     // Actualizar los precios de las clases
     foreach ($clases as $id => $clase) {
