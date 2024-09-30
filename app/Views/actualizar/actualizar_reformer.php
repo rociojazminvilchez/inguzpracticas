@@ -33,60 +33,63 @@
 <div class="container">
     <h3 style="text-align: center; color: red;">Actualizar -> Pilates Reformer</h3>
     
-    <form action="<?= base_url('admin/updateReformer') ?>" method="post">
+    <form action="<?= base_url('/actualizar/actualizar_reformer') ?>" method="post">
         <!-- Descripción -->
         <div class="mb-3">
         <h5>Descripci&oacuten:</h5>
-            <?php foreach ($actividades as $actividad): 
-             if(!empty($actividad['Descripcion'])){
-             ?>
-              <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($actividad['Descripcion']) ?></textarea>
-            <?php
-            }
+        <?php foreach ($actividades as $actividad): 
+        if (!empty($actividad['Descripcion'])) {
             ?>
-      <?php endforeach; ?>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($actividad['Descripcion']) ?></textarea>
+            <input type="hidden" name="id_descripcion" value="<?= esc($actividad['id']) ?>"> <!-- Campo oculto para el ID -->
+        <?php
+        }
+    endforeach; ?>
         </div>
 
-        <!-- Horarios -->
-        <h5>Horarios:</h5>
-        <div class="card-body">
+      <!-- Horarios -->
+<h5>Horarios:</h5>
+<div class="card-body">
     <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Horario</th>
-          <th scope="col">Lunes</th>
-          <th scope="col">Martes</th>
-          <th scope="col">Miércoles</th>
-          <th scope="col">Jueves</th>
-          <th scope="col">Viernes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $horas = ['8-9hs', '9-10hs', '10-11hs', '11-12hs', '15-16hs', '16-17hs', '17-18hs', '18-19hs', '19-20hs', '20-21hs'];
-        $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-        
-        foreach ($horas as $hora): ?>
+        <thead>
             <tr>
-                <th scope="row"><?= esc($hora) ?></th>
-                <?php foreach ($dias as $dia): ?>
-                    <td>
-                    <select name="horarios[<?= $hora ?>][<?= $dia ?>]" class="form-select">
-                                <option value="">-</option> 
+                <th scope="col">Horario</th>
+                <th scope="col">Lunes</th>
+                <th scope="col">Martes</th>
+                <th scope="col">Miércoles</th>
+                <th scope="col">Jueves</th>
+                <th scope="col">Viernes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $horas = ['8-9hs', '9-10hs', '10-11hs', '11-12hs', '15-16hs', '16-17hs', '17-18hs', '18-19hs', '19-20hs', '20-21hs'];
+            $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+
+            foreach ($horas as $hora): ?>
+                <tr>
+                    <th scope="row"><?= esc($hora) ?></th>
+                    <?php foreach ($dias as $dia): ?>
+                        <td>
+                            <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
+                                <option value="">-</option>
                                 <option value="Reformer" <?php
-                                    
+                                    // Verificamos si hay un registro en la base de datos para este horario y día
+                                    $selected = false; // Variable para saber si se selecciona
                                     foreach ($actividades as $actividad) {
                                         if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia && $actividad['Tipo'] === 'Reformer') {
-                                            echo 'selected'; 
+                                            $selected = true; // Si encontramos, cambiamos el estado
+                                            break; // Salimos del bucle, ya que hemos encontrado la coincidencia
                                         }
                                     }
+                                    echo $selected ? 'selected' : ''; // Si se encontró, seleccionamos la opción
                                 ?>>Reformer</option>
                             </select>
                         </td>
-                <?php endforeach; ?>
-            </tr>
-        <?php endforeach; ?>
-      </tbody>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
     </table>
 </div><br>
 <h5>Precios:</h5>
