@@ -14,7 +14,6 @@
     echo $this->include('plantilla/navbar');
 ?>
 <br>
-<!-- form_edit_reformer.php -->
 <div class="card text-center">
 <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
@@ -42,7 +41,7 @@
             
             ?>
             <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($actividad['Descripcion']) ?></textarea>
-            <input type="hidden" name="id_descripcion" value="<?= esc($actividad['id']) ?>"> <!-- Campo oculto para el ID -->
+            <input type="hidden" name="id_descripcion" value="6"> <!-- Campo oculto para el ID -->
         <?php
         }
     endforeach; ?>

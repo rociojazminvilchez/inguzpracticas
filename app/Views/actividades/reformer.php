@@ -36,11 +36,10 @@
         <h4>Pilates Reformer</h4>
         <section style="text-align: justify;">
             <?php foreach ($actividades as $actividad): 
-              if($actividad['id']=='6'){ 
+              
             ?>
             <p><?= esc($actividad['Descripcion']) ?></p>
-            <?php
-            }?>
+            
             <?php endforeach; ?>
         </section>
       </div>

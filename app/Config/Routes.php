@@ -42,4 +42,7 @@ $routes->get('/actualizar/actualizar_reformer', 'Actividades::actualizar_reforme
 $routes->post('/actualizar/actualizar_reformer', 'Actividades::updateReformer');
 
 $routes->get('/actualizar/hiit','Actividades::actualizar_hiit');
+$routes->post('/actualizar/hiit', 'Actividades::updateHiit');
+
 $routes->get('/actualizar/terapeutico','Actividades::actualizar_terapeutico');
+$routes->post('/actualizar/terapeutico', 'Actividades::updateTerapeutico');
