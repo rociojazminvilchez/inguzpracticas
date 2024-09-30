@@ -17,7 +17,9 @@ class ActividadesModel extends Model {
 
     // Método para actualizar la descripción
     public function updateDescripcion($id, $descripcion) {
-        return $this->where('id', $id)->set('Descripcion', $descripcion)->update();
+        return $this->update($id,[
+            'Descripcion' => $descripcion
+        ]);
     }
 
     // Método para actualizar un horario

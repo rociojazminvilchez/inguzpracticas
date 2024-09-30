@@ -24,8 +24,8 @@ class Actividades extends BaseController
         $pilatesModel = new PilatesModel();
     
         $data = [
-            'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'Hiit']),
-            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Hiit'])
+            'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'HIIT']),
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'HIIT'])
         ];
         
         return view('actividades/hiit',$data);
@@ -68,9 +68,10 @@ class Actividades extends BaseController
  
      //descripcion
      if (!empty($descripcion) && !empty($idDescripcion)) {
-         $actividadesModel->updateDescripcion($idDescripcion, $descripcion);
-     }
- 
+        $id='6';
+        $actividadesModel->updateDescripcion($id ,['Descripcion' => $descripcion]);
+    }
+
      //dias|horarios
      foreach ($horarios as $hora => $dias) {
          foreach ($dias as $dia => $tipo) {
@@ -127,8 +128,10 @@ class Actividades extends BaseController
     
         //descripcion
         if (!empty($descripcion) && !empty($idDescripcion)) {
-            $actividadesModel->updateDescripcion($idDescripcion, $descripcion);
+            $id='11';
+            $actividadesModel->updateDescripcion($id ,['Descripcion' => $descripcion]);
         }
+    
     
         //dias|horarios
         foreach ($horarios as $hora => $dias) {
@@ -186,8 +189,10 @@ class Actividades extends BaseController
     
         //descripcion
         if (!empty($descripcion) && !empty($idDescripcion)) {
-            $actividadesModel->updateDescripcion($idDescripcion, $descripcion);
+            $id='3';
+            $actividadesModel->updateDescripcion($id ,['Descripcion' => $descripcion]);
         }
+    
     
         //dias|horarios
         foreach ($horarios as $hora => $dias) {
