@@ -45,15 +45,16 @@ class Actividades extends BaseController
         return view('actividades/terapeutico', $data);
     }
 
-#ACTUALIZAR INFORMACION
+#PILATES -> REFORMER
     public function actualizar_reformer(){
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
     
         $data = [
-            'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'Reformer']),
+            'actividades' => $actividadesModel->mostrarTodoActualizar(),
             'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Reformer'])
         ];
+
         return view('actualizar/actualizar_reformer', $data);
     }
 
@@ -62,141 +63,152 @@ class Actividades extends BaseController
      $actividadesModel = new ActividadesModel();
      $pilatesModel = new PilatesModel();
  
-     // Informacion del formulario
      $descripcion = $this->request->getPost('descripcion');
      $horarios = $this->request->getPost('horarios');
-     $clases = $this->request->getPost('clases');
-     $precios = $this->request->getPost('precios');
-     $idDescripcion = $this->request->getPost('id_descripcion');
+     $clases = $this->request->getPost('clases') ?? [];
+     $precios = $this->request->getPost('precios') ?? [];
+     $instructor = $this->request -> getPost('id_instructor');
     
-     //descripcion
+     //Descripcion
      if (!empty($descripcion) && !empty($idDescripcion)) {
-        $id='6';
-        $actividadesModel->updateDescripcion($id ,['Descripcion' => $descripcion]);
+        $id_descripcion='4';
+        $actividadesModel->updateDescripcion($id_descripcion ,['Descripcion' => $descripcion]);
     }
 
-     //dias|horarios
+     //Dias | Horarios
      foreach ($horarios as $hora => $dias) {
          foreach ($dias as $dia => $tipo) {
             if ($tipo === 'Reformer') {
-                 
                 $horarioId = $actividadesModel->getHorarioId($hora, $dia);
                  if ($horarioId) {
-                     
                     $actividadesModel->updateHorario($horarioId, $hora, $dia, 'Reformer');
                  } else {
                     $actividadesModel->insert([
-                         'Horario' => $hora,
-                         'Dia' => $dia,
-                         'Tipo' => 'Reformer'
+                        'Horario' => $hora,
+                        'Dia' => $dia,
+                        'Tipo' => 'Reformer',
+                        'Instructor' => $instructor
                     ]);
                  }
-             } 
-        }
-     }
-
-    //Clases | Precios
-    foreach ($clases as $id => $clase) {
-        $precio = $precios[$id];
-        if (!empty($clase) && is_numeric($precio)) {
-            $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio]);
+                } elseif ($tipo === '-') { // Verificamos que este vacio
+                    $horarioId = $actividadesModel->getHorarioId($hora, $dia);
+                        if ($horarioId) {
+                            $actividadesModel->clearHorario($horarioId); // Eliminar el horario
+                        }
+               }
         }
     }
-
+    
+    //Clases | Precios
+    if (is_array($clases) && !empty($clases)) {
+        foreach ($clases as $id => $clase) {
+            $precio = $precios[$id] ?? null; // Si no existe queda en null
+            // Verificamos si el id de clase es válido y si el precio es numérico
+            if (!empty($clase) && is_numeric($precio)) {
+                $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio]);
+            } 
+        }
+    }
+    
     return redirect()->to('inguz/index')->with('success', 'Datos actualizados correctamente');
 }
 
+   #PILATES -> HIIT
     public function actualizar_hiit(){
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
     
         $data = [
-            'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'HIIT']),
+            'actividades' => $actividadesModel->mostrarTodoActualizar(),
             'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'HIIT'])
         ];
         return view('actualizar/hiit', $data);
     }
 
     public function updateHiit(){
-
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
-    
-        // Informacion del formulario
+
         $descripcion = $this->request->getPost('descripcion');
         $horarios = $this->request->getPost('horarios');
-        $clases = $this->request->getPost('clases');
-        $precios = $this->request->getPost('precios');
-    
-        //descripcion
+        $clases = $this->request->getPost('clases') ?? [];
+        $precios = $this->request->getPost('precios')?? [];
+        $instructor = $this->request -> getPost('id_instructor');
+
+        //Descripcion
         if (!empty($descripcion)) {
-            $id='11';
-            $actividadesModel->updateDescripcion($id ,['Descripcion' => $descripcion]);
+            $id_descripcion='4';
+            $actividadesModel->updateDescripcion($id_descripcion ,['Descripcion' => $descripcion]);
         }
     
     
-        //dias|horarios
+        //Dias | Horarios
         foreach ($horarios as $hora => $dias) {
             foreach ($dias as $dia => $tipo) {
                if ($tipo === 'HIIT') {
-                    
                    $horarioId = $actividadesModel->getHorarioId($hora, $dia);
                     if ($horarioId) {
-                        
                        $actividadesModel->updateHorario($horarioId, $hora, $dia, 'HIIT');
                     } else {
                        $actividadesModel->insert([
                             'Horario' => $hora,
                             'Dia' => $dia,
-                            'Tipo' => 'HIIT'
+                            'Tipo' => 'HIIT',
+                            'Instructor' => $instructor
                        ]);
                     }
-                } 
-           }
+                } elseif ($tipo === '-') { // Verificamos que este vacio
+                    $horarioId = $actividadesModel->getHorarioId($hora, $dia);
+                        if ($horarioId) {
+                            $actividadesModel->clearHorario($horarioId); // Eliminar el horario
+                        }
+                }
         }
-   
-       //Clases | Precios
-       foreach ($clases as $id => $clase) {
-           $precio = $precios[$id];
-           if (!empty($clase) && is_numeric($precio)) {
-               $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio, 'Descripcion' => $descripcion]);
-           }
-       }
-   
-       return redirect()->to('inguz/index')->with('success', 'Datos actualizados correctamente');
-   }
+    }
 
+       // Clases | Precios
+    if (is_array($clases) && !empty($clases)) {
+        foreach ($clases as $id => $clase) {
+            $precio = $precios[$id] ?? null; // Si no existe queda en null
+            // Verificamos si el id de clase es válido y si el precio es numérico
+            if (!empty($clase) && is_numeric($precio)) {
+                $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio]);
+            } 
+        }
+    }
+    return redirect()->to('inguz/index')->with('success', 'Datos actualizados correctamente');
+}
+
+   #PILATES -> TERAPEUTICO
     public function actualizar_terapeutico(){
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
-        $registroInstructor = new RegistroInstructorModel();
-
+        
         $data = [
             'actividades' => $actividadesModel->mostrarTodoActualizar(),
             'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Terapeutico']),
-            'instructor' => $registroInstructor->mostrarTodo2()
         ];
+       
         return view('actualizar/terapeutico', $data);
     }
 
     public function updateTerapeutico() {
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
-        
 
-        // Información del formulario
         $descripcion = $this->request->getPost('descripcion');
         $horarios = $this->request->getPost('horarios');
-        $clases = $this->request->getPost('clases') ?? []; // Asegúrate de que sea un array
-        $precios = $this->request->getPost('precios') ?? []; // Asegúrate de que sea un array
+        $clases = $this->request->getPost('clases') ?? []; 
+        $precios = $this->request->getPost('precios') ?? []; 
         $instructor = $this->request -> getPost('id_instructor');
-
-        
+     
+        //Descripcion
         if (!empty($descripcion)) {
             $id_descripcion='7';
             $pilatesModel->updateDescripcion($id_descripcion,['Descripcion' => $descripcion]);
             
         }
+
         // Días | Horarios
         foreach ($horarios as $hora => $dias) {
             foreach ($dias as $dia => $tipo) {
@@ -212,28 +224,23 @@ class Actividades extends BaseController
                             'Instructor' => $instructor
                         ]);
                     }
-                } elseif ($tipo === '-') { // Verificamos si el tipo es vacío
+                } elseif ($tipo === '-') { // Verificamos que este vacio
                     $horarioId = $actividadesModel->getHorarioId($hora, $dia);
-                    if ($horarioId) {
-                        $actividadesModel->clearHorario($horarioId); // Eliminar el horario
-                    }
-                }
-            }
+                        if ($horarioId) {
+                            $actividadesModel->clearHorario($horarioId); // Eliminar el horario
+                        }
+               }
         }
+    }
     
-       // Clases | Precios
+    // Clases | Precios
 if (is_array($clases) && !empty($clases)) {
     foreach ($clases as $id => $clase) {
-        // Usamos el operador de fusión null para evitar el error
-        $precio = $precios[$id] ?? null; // Si no existe, será null
-
+        $precio = $precios[$id] ?? null; // Si no existe queda en null
         // Verificamos si el id de clase es válido y si el precio es numérico
         if (!empty($clase) && is_numeric($precio)) {
             $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio]);
-        } elseif (empty($clase)) {
-            // Si la clase está vacía, puedes eliminarla de la base de datos o manejarlo como desees
-            $pilatesModel->delete($id); // Asegúrate de que $id sea el correcto para eliminar
-        }
+        } 
     }
 }
 

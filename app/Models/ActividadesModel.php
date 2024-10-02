@@ -9,12 +9,34 @@ class ActividadesModel extends Model {
     protected $useSoftDeletes = false; 
     protected $allowedFields = ['Tipo', 'Dia', 'Horario', 'Instructor']; 
     
+    public function verificarCoincidenciaInstructor() {
+        // Consulta SQL para verificar coincidencias
+        $query = "SELECT `informacion`.*, `registroinstructor`.*
+                  FROM `informacion`
+                  JOIN `registroinstructor` ON `informacion`.`Instructor` = `registroinstructor`.`correo`";
+
+        // Ejecutar la consulta
+        $stmt = $this->db->query($query); // Usa query directamente en lugar de prepare y execute
+
+        // Verificar si hay resultados
+        if ($stmt->getNumRows() > 0) {
+            return "coincide"; // Hay resultados, retorna "coincide"
+        } else {
+            return "no coincide"; // No hay resultados
+        }
+    }
+
     public function mostrarTodo($data) {
         $resultado = $this->db->table('informacion');
         $resultado->where($data);
         return $resultado->get()->getResultArray();
     }
-
+    
+    public function mostrarSolo($data){
+        $resultado = $this->db->table('informacion');
+        $resultado->where($data);
+        return $resultado->get()->getResultArray();
+    }
 #Metodos para actualizar datos
     public function mostrarTodoActualizar() {
         $resultado = $this->db->table('informacion');
@@ -43,6 +65,7 @@ class ActividadesModel extends Model {
     public function getTipoById($id) {
         return $this->where('id', $id)->first()['Tipo'] ?? null;
     }
+    
 }
 
 

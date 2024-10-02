@@ -25,7 +25,7 @@
         <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/hiit'); ?>">Actualizar Hiit</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>" >Actualizar Terap&eacuteutico</a>
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>">Actualizar Terap&eacuteutico</a>
       </li>
     </ul>
 </div><br>
@@ -46,7 +46,7 @@
     endforeach; ?>
         </div>
 
-      <!-- Horarios -->
+<!-- Horarios -->
 <h5>Horarios:</h5>
 <div class="card-body">
 <table class="table">
@@ -76,37 +76,43 @@
                         // Variable para saber si el horario está ocupado
                         $ocupado = false;
                         $tipoActividad = '';
+                        $instructorActividad = '';
 
                         // Recorrer las actividades para verificar si hay una asignada en este horario y día
                         foreach ($actividades as $actividad) {
+                          
                             if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia) {
                                 $ocupado = true;
-                                $tipoActividad = $actividad['Tipo']; // Obtenemos el tipo de actividad asignada
-                                break; // Rompemos el ciclo ya que encontramos la coincidencia
+                                $tipoActividad = $actividad['Tipo'];
+                                $instructorActividad = $actividad['Instructor'];
+                                break; 
                             }
                         }
-
+                        $instructorSesion = $_SESSION['usuario'];
                         // Si el horario está ocupado, mostrar la actividad
-                        if ($ocupado):
-                        ?>
-                            <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
-                            <option value="<?= esc($tipoActividad) ?>"><?= esc($tipoActividad)?></option>
-                            <option value="-">-</option>
-                            </select>
-                        <?php else: ?>
-                            <!-- Si el horario está vacío, permitir agregar "Terapéutico" -->
-                            <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
-                                <option value="">-</option>
-                                <option value="Terapeutico">Terapéutico</option>
-                            </select>
-                        <?php endif; ?>
-                    </td>
+                        if ($ocupado): ?>
+                          <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
+                              <option value="<?= esc($tipoActividad) ?>"><?= esc($tipoActividad) ?></option>
+                              <?php
+                              if ($instructorSesion === $instructorActividad): ?>
+                                  <option value="-">-</option>
+                              <?php endif; ?>
+                          </select>
+                          <input type="hidden" name="id_instructor_original" value="<?= esc($instructorActividad) ?>">
+                      <?php else: ?>
+                          <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
+                              <option value="">-</option>
+                              <option value="Terapeutico">Terapéutico</option>
+                          </select>
+                      <?php endif; ?>
+                  </td>
                 <?php endforeach; ?>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table><br>
 </div><br>
+
 <h5>Precios:</h5>
 <table class="table">
   <thead>
@@ -120,7 +126,7 @@
       <tr>
         <td>  <input type="text" name="clases[<?= $pila['id'] ?>]" value="<?= esc($pila['Clases']) ?>" class="form-control" /></td> 
         <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
-        <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> <!-- Campo oculto para el ID -->
+        <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> 
       </tr>
       
     <?php 
@@ -128,30 +134,12 @@
     
   </tbody>
 </table><br>
-<?php
-
-
-$instructor_sesion = $_SESSION['usuario']?? null;
-
-// Recorrer la lista de instructores
-foreach ($instructor as $inst) {
-    // Comparar el correo del instructor con el de la sesión
-    if ($inst['correo'] === $instructor_sesion) {
-        // Mostrar el campo oculto solo si hay coincidencia
-        ?>
-        <input type="hidden" name="id_instructor" value="<?= esc($inst['correo']) ?>">
-        <?php
-        break; // Romper el ciclo si encontramos una coincidencia
-    }
-}
-?>
-        <!-- Botón para enviar el formulario -->
+      
          <p style="text-align: center;">
-         <input type="hidden" name="clases[]" value="">
-
-        <button type="submit" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Guardar cambios</button>
+        <input type="hidden" name="clases[]" value="">
+      <button type="submit" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Guardar cambios</button>
     </p>
-    </form>
+  </form>
 </div>
 
 <?php
