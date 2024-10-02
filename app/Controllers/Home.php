@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\IngresoModel;
+use App\Models\ActividadesModel;
 class Home extends BaseController
 {
     public function index(){
@@ -99,7 +100,9 @@ class Home extends BaseController
 
     #BARRA
     public function informacion(){
-        return view('inguz/informacion');
+        $actividadesModel = new ActividadesModel();
+        $data = ['actividades' => $actividadesModel->mostrarTodoActualizar()];
+        return view('inguz/informacion',$data);
     }
 
     public function actividades(){

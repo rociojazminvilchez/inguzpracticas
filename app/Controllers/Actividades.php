@@ -234,19 +234,16 @@ class Actividades extends BaseController
     }
     
     // Clases | Precios
-if (is_array($clases) && !empty($clases)) {
-    foreach ($clases as $id => $clase) {
-        $precio = $precios[$id] ?? null; // Si no existe queda en null
-        // Verificamos si el id de clase es válido y si el precio es numérico
-        if (!empty($clase) && is_numeric($precio)) {
-            $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio]);
-        } 
+    if (is_array($clases) && !empty($clases)) {
+       foreach ($clases as $id => $clase) {
+            $precio = $precios[$id] ?? null; // Si no existe queda en null
+            // Verificamos si el id de clase es válido y si el precio es numérico
+           if (!empty($clase) && is_numeric($precio)) {
+                $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio]);
+            } 
+        }
     }
-}
-
-    
         return redirect()->to('inguz/index')->with('success', 'Datos actualizados correctamente');
-    }
-    
+    }    
     
 }

@@ -50,7 +50,29 @@
     </div>
 </div>
 
-<!-- ACTIVIDADES -->
+<!-- Donde estamos -->
+<div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h4>¿Dónde estamos?</h4>
+                <section style="text-align: center;">
+                    Nos encontramos en Dominicos Puntanos 823<br> (A media cuadra de la plaza 9 de julio).
+                </section><br><br><br>
+                <h4>Horarios de atenci&oacuten</h4>
+                <section style="text-align: center;">
+                   Lunes a Viernes<br>
+                   8hs - 12hs <br>
+                   15hs - 21hs
+                </section><br>
+            </div>
+            <div class="col">
+                 <!-- Incluir el iframe del mapa -->
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1667.7021363394529!2d-66.33973556153828!3d-33.28208509336416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d439368661a2fb%3A0x4b2dcc49a588827e!2sDominicos%20Puntanos%20823%2C%20D5700%20IFH%2C%20San%20Luis!5e0!3m2!1ses!2sar!4v1727453659826!5m2!1ses!2sar" width="350" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+            </div>
+        </div>
+    </div> <br>
+
+    <!-- ACTIVIDADES -->
 <div class="container text-center">
     <div class="row">
         <div class="col">
@@ -85,28 +107,67 @@
         </div>
     </div>
 </div>
-<!-- Donde estamos -->
+<!-- HORARIOS TABLA -->
 <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                <h4>¿Dónde estamos?</h4>
-                <section style="text-align: center;">
-                    Nos encontramos en Dominicos Puntanos 823<br> (A media cuadra de la plaza 9 de julio).
-                </section><br><br><br>
-                <h4>Horarios de atenci&oacuten</h4>
-                <section style="text-align: center;">
-                   Lunes a Viernes<br>
-                   8hs - 12hs <br>
-                   15hs - 21hs
-                </section><br>
-            </div>
-            <div class="col">
-                 <!-- Incluir el iframe del mapa -->
-                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1667.7021363394529!2d-66.33973556153828!3d-33.28208509336416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d439368661a2fb%3A0x4b2dcc49a588827e!2sDominicos%20Puntanos%20823%2C%20D5700%20IFH%2C%20San%20Luis!5e0!3m2!1ses!2sar!4v1727453659826!5m2!1ses!2sar" width="350" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
-            </div>
-        </div>
-    </div> <br>
+<h5>Horarios clases:</h5>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Lunes</th>
+            <th scope="col">Martes</th>
+            <th scope="col">Miércoles</th>
+            <th scope="col">Jueves</th>
+            <th scope="col">Viernes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // Definir los horarios y días
+        $horas = ['8-9hs', '9-10hs', '10-11hs', '11-12hs', '15-16hs', '16-17hs', '17-18hs', '18-19hs', '19-20hs', '20-21hs'];
+        $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+
+        // Recorrer los horarios
+        foreach ($horas as $hora): ?>
+            <tr>
+                <th scope="row"><?= esc($hora) ?></th>
+                <?php foreach ($dias as $dia): ?>
+                    <td>
+                        <?php
+                        // Variable para saber si el horario está ocupado
+                        $ocupado = false;
+                        $tipoActividad = '';
+                        $instructorActividad = '';
+
+                        // Recorrer las actividades para verificar si hay una asignada en este horario y día
+                        foreach ($actividades as $actividad) {
+                          
+                            if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia) {
+                                $ocupado = true;
+                                $tipoActividad = $actividad['Tipo'];
+                                $instructorActividad = $actividad['Instructor'];
+                                break; 
+                            }
+                        }
+                        $instructorSesion = $_SESSION['usuario'];
+                        // Si el horario está ocupado, mostrar la actividad
+                        if ($ocupado){ ?>
+                          <?= esc($tipoActividad) ?>
+                          <input type="hidden" name="id_instructor_original" value="<?= esc($instructorActividad) ?>">
+                      <?php }else{
+                            ?>
+                            <?= esc("-") ?>
+                            <?php
+                      } ?>
+                  </td>
+                <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table><br>
+
+</div>
 <?php
     echo $this->include('plantilla/footer');
 ?>
