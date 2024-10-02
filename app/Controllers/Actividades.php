@@ -3,6 +3,9 @@
 namespace App\Controllers;
 use App\Models\ActividadesModel;
 use App\Models\PilatesModel;
+use App\Models\RegistroInstructorModel;
+use App\Models\RegistroUsuarioModel;
+
 class Actividades extends BaseController
 {
    
@@ -166,10 +169,12 @@ class Actividades extends BaseController
     public function actualizar_terapeutico(){
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
-    
+        $registroInstructor = new RegistroInstructorModel();
+
         $data = [
             'actividades' => $actividadesModel->mostrarTodoActualizar(),
-            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Terapeutico'])
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Terapeutico']),
+            'instructor' => $registroInstructor->mostrarTodo2()
         ];
         return view('actualizar/terapeutico', $data);
     }
@@ -177,18 +182,16 @@ class Actividades extends BaseController
     public function updateTerapeutico() {
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
-    
+        
+
         // Información del formulario
         $descripcion = $this->request->getPost('descripcion');
         $horarios = $this->request->getPost('horarios');
         $clases = $this->request->getPost('clases') ?? []; // Asegúrate de que sea un array
         $precios = $this->request->getPost('precios') ?? []; // Asegúrate de que sea un array
-        $id_precios = $this->request->getPost('id_precios');
-    
-        // Descripción
-        if (!empty($descripcion)) {
-           
-        }
+        $instructor = $this->request -> getPost('id_instructor');
+
+        
         if (!empty($descripcion)) {
             $id_descripcion='7';
             $pilatesModel->updateDescripcion($id_descripcion,['Descripcion' => $descripcion]);
@@ -205,7 +208,8 @@ class Actividades extends BaseController
                         $actividadesModel->insert([
                             'Horario' => $hora,
                             'Dia' => $dia,
-                            'Tipo' => 'Terapeutico'
+                            'Tipo' => 'Terapeutico',
+                            'Instructor' => $instructor
                         ]);
                     }
                 } elseif ($tipo === '-') { // Verificamos si el tipo es vacío

@@ -90,8 +90,8 @@
                         if ($ocupado):
                         ?>
                             <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
-                                <option value=""><?= esc($tipoActividad) ?></option>
-                                <option value="Terapeutico" <?= ($tipoActividad === 'Terapeutico') ? 'selected' : ''; ?>>Terapéutico</option>
+                            <option value="<?= esc($tipoActividad) ?>"><?= esc($tipoActividad)?></option>
+                            <option value="-">-</option>
                             </select>
                         <?php else: ?>
                             <!-- Si el horario está vacío, permitir agregar "Terapéutico" -->
@@ -121,12 +121,30 @@
         <td>  <input type="text" name="clases[<?= $pila['id'] ?>]" value="<?= esc($pila['Clases']) ?>" class="form-control" /></td> 
         <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
         <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> <!-- Campo oculto para el ID -->
-
       </tr>
-    <?php endforeach; ?>
+      
+    <?php 
+      endforeach; ?> 
+    
   </tbody>
 </table><br>
-       
+<?php
+
+
+$instructor_sesion = $_SESSION['usuario']?? null;
+
+// Recorrer la lista de instructores
+foreach ($instructor as $inst) {
+    // Comparar el correo del instructor con el de la sesión
+    if ($inst['correo'] === $instructor_sesion) {
+        // Mostrar el campo oculto solo si hay coincidencia
+        ?>
+        <input type="hidden" name="id_instructor" value="<?= esc($inst['correo']) ?>">
+        <?php
+        break; // Romper el ciclo si encontramos una coincidencia
+    }
+}
+?>
         <!-- Botón para enviar el formulario -->
          <p style="text-align: center;">
          <input type="hidden" name="clases[]" value="">

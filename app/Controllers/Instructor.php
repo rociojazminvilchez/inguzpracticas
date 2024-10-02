@@ -93,11 +93,11 @@ class Instructor extends BaseController{
     
         $registroInstructorModel->insert([
                 'correo' => $post['email'],
-                'nombre' => trim($post['nombre']),
-                'apellido' => trim($post['apellido']),
+                'nombre' => ucfirst(trim($post['nombre'])),
+                'apellido' => ucfirst(trim($post['apellido'])),
                 'edad' => $post['edad'],
                 'telefono' => $post['telefono'],
-                'formacion'=> trim($post['formacion']),
+                'formacion'=> ucfirst(trim($post['formacion'])),
                 'tipo' => $tiposClaseString,
                 'contraseña' => $post['contra'],
                 'contraseña2' => $post['contra2'],

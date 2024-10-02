@@ -35,9 +35,9 @@
       <div class="col">
         <h4>Pilates Terap&eacuteutico</h4>
         <section style="text-align: justify;">
-            <?php foreach ($actividades as $actividad): 
+            <?php foreach ($pilates as $pila): 
             ?>
-            <p><?= esc($actividad['Descripcion']) ?></p>
+            <p><?= esc($pila['Descripcion']) ?></p>
             <?php endforeach; ?>
         </section>
       </div>

@@ -7,7 +7,7 @@ class ActividadesModel extends Model {
     protected $useAutoIncrement = true; 
     protected $returnType = 'array';
     protected $useSoftDeletes = false; 
-    protected $allowedFields = ['Tipo', 'Dia', 'Horario', 'Descripcion']; 
+    protected $allowedFields = ['Tipo', 'Dia', 'Horario', 'Instructor']; 
     
     public function mostrarTodo($data) {
         $resultado = $this->db->table('informacion');
@@ -15,19 +15,12 @@ class ActividadesModel extends Model {
         return $resultado->get()->getResultArray();
     }
 
+#Metodos para actualizar datos
     public function mostrarTodoActualizar() {
         $resultado = $this->db->table('informacion');
-       
         return $resultado->get()->getResultArray();
     }
-    // Método para actualizar la descripción
-    public function updateDescripcion($descripcion) {
-        return $this->update([
-            'Descripcion' => $descripcion
-        ]);
-    }
 
-    // Método para actualizar un horario
     public function updateHorario($id, $hora, $dia, $tipo) {
         $data = [
             'Horario' => $hora,
@@ -37,17 +30,16 @@ class ActividadesModel extends Model {
         return $this->where('id', $id)->set($data)->update();
     }
 
-    // Método para limpiar un horario
     public function clearHorario($id) {
         return $this->where('id', $id)->delete();
     }
-
-    // Método auxiliar para obtener el ID de un horario basado en Hora y Día
+#Metodos auxiliares
+    // obtener el ID de un horario basado en Hora y Día
     public function getHorarioId($hora, $dia) {
         return $this->where('Horario', $hora)->where('Dia', $dia)->first()['id'] ?? null;
     }
 
-    // Método auxiliar para obtener el tipo de actividad basado en ID
+    // obtener el tipo de actividad basado en ID
     public function getTipoById($id) {
         return $this->where('id', $id)->first()['Tipo'] ?? null;
     }
