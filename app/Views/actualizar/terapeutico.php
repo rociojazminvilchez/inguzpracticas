@@ -14,33 +14,35 @@
     echo $this->include('plantilla/navbar');
 ?>
 <br>
-
+<div class="alert alert-warning" role="alert">
+  <strong>Atención:</strong> Este panel es para actualizar informaci&oacuten.
+</div>
 <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/actualizar/actualizar_reformer'); ?>>Actualizar Reformer</a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/actualizar/actualizar_reformer'); ?>>Pilates Reformer</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/hiit'); ?>">Actualizar Hiit</a>
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/hiit'); ?>">Pilates  HIIT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>">Actualizar Terap&eacuteutico</a>
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>"> <label style="color:red; font-weight: bold;">*  Pilates Terap&eacuteutico</label></a>
       </li>
     </ul>
 </div><br>
 
 <div class="container">
-    <h3 style="text-align: center; color: red;">Actualizar -> Pilates Terap&eacuteutico</h3>
+    <h3 style="text-align: center; color: red;">Pilates Terap&eacuteutico</h3>
     <form action="<?= base_url('/actualizar/terapeutico')?>" method="post">
   <!-- Descripción -->
       <div class="mb-3">
-        <h5>Descripci&oacuten:</h5>
+        <h5 style= "text-align: left;">Descripci&oacuten:</h5>
         <?php foreach ($pilates as $pila): 
         if (!empty($pila['Descripcion'])) {
-            ?>
-            <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($pila['Descripcion']) ?></textarea>
-            
+          ?>
+          <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($pila['Descripcion']) ?></textarea>
+           
         <?php
         }
     endforeach; ?>
@@ -113,7 +115,7 @@
 </table><br>
 </div><br>
 
-<h5>Precios:</h5>
+<h5 style= "text-align: left;">Precios:</h5>
 <table class="table">
   <thead>
     <tr>
@@ -124,8 +126,8 @@
   <tbody>
     <?php foreach ($pilates as $pila): ?>
       <tr>
-        <td>  <input type="text" name="clases[<?= $pila['id'] ?>]" value="<?= esc($pila['Clases']) ?>" class="form-control" /></td> 
-        <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
+        <td style="text-align: center;"> <?= esc($pila['Clases']) ?></td> 
+        <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="$<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
         <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> 
       </tr>
       

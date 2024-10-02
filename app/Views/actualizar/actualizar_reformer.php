@@ -14,41 +14,42 @@
     echo $this->include('plantilla/navbar');
 ?>
 <br>
+<div class="alert alert-warning" role="alert">
+  <strong>Atención:</strong> Este panel es para actualizar informaci&oacuten.
+</div>
 <div class="card text-center">
 <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-    
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/actualizar/actualizar_reformer'); ?>>Actualizar Reformer</a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/actualizar/actualizar_reformer'); ?>><label style="color:red; font-weight: bold;">*  Pilates Reformer</label></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/hiit'); ?>">Actualizar Hiit</a>
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/hiit'); ?>">Pilates HIIT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>" >Actualizar Terap&eacuteutico</a>
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>" >Pilates Terap&eacuteutico</a>
       </li>
     </ul>
   </div><br>
 <div class="container">
-    <h3 style="text-align: center; color: red;">Actualizar -> Pilates Reformer</h3>
+    <h3 style="text-align: center; color: red;">Pilates Reformer</h3>
     
     <form action="<?= base_url('/actualizar/actualizar_reformer') ?>" method="post">
         <!-- Descripción -->
         <div class="mb-3">
-        <h5>Descripci&oacuten:</h5>
-        <?php foreach ($actividades as $actividad): 
-        if (!empty($actividad['Descripcion'])) {
+        <h5 style= "text-align: left;">Descripci&oacuten:</h5>
+        <?php foreach ($pilates as $pila): 
+        if (!empty($pila['Descripcion'])) {
+          ?>
+          <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($pila['Descripcion']) ?></textarea>
             
-            ?>
-            <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($actividad['Descripcion']) ?></textarea>
-            <input type="hidden" name="id_descripcion" value="6"> <!-- Campo oculto para el ID -->
         <?php
         }
     endforeach; ?>
         </div>
 
-      <!-- Horarios -->
-<h5>Horarios:</h5>
+        <!-- Horarios -->
+<h5 style= "text-align: left;" >Horarios:</h5>
 <div class="card-body">
     <table class="table">
         <thead>
@@ -65,34 +66,54 @@
             <?php
             $horas = ['8-9hs', '9-10hs', '10-11hs', '11-12hs', '15-16hs', '16-17hs', '17-18hs', '18-19hs', '19-20hs', '20-21hs'];
             $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+// Recorrer los horarios
+foreach ($horas as $hora): ?>
+  <tr>
+      <th scope="row"><?= esc($hora) ?></th>
+      <?php foreach ($dias as $dia): ?>
+          <td>
+              <?php
+              // Variable para saber si el horario está ocupado
+              $ocupado = false;
+              $tipoActividad = '';
+              $instructorActividad = '';
 
-            foreach ($horas as $hora): ?>
-                <tr>
-                    <th scope="row"><?= esc($hora) ?></th>
-                    <?php foreach ($dias as $dia): ?>
-                        <td>
-                            <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
-                                <option value="">-</option>
-                                <option value="Reformer" <?php
-                                    // Verificamos si hay un registro en la base de datos para este horario y día
-                                    $selected = false; // Variable para saber si se selecciona
-                                    foreach ($actividades as $actividad) {
-                                        if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia && $actividad['Tipo'] === 'Reformer') {
-                                            $selected = true; // Si encontramos, cambiamos el estado
-                                            break; // Salimos del bucle, ya que hemos encontrado la coincidencia
-                                        }
-                                    }
-                                    echo $selected ? 'selected' : ''; // Si se encontró, seleccionamos la opción
-                                ?>>Reformer</option>
-                            </select>
-                        </td>
-                    <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+              // Recorrer las actividades para verificar si hay una asignada en este horario y día
+              foreach ($actividades as $actividad) {
+                
+                  if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia) {
+                      $ocupado = true;
+                      $tipoActividad = $actividad['Tipo'];
+                      $instructorActividad = $actividad['Instructor'];
+                      break; 
+                  }
+              }
+              $instructorSesion = $_SESSION['usuario'];
+              // Si el horario está ocupado, mostrar la actividad
+              if ($ocupado): ?>
+                <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
+                    <option value="<?= esc($tipoActividad) ?>"><?= esc($tipoActividad) ?></option>
+                    <?php
+                    if ($instructorSesion === $instructorActividad): ?>
+                        <option value="-">-</option>
+                    <?php endif; ?>
+                </select>
+                <input type="hidden" name="id_instructor_original" value="<?= esc($instructorActividad) ?>">
+            <?php else: ?>
+                <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
+                    <option value="">-</option>
+                    <option value="Reformer">Reformer</option>
+                </select>
+            <?php endif; ?>
+        </td>
+      <?php endforeach; ?>
+  </tr>
+<?php endforeach; ?>
+</tbody>
+</table><br>
+           
 </div><br>
-<h5>Precios:</h5>
+<h5 style= "text-align: left;">Precios:</h5>
 <table class="table">
   <thead>
     <tr>
@@ -103,15 +124,15 @@
   <tbody>
     <?php foreach ($pilates as $pila): ?>
       <tr>
-        <td>  <input type="text" name="clases[<?= $pila['id'] ?>]" value="<?= esc($pila['Clases']) ?>" class="form-control" /></td> 
-        <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
+        <td style="text-align: center;"> <?= esc($pila['Clases']) ?></td> 
+        <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="$<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
+        <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> 
       </tr>
     <?php endforeach; ?>
   </tbody>
-</table><br>
-       
-        
-         <p style="text-align: center;">
+</table><br>   
+          <p style="text-align: center;">
+          <input type="hidden" name="clases[]" value="">
         <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">GUARDAR CAMBIOS</button>
     </p>
     </form>
