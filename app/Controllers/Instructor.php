@@ -107,4 +107,15 @@ class Instructor extends BaseController{
            
             return redirect()->to('inguz/index')->with('mensaje', 'Instructor registrado exitosamente.');
    }
+
+   public function perfil(){
+    if (session()->has('usuario')) {
+      $instructor= $_SESSION['usuario'];
+    }
+     $registroInstructorModel = new RegistroInstructorModel();
+     $data = [
+        'instructor' => $registroInstructorModel->mostrarTodoPerfil(['tipo_usuario' => 'instructor', 'correo'=>$instructor]),
+    ];
+    return view ('instructor/perfil', $data);
+   }
 }

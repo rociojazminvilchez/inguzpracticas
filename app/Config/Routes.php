@@ -23,6 +23,7 @@ $routes->post('/home/logininstructor', 'Home::logininstructor');
 $routes->get('/formularios/registroinstructor', 'Home::registroadmin');
 $routes->get('/instructor/create', 'Instructor::create');
 $routes->post('/instructor/create', 'Instructor::create'); 
+$routes->get('/instructor/perfil', 'Instructor::perfil');
 
 #USUARIO - INSTRUCTOR
 $routes->get('/salir', 'Home::salir');

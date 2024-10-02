@@ -15,5 +15,10 @@ class RegistroInstructorModel extends Model{
         $resultado->where($data);
 		return  $resultado->get()->getResultArray();
    }
+   public function mostrarTodoPerfil($data){
+    $resultado = $this->db->table('registroinstructor');
+    $resultado->where($data);
+    return  $resultado->get()->getResultArray();
+}
 }
 ?>

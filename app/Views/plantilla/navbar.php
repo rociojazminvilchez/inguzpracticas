@@ -37,17 +37,17 @@
             
             if($_SESSION['tipo']=='Usuario'){
              ?> 
-             <li><a class="dropdown-item" href="<?= base_url('/formularios/registro'); ?>">Perfil</a></li>
-             <li><a class="dropdown-item" href="<?= base_url('/formularios/ingreso'); ?>"> Historial</a></li>
-             <li><a class="dropdown-item" href="<?= base_url('/formularios/ingreso'); ?>"> Cr&eacuteditos</a></li>
+             <li><a class="dropdown-item" href="">Perfil</a></li>
+             <li><a class="dropdown-item" href=""> Historial</a></li>
+             <li><a class="dropdown-item" href=""> Cr&eacuteditos</a></li>
              <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>
              <?php
             }else{
               ?>
               <li><a class="dropdown-item">Instructor</a></li>
               <hr>
-              <li><a class="dropdown-item" href="<?= base_url('/formularios/registro'); ?>">Perfil</a></li>
-             <li><a class="dropdown-item" href="<?= base_url('/formularios/ingreso'); ?>"> Reservas </a></li>
+              <li><a class="dropdown-item" href="<?= base_url('/instructor/perfil'); ?>">Perfil</a></li>
+             <li><a class="dropdown-item" href=""> Reservas </a></li>
              <li><a class="dropdown-item" href="<?= base_url('/actualizar/actualizar_reformer'); ?>"> Actualizar </a></li>
              <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>
             
