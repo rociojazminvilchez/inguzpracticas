@@ -62,7 +62,7 @@
                 </div>
             </div><br>
         </div>
-    </div>
+
 </div>
 
 <div class="card-body">
@@ -133,10 +133,9 @@
 </table><br>
 <div>
 <h6 style="text-align: center;"> Medios de pago: Efectivo y Transferencia. </h6><br>
-    <a href="<?= base_url('/inguz/reserva'); ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Reservar</a>
-  </div><br>
-</div>
-<br>
+    <a href="<?= base_url('/inguz/reserva'); ?>" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Reservar</a>
+  </div>
+    </div>
 <?php
     echo $this->include('plantilla/footer');
 ?>

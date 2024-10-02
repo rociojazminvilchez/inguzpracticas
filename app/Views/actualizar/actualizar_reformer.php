@@ -110,13 +110,13 @@
   </tbody>
 </table><br>
        
-        <!-- Botón para enviar el formulario -->
+        
          <p style="text-align: center;">
         <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">GUARDAR CAMBIOS</button>
     </p>
     </form>
 </div>
-    </div>
+    
 <?php
     echo $this->include('plantilla/footer');
 ?>

@@ -2,6 +2,12 @@ html {
     min-height: 100%;
     position: relative;    
 }
+#carouselActividades img {
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho */
+    height: auto; /* Mantén la proporción de las imágenes */
+    object-fit: cover; /* Ajusta la imagen para que cubra todo el contenedor */
+}
+
 #carouselActividades {
     max-width: 350px; /* Ancho máximo deseado */
     height: 300px;    /* Altura deseada */
@@ -57,3 +63,14 @@ html {
     }
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto; /* El footer se empuja al final */
+}

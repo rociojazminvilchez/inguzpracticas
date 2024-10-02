@@ -54,7 +54,7 @@ Te invitamos a explorar nuestras clases personalizadas, diseñadas para ajustars
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
-</div><br>
+</div>
 
 <?php
     echo $this->include('plantilla/footer');

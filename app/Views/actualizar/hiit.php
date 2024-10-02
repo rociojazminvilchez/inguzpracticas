@@ -117,7 +117,6 @@
     </p>
     </form>
 </div>
-    </div>
 <?php
     echo $this->include('plantilla/footer');
 ?>

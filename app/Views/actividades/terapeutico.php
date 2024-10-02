@@ -30,8 +30,8 @@
     </ul>
   </div><br>
   
-  <div class="container text-center">
-    <div class="row">
+<div class="container text-center">
+  <div class="row">
       <div class="col">
         <h4>Pilates Terap&eacuteutico</h4>
         <section style="text-align: justify;">
@@ -42,76 +42,71 @@
         </section>
       </div>
 
-    <div class="col">
-            <div id="carouselActividades" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselActividades" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselActividades" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselActividades" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="/inguz/public/assets/img/actividades/terapeutico1.png" class="d-block w-100" alt="actividades-1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/inguz/public/assets/img/actividades/terapeutico2.png" class="d-block w-100" alt="actividades-2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/inguz/public/assets/img/actividades/terapeutico3.png" class="d-block w-100" alt="actividades-3">
-                    </div>
-                </div>
-            </div><br>
+      <div class="col">
+        <div id="carouselActividades" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselActividades" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselActividades" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselActividades" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="/inguz/public/assets/img/actividades/terapeutico1.png" class="d-block w-100" alt="actividades-1">
+            </div>
+            <div class="carousel-item">
+              <img src="/inguz/public/assets/img/actividades/terapeutico2.png" class="d-block w-100" alt="actividades-2">
+            </div>
+            <div class="carousel-item">
+              <img src="/inguz/public/assets/img/actividades/terapeutico3.png" class="d-block w-100" alt="actividades-3">
+            </div>
         </div>
-    </div>
+      </div><br>
+  </div>
 </div>
 
 <div class="card-body">
-    <h5>Horarios</h5>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Horario</th>
-          <th scope="col">Lunes</th>
-          <th scope="col">Martes</th>
-          <th scope="col">Miércoles</th>
-          <th scope="col">Jueves</th>
-          <th scope="col">Viernes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $horas = ['8-9hs', '9-10hs','10-11hs','11-12hs', '15-16hs','16-17hs', '17-18','18-19hs', '19-20hs','20-21hs'];
+  <h5>Horarios</h5>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Horario</th>
+        <th scope="col">Lunes</th>
+        <th scope="col">Martes</th>
+        <th scope="col">Miércoles</th>
+        <th scope="col">Jueves</th>
+        <th scope="col">Viernes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $horas = ['8-9hs', '9-10hs','10-11hs','11-12hs', '15-16hs','16-17hs', '17-18','18-19hs', '19-20hs','20-21hs'];
         $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
         
-        foreach ($horas as $hora): ?>
-            <tr>
-            <th scope="row">
-    <?php 
-    foreach ($actividades as $actividad) {
+        foreach ($horas as $hora): 
+        ?>
+          <tr>
+          <th scope="row">
+
+      <?php foreach ($actividades as $actividad) {
         if ($actividad['Horario'] == $hora) {
-            echo $hora; 
-            break; 
+          echo $hora; 
+          break; 
         }
-    }
-    ?>
+      } ?>
 </th>
-                <?php foreach ($dias as $dia): ?>
-                    <td>
-                        <?php
-                        // Filtrar por día y horario
-                        foreach ($actividades as $actividad) {
-                            if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia) {
-                                echo "Terap&eacuteutico";
-                            }
-                        }
-                        ?>
-                    </td>
-                <?php 
-              endforeach; ?>
+
+<?php foreach ($dias as $dia): ?>
+  <td>
+    <?php foreach ($actividades as $actividad) {
+      if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia) {
+        echo "Terap&eacuteutico";
+      }
+    } ?>
+  </td>
+  <?php endforeach; ?>
             </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
+ <?php  endforeach; ?>
+    </tbody>
+  </table>
 </div><br>
 
 <h5>Precios</h5>
@@ -131,14 +126,14 @@
     <?php endforeach; ?>
   </tbody>
 </table><br>
-<h6 style="text-align: center;"> Medios de pago: Efectivo y Transferencia. </h6><br>
-<div>
-    <a href="<?= base_url('/inguz/reserva'); ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Reservar</a>
-  </div><br>
-</div>
-<br>
 
-<br>
+<div>
+  <h6 style="text-align: center;"> Medios de pago: Efectivo y Transferencia. </h6><br>
+</div>
+<div>
+  <a href="<?= base_url('/inguz/reserva'); ?>" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Reservar</a>
+</div>
+    </div>
 <?php
     echo $this->include('plantilla/footer');
 ?>

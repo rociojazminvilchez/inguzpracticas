@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 class ActividadesModel extends Model { 
     protected $table = 'informacion'; 
     protected $primaryKey = 'id';
-    protected $useAutoIncrement = false; 
+    protected $useAutoIncrement = true; 
     protected $returnType = 'array';
     protected $useSoftDeletes = false; 
     protected $allowedFields = ['Tipo', 'Dia', 'Horario', 'Descripcion']; 
@@ -15,9 +15,14 @@ class ActividadesModel extends Model {
         return $resultado->get()->getResultArray();
     }
 
+    public function mostrarTodoActualizar() {
+        $resultado = $this->db->table('informacion');
+       
+        return $resultado->get()->getResultArray();
+    }
     // Método para actualizar la descripción
-    public function updateDescripcion($id, $descripcion) {
-        return $this->update($id,[
+    public function updateDescripcion($descripcion) {
+        return $this->update([
             'Descripcion' => $descripcion
         ]);
     }

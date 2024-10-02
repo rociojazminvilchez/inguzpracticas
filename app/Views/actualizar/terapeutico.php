@@ -16,9 +16,8 @@
 <br>
 
 <div class="card text-center">
-<div class="card-header">
+  <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-    
       <li class="nav-item">
         <a class="nav-link active" aria-current="true" href=<?= base_url('/actualizar/actualizar_reformer'); ?>>Actualizar Reformer</a>
       </li>
@@ -29,20 +28,19 @@
         <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>" >Actualizar Terap&eacuteutico</a>
       </li>
     </ul>
-  </div><br>
+</div><br>
+
 <div class="container">
     <h3 style="text-align: center; color: red;">Actualizar -> Pilates Terap&eacuteutico</h3>
-    
-    <form action="<?= base_url('/actualizar/terapeutico') ?>" method="post">
+    <form action="<?= base_url('/actualizar/terapeutico')?>" method="post">
   <!-- Descripción -->
-        <div class="mb-3">
+      <div class="mb-3">
         <h5>Descripci&oacuten:</h5>
-        <?php foreach ($actividades as $actividad): 
-        if (!empty($actividad['Descripcion'])) {
-            
+        <?php foreach ($pilates as $pila): 
+        if (!empty($pila['Descripcion'])) {
             ?>
-            <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($actividad['Descripcion']) ?></textarea>
-            <input type="hidden" name="id_descripcion" value="3>"> <!-- Campo oculto para el ID -->
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="4"><?= esc($pila['Descripcion']) ?></textarea>
+            
         <?php
         }
     endforeach; ?>
@@ -51,47 +49,63 @@
       <!-- Horarios -->
 <h5>Horarios:</h5>
 <div class="card-body">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Horario</th>
-                <th scope="col">Lunes</th>
-                <th scope="col">Martes</th>
-                <th scope="col">Miércoles</th>
-                <th scope="col">Jueves</th>
-                <th scope="col">Viernes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $horas = ['8-9hs', '9-10hs', '10-11hs', '11-12hs', '15-16hs', '16-17hs', '17-18hs', '18-19hs', '19-20hs', '20-21hs'];
-            $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Lunes</th>
+            <th scope="col">Martes</th>
+            <th scope="col">Miércoles</th>
+            <th scope="col">Jueves</th>
+            <th scope="col">Viernes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // Definir los horarios y días
+        $horas = ['8-9hs', '9-10hs', '10-11hs', '11-12hs', '15-16hs', '16-17hs', '17-18hs', '18-19hs', '19-20hs', '20-21hs'];
+        $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
-            foreach ($horas as $hora): ?>
-                <tr>
-                    <th scope="row"><?= esc($hora) ?></th>
-                    <?php foreach ($dias as $dia): ?>
-                        <td>
+        // Recorrer los horarios
+        foreach ($horas as $hora): ?>
+            <tr>
+                <th scope="row"><?= esc($hora) ?></th>
+                <?php foreach ($dias as $dia): ?>
+                    <td>
+                        <?php
+                        // Variable para saber si el horario está ocupado
+                        $ocupado = false;
+                        $tipoActividad = '';
+
+                        // Recorrer las actividades para verificar si hay una asignada en este horario y día
+                        foreach ($actividades as $actividad) {
+                            if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia) {
+                                $ocupado = true;
+                                $tipoActividad = $actividad['Tipo']; // Obtenemos el tipo de actividad asignada
+                                break; // Rompemos el ciclo ya que encontramos la coincidencia
+                            }
+                        }
+
+                        // Si el horario está ocupado, mostrar la actividad
+                        if ($ocupado):
+                        ?>
+                            <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
+                                <option value=""><?= esc($tipoActividad) ?></option>
+                                <option value="Terapeutico" <?= ($tipoActividad === 'Terapeutico') ? 'selected' : ''; ?>>Terapéutico</option>
+                            </select>
+                        <?php else: ?>
+                            <!-- Si el horario está vacío, permitir agregar "Terapéutico" -->
                             <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
                                 <option value="">-</option>
-                                <option value="Terapeutico" <?php
-                                    // Verificamos si hay un registro en la base de datos para este horario y día
-                                    $selected = false; // Variable para saber si se selecciona
-                                    foreach ($actividades as $actividad) {
-                                        if ($actividad['Horario'] === $hora && $actividad['Dia'] === $dia && $actividad['Tipo'] === 'Terapeutico') {
-                                            $selected = true; // Si encontramos, cambiamos el estado
-                                            break; // Salimos del bucle, ya que hemos encontrado la coincidencia
-                                        }
-                                    }
-                                    echo $selected ? 'selected' : ''; // Si se encontró, seleccionamos la opción
-                                ?>>Terapeutico</option>
+                                <option value="Terapeutico">Terapéutico</option>
                             </select>
-                        </td>
-                    <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+                        <?php endif; ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table><br>
 </div><br>
 <h5>Precios:</h5>
 <table class="table">
@@ -106,6 +120,8 @@
       <tr>
         <td>  <input type="text" name="clases[<?= $pila['id'] ?>]" value="<?= esc($pila['Clases']) ?>" class="form-control" /></td> 
         <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
+        <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> <!-- Campo oculto para el ID -->
+
       </tr>
     <?php endforeach; ?>
   </tbody>
@@ -113,11 +129,13 @@
        
         <!-- Botón para enviar el formulario -->
          <p style="text-align: center;">
-        <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">GUARDAR CAMBIOS</button>
+         <input type="hidden" name="clases[]" value="">
+
+        <button type="submit" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Guardar cambios</button>
     </p>
     </form>
 </div>
-    </div>
+
 <?php
     echo $this->include('plantilla/footer');
 ?>
