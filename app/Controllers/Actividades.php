@@ -183,10 +183,12 @@ class Actividades extends BaseController
     public function actualizar_terapeutico(){
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
-        
+        $instructor = new RegistroUsuarioModel();
+
         $data = [
             'actividades' => $actividadesModel->mostrarTodoActualizar(),
             'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Terapeutico']),
+            'instructor' => $instructor->mostrarTodo(['tipo'])
         ];
        
         return view('actualizar/terapeutico', $data);

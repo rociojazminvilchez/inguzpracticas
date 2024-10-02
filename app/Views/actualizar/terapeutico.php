@@ -96,7 +96,7 @@
                           <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
                               <option value="<?= esc($tipoActividad) ?>"><?= esc($tipoActividad) ?></option>
                               <?php
-                              if ($instructorSesion === $instructorActividad): ?>
+                              if (($instructorSesion === $instructorActividad) ): ?>
                                   <option value="-">-</option>
                               <?php endif; ?>
                           </select>

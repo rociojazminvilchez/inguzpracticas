@@ -21,5 +21,10 @@ class RegistroInstructorModel extends Model{
     $resultado->where($data);
     return  $resultado->get()->getResultArray();
 }
+
+
+
+
+
 }
 ?>

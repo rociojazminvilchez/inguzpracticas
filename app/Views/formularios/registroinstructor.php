@@ -58,7 +58,7 @@
  
    <span class="error">*</span> Tipo de pilates:<br>
         <input type="checkbox" name="tipo_clase[]" value="Reformer"> Reformer 
-        <input type="checkbox" name="tipo_clase[]" value="Hiit"> Hiit 
+        <input type="checkbox" name="tipo_clase[]" value="HIIT"> Hiit 
         <input type="checkbox" name="tipo_clase[]" value="Terapeutico" > Terap&eacuteutico 
     <br><br>
 
