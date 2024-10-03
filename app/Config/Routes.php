@@ -49,3 +49,7 @@ $routes->post('/actualizar/hiit', 'Actividades::updateHiit');
 
 $routes->get('/actualizar/terapeutico','Actividades::actualizar_terapeutico');
 $routes->post('/actualizar/terapeutico', 'Actividades::updateTerapeutico');
+
+#INFORMACION
+$routes->get('/actualizar/informacion','Actividades::informacion');
+$routes->post('/actualizar/informacion', 'Actividades::updateInformacion');

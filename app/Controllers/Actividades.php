@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\ActividadesModel;
+use App\Models\InformacionModel;
 use App\Models\PilatesModel;
 use App\Models\RegistroInstructorModel;
 use App\Models\RegistroUsuarioModel;
@@ -247,9 +248,65 @@ class Actividades extends BaseController
         
                 $pilatesModel->update($id_precios, ['Precio' => $precios]);
              
-        
-    
         return redirect()->to('inguz/index')->with('mensaje', 'Datos actualizados correctamente');
     }    
-    
+
+    #ACTUALIZAR INFORMACION
+    public function informacion(){
+        $informacionModel = new InformacionModel();
+
+        $data = [
+            'info' => $informacionModel->mostrarTodo(),
+        ];
+       
+        return view('actualizar/informacion', $data);
+    }
+
+    public function updateInformacion(){
+        $informacionModel = new InformacionModel();
+        $reglas = [
+            'quienes' => [
+                'rules' => 'required|min_length[3]',
+                'errors' => [
+                'required' => 'El campo "¿Quienes somos?" es obligatorio.',
+                    'min_length' => 'El campo "¿Quienes somos?" debe tener al menos 3 caracteres.'
+               ]
+            ],
+            'lugar' => [
+                'rules' => 'required|min_length[3]',
+                'errors' => [
+                    'required' => 'El campo "¿Donde estamos?" es obligatorio.',
+                    'min_length' => 'El campo "¿Donde estamos?" debe tener al menos 3 caracteres.'
+               ]
+            ],
+            'horarios' => [
+                'rules' => 'required|min_length[3]',
+                'errors' => [
+                    'required' => 'El campo "horarios" es obligatorio.',
+                    'min_length' => 'El campo "horarios" debe tener al menos 3 caracteres.'
+               ]
+            ],
+            'actividades' => [
+                'rules' => 'required|min_length[3]',
+                'errors' => [
+                    'required' => 'El campo "actividades" es obligatorio.',
+                    'min_length' => 'El campo "actividades" debe tener al menos 3 caracteres.'
+               ]
+            ],
+        ];
+        $id = $this->request->getPost('id');
+        $quienes = $this->request->getPost('quienes');
+        $lugar = $this->request->getPost('lugar');
+        $horarios = $this->request->getPost('horarios');
+        $actividades = $this->request->getPost('actividades');
+       
+        $informacionModel -> update($id,[
+            'quienes' => ucfirst(trim($quienes)),
+            'lugar' => ucfirst(trim($lugar)),
+            'horarios' => ucfirst(trim($horarios)),
+            'actividades' => ucfirst(trim($actividades)),
+        ]);
+
+        return redirect()->to('inguz/index')->with('mensaje', 'Datos actualizados correctamente');
+    }
 }

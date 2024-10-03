@@ -61,10 +61,10 @@
   
   <h4 style="text-align:left;"> Datos registro:</h4><br>
   
-  <span class="error">*</span> E-mail: <br>   
-  <p>
+  E-mail: <br>   
+  <strong>
     <?= esc($us['correo']); ?>
-  </p>
+  </strong><br><br>
   <input type="hidden" name="correo" value="<?= esc($us['correo'])?>">
   <?php
    endforeach;

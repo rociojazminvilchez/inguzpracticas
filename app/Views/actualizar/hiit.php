@@ -30,6 +30,9 @@
       <li class="nav-item">
         <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>" >Pilates Terap&eacuteutico</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/informacion'); ?>"> Informaci&oacuten</label></a>
+      </li>
     </ul>
   </div><br>
 <div class="container">
@@ -38,7 +41,7 @@
     <form action="<?= base_url('/actualizar/hiit') ?>" method="post">
   <!-- Descripción -->
         <div class="mb-3">
-        <h5>Descripci&oacuten:</h5>
+        <h5 style= "text-align: left;">Descripci&oacuten:</h5>
         <?php foreach ($pilates as $pila): 
         if (!empty($pila['Descripcion'])) {
             ?>
@@ -49,7 +52,7 @@
         </div>
 
 <!-- Horarios -->
-<h5>Horarios:</h5>
+<h5 style= "text-align: left;">Horarios:</h5>
 <div class="card-body">
     <table class="table">
         <thead>
@@ -114,7 +117,7 @@
 </table><br>
 </div><br>
 
-<h5>Precios:</h5>
+<h5 style= "text-align: left;">Precios:</h5>
 <table class="table">
   <thead>
     <tr>

@@ -59,7 +59,10 @@
     <br><br>
 
   <h5 style="text-align:left;"> Datos registro:</h5><br>  
-  
+  E-mail:<br>
+  <strong>
+    <?= esc($inst['correo']); ?>
+  </strong><br><br>
   <span class="error">*</span> Contraseña: <br>   
   <input type="password" name="contra" value="<?= esc($inst['contraseña']) ?>" required ><br><br>  
   

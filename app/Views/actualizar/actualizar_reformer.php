@@ -29,6 +29,9 @@
       <li class="nav-item">
         <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>" >Pilates Terap&eacuteutico</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/informacion'); ?>"> Informaci&oacuten</label></a>
+      </li>
     </ul>
   </div><br>
 <div class="container">
@@ -137,7 +140,7 @@ foreach ($horas as $hora): ?>
     </p>
     </form>
 </div>
-    
+    </body>   
 <?php
     echo $this->include('plantilla/footer');
 ?>

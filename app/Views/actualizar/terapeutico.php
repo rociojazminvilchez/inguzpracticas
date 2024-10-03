@@ -34,6 +34,9 @@
       <li class="nav-item">
         <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/terapeutico'); ?>"> <label style="color:red; font-weight: bold;">*  Pilates Terap&eacuteutico</label></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="<?= base_url('/actualizar/informacion'); ?>"> Informaci&oacuten</label></a>
+      </li>
     </ul>
 </div><br>
 
@@ -54,7 +57,7 @@
         </div>
 
 <!-- Horarios -->
-<h5>Horarios:</h5>
+<h5 style= "text-align: left;">Horarios:</h5>
 <div class="card-body">
 <table class="table">
     <thead>

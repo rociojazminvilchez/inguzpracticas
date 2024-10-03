@@ -94,11 +94,11 @@ class Usuario extends BaseController{
 
     
         $registroUsuarioModel->insert([
-                'nombre' => trim($post['nombre']),
-                'apellido' => trim($post['apellido']),
+                'nombre' => ucfirst(trim($post['nombre'])),
+                'apellido' => ucfirst(trim($post['apellido'])),
                 'edad' => $post['edad'],
                 'telefono' => $post['telefono'],
-                'direccion'=> $post['dire'],
+                'direccion'=> ucfirst($post['dire']),
                 'correo' => $post['email'],
                 'contraseña' => $post['contra'],
                 'contraseña2' => $post['contra2'],
@@ -199,11 +199,11 @@ if ($this->request->getFile('image')->isValid() && !$this->request->getFile('ima
 
 
     $registroUsuarioModel->update($id,[
-            'nombre' => trim($post['nombre']),
-            'apellido' => trim($post['apellido']),
+            'nombre' => ucfirst(trim($post['nombre'])),
+            'apellido' => ucfirst(trim($post['apellido'])),
             'edad' => $post['edad'],
             'telefono' => $post['telefono'],
-            'direccion'=> $post['dire'],
+            'direccion'=> ucfirst($post['dire']),
             'contraseña' => $post['contra'],
             'contraseña2' => $post['contra2'],
             'tipo' => $post['tipo_usuario'],
