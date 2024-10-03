@@ -16,11 +16,9 @@ class PilatesModel extends Model{
 		return  $resultado->get()->getResultArray();
    }
 
-   public function updatePrecio($id, $precio,)
-   {
+   public function updatePrecio($id, $precio,){
        return $this->update($id, [
-           'Precio' => $precio,
-          
+           'Precio' => $precio
        ]);
    }
    // Método para actualizar la descripción

@@ -113,9 +113,9 @@ foreach ($horas as $hora): ?>
   </tr>
 <?php endforeach; ?>
 </tbody>
-</table><br>
-           
+</table><br>       
 </div><br>
+
 <h5 style= "text-align: left;">Precios:</h5>
 <table class="table">
   <thead>
@@ -128,12 +128,14 @@ foreach ($horas as $hora): ?>
     <?php foreach ($pilates as $pila): ?>
       <tr>
         <td style="text-align: center;"> <?= esc($pila['Clases']) ?></td> 
-        <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="$<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
-        <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> 
+        <td><input type="number" name="precios[]" value="<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
+        <input type="hidden" name="id_precios[]" value="<?= esc($pila['id']) ?>"> 
       </tr>
-    <?php endforeach; ?>
+    <?php 
+      endforeach; ?> 
+    
   </tbody>
-</table><br>   
+</table><br>
           <p style="text-align: center;">
           <input type="hidden" name="clases[]" value="">
         <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">GUARDAR CAMBIOS</button>

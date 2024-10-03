@@ -116,7 +116,6 @@
   </tbody>
 </table><br>
 </div><br>
-
 <h5 style= "text-align: left;">Precios:</h5>
 <table class="table">
   <thead>
@@ -129,10 +128,11 @@
     <?php foreach ($pilates as $pila): ?>
       <tr>
         <td style="text-align: center;"> <?= esc($pila['Clases']) ?></td> 
-        <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="$<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
-        <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> 
+        <td><input type="number" name="precios[]" value="<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
+        <input type="hidden" name="id_precios[]" value="<?= esc($pila['id']) ?>"> 
       </tr>
-    <?php endforeach; ?>
+    <?php 
+      endforeach; ?> 
   </tbody>
 </table><br>
          <p style="text-align: center;">

@@ -71,7 +71,7 @@ class Actividades extends BaseController
      $clases = $this->request->getPost('clases') ?? [];
      $precios = $this->request->getPost('precios') ?? [];
      $instructor = $this->request -> getPost('id_instructor_original');
-
+     $id_precios =  $this->request -> getPost('id_precios');
    
      //Descripcion
      if (!empty($descripcion)) {
@@ -104,15 +104,15 @@ class Actividades extends BaseController
     }
     
     //Clases | Precios
-    if (is_array($clases) && !empty($clases)) {
-        foreach ($clases as $id => $clase) {
-            $precio = $precios[$id] ?? null; // Si no existe queda en null
-            // Verificamos si el id de clase es válido y si el precio es numérico
-            if (!empty($clase) && is_numeric($precio)) {
-                $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio]);
-            } 
+     // Verifica que los arrays sean del mismo tamaño
+     if (is_array($precios) && is_array($id_precios) && count($precios) === count($id_precios)) {
+        // Recorre ambos arrays para actualizar cada precio según su ID
+        foreach ($id_precios as $index => $id) {
+            $precio = $precios[$index];  // Obtiene el precio correspondiente al ID
+            // Llama al modelo para actualizar el precio en la base de datos
+            $pilatesModel->updatePrecio($id, ['Precio' => $precio]);
         }
-    }
+       }
     
     return redirect()->to('inguz/index')->with('mensaje', 'Datos actualizados correctamente');
 }
@@ -140,7 +140,8 @@ class Actividades extends BaseController
         $clases = $this->request->getPost('clases') ?? [];
         $precios = $this->request->getPost('precios')?? [];
         $instructor = $this->request -> getPost('id_instructor_original');
-        
+        $id_precios =  $this->request -> getPost('id_precios');
+
         $id_descripcion='4';
         //Descripcion
         if (!empty($descripcion)) {
@@ -174,15 +175,15 @@ class Actividades extends BaseController
     }
 
        // Clases | Precios
-    if (is_array($clases) && !empty($clases)) {
-        foreach ($clases as $id => $clase) {
-            $precio = $precios[$id] ?? null; // Si no existe queda en null
-            // Verificamos si el id de clase es válido y si el precio es numérico
-            if (!empty($clase) && is_numeric($precio)) {
-                $pilatesModel->update($id, ['Clases' => $clase, 'Precio' => $precio]);
-            } 
+     // Verifica que los arrays sean del mismo tamaño
+     if (is_array($precios) && is_array($id_precios) && count($precios) === count($id_precios)) {
+        // Recorre ambos arrays para actualizar cada precio según su ID
+        foreach ($id_precios as $index => $id) {
+            $precio = $precios[$index];  // Obtiene el precio correspondiente al ID
+            // Llama al modelo para actualizar el precio en la base de datos
+            $pilatesModel->updatePrecio($id, ['Precio' => $precio]);
         }
-    }
+       }
     return redirect()->to('inguz/index')->with('mensaje', 'Datos actualizados correctamente');
 }
 
@@ -242,12 +243,16 @@ class Actividades extends BaseController
                }
         }
     }
-    
-
-            // Verificamos si el id de clase es válido y si el precio es numérico
-        
-                $pilatesModel->update($id_precios, ['Precio' => $precios]);
-             
+  
+    // Verifica que los arrays sean del mismo tamaño
+    if (is_array($precios) && is_array($id_precios) && count($precios) === count($id_precios)) {
+    // Recorre ambos arrays para actualizar cada precio según su ID
+    foreach ($id_precios as $index => $id) {
+        $precio = $precios[$index];  // Obtiene el precio correspondiente al ID
+        // Llama al modelo para actualizar el precio en la base de datos
+        $pilatesModel->updatePrecio($id, ['Precio' => $precio]);
+    }
+   }
         return redirect()->to('inguz/index')->with('mensaje', 'Datos actualizados correctamente');
     }    
 
