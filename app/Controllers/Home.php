@@ -3,6 +3,8 @@
 namespace App\Controllers;
 use App\Models\IngresoModel;
 use App\Models\ActividadesModel;
+use App\Models\InformacionModel;
+
 class Home extends BaseController
 {
     public function index(){
@@ -38,7 +40,7 @@ class Home extends BaseController
                 <strong>Atención:</strong> Datos incorrectos. Ingrese nuevamente
             </div>
             <?php
-           return view('formularios/ingreso'); 
+           return redirect()->to('formularios/ingreso')->with('mensaje', '¡Bienvenido nuevamente!'); 
         }
     }
 
@@ -101,7 +103,13 @@ class Home extends BaseController
     #BARRA
     public function informacion(){
         $actividadesModel = new ActividadesModel();
-        $data = ['actividades' => $actividadesModel->mostrarTodoActualizar()];
+        $informacionModel = new InformacionModel();
+
+        $data = [
+            'actividades' => $actividadesModel->mostrarTodoActualizar(),
+            'informacion' => $informacionModel->mostrarTodo()
+        ];
+        
         return view('inguz/informacion',$data);
     }
 

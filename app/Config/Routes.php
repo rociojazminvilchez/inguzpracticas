@@ -14,7 +14,8 @@ $routes->post('/home/login', 'Home::login');
 $routes->get('/formularios/registro', 'Home::registro');
 $routes->get('/usuario/create', 'Usuario::create');
 $routes->post('/usuario/create', 'Usuario::create'); 
-
+$routes->get('/usuario/perfil', 'Usuario::perfil'); 
+$routes->post('/usuario/perfil', 'Usuario::update'); 
 #INSTRUCTOR
 $routes->get('/formularios/opc_instructor', 'Home::instructor');
 $routes->get('/formularios/ingresoinstructor', 'Home::ingreso_instructor');
@@ -24,6 +25,7 @@ $routes->get('/formularios/registroinstructor', 'Home::registroadmin');
 $routes->get('/instructor/create', 'Instructor::create');
 $routes->post('/instructor/create', 'Instructor::create'); 
 $routes->get('/instructor/perfil', 'Instructor::perfil');
+$routes->post('/instructor/perfil', 'Instructor::update');
 
 #USUARIO - INSTRUCTOR
 $routes->get('/salir', 'Home::salir');

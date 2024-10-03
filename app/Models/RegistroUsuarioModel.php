@@ -15,5 +15,12 @@ class RegistroUsuarioModel extends Model{
         $resultado->where($data);
 		return  $resultado->get()->getResultArray();
    }
+
+   
+   public function mostrarTodoPerfil($data){
+    $resultado = $this->db->table('registrousuario');
+    $resultado->where($data);
+    return  $resultado->get()->getResultArray();
+}
 }
 ?>

@@ -10,9 +10,9 @@ class RegistroInstructorModel extends Model{
     protected $useSoftDeletes = false; //Como se comporta la eliminacion de registro
     protected $allowedFields = ['nombre', 'apellido','edad','telefono', 'foto','formacion','tipo','contraseña', 'contraseña2','tipo_usuario']; //Van los campos de la tabla
     
-    public function mostrarTodo($data){
+    public function mostrarTodo(){
         $resultado = $this->db->table('registroinstructor');
-        $resultado->where($data);
+       
 		return  $resultado->get()->getResultArray();
    }
 
@@ -21,9 +21,6 @@ class RegistroInstructorModel extends Model{
     $resultado->where($data);
     return  $resultado->get()->getResultArray();
 }
-
-
-
 
 
 }

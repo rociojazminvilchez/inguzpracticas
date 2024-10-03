@@ -14,6 +14,11 @@
     echo $this->include('plantilla/navbar');
 ?>
 <br>
+<?php if (session()->getFlashdata('mensaje')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('mensaje') ?>
+    </div>
+<?php endif; ?>
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para actualizar informaci&oacuten.
 </div>
@@ -96,11 +101,11 @@
                           <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
                               <option value="<?= esc($tipoActividad) ?>"><?= esc($tipoActividad) ?></option>
                               <?php
-                              if (($instructorSesion === $instructorActividad) ): ?>
+                              if (($instructorSesion === $instructorActividad)): ?>
                                   <option value="-">-</option>
                               <?php endif; ?>
                           </select>
-                          <input type="hidden" name="id_instructor_original" value="<?= esc($instructorActividad) ?>">
+                          <input type="hidden" name="id_instructor_original" value="<?= $_SESSION['usuario'] ?>">
                       <?php else: ?>
                           <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
                               <option value="">-</option>
@@ -127,7 +132,7 @@
     <?php foreach ($pilates as $pila): ?>
       <tr>
         <td style="text-align: center;"> <?= esc($pila['Clases']) ?></td> 
-        <td><input type="text" name="precios[<?= $pila['id'] ?>]" value="$<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
+        <td><input type="number" name="precios" value="<?= esc($pila['Precio']) ?>" class="form-control" /></td> 
         <input type="hidden" name="id_precios" value="[<?= $pila['id'] ?>]"> 
       </tr>
       

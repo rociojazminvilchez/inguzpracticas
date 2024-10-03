@@ -16,15 +16,20 @@
     echo $this->include('plantilla/navbar');
 ?><br>
 <h3 style= "text-align: center;"> Informaci&oacuten </h3><br>
+<?php 
 
+
+
+?>
 <!-- QUIENES SOMOS -->
 <div class="container text-center">
     <div class="row">
         <div class="col">
             <h4>¿Qui&eacutenes somos?</h4>
             <section style="text-align: justify;">
-                INGUZ, es un centro de bienestar y salud especializado en pilates. Contamos con seis años de experiencia en el sector, con un equipo de instructores altamente capacitados y un espacio completamente equipado, diseñado para que te sientas cómodo y logres tus objetivos. 
-                Ofrecemos una variedad de días y horarios que se adaptan a tus necesidades, garantizando un ambiente exclusivo con solo 7 personas por clase. Esto nos permite ofrecerte atención personalizada y de calidad en cada sesion.
+                <?php foreach ($informacion as $info): ?>
+                    <p><?= esc($info['quienes']); ?></p>
+                <?php endforeach; ?>
             </section>
         </div>
         <div class="col">
@@ -56,13 +61,15 @@
             <div class="col">
                 <h4>¿Dónde estamos?</h4>
                 <section style="text-align: center;">
-                    Nos encontramos en Dominicos Puntanos 823<br> (A media cuadra de la plaza 9 de julio).
+                <?php foreach ($informacion as $info): ?>
+                    <p><?= esc($info['lugar']); ?></p>
+                <?php endforeach; ?>
                 </section><br><br><br>
                 <h4>Horarios de atenci&oacuten</h4>
                 <section style="text-align: center;">
-                   Lunes a Viernes<br>
-                   8hs - 12hs <br>
-                   15hs - 21hs
+                <?php foreach ($informacion as $info): ?>
+                    <p><?= esc($info['horarios']); ?></p>
+                <?php endforeach; ?>
                 </section><br>
             </div>
             <div class="col">
@@ -78,8 +85,9 @@
         <div class="col">
             <h4>Actividades</h4>
             <section style="text-align: justify;">
-                Ofrecemos clases de pilates en sus modalidades: reformer, HIIT y terapéutico. Cada actividad está diseñada para atender diferentes necesidades, desde mejorar la fuerza y flexibilidad hasta la rehabilitación y el bienestar general. 
-                Todos nuestros programas son impartidos por instructores certificados que se enfocan en garantizar una experiencia segura y efectiva para cada participante.
+            <?php foreach ($informacion as $info): ?>
+                    <p><?= esc($info['actividades']); ?></p>
+                <?php endforeach; ?>
                 <p style="text-align: center;">
                     <a href="<?= base_url('/inguz/actividades'); ?>" class="btn btn-primary" style="background-color: #df7718;border: none;">Ver m&aacutes informaci&oacuten</a>
                 </p>
@@ -107,6 +115,7 @@
         </div>
     </div>
 </div>
+
 <!-- HORARIOS TABLA -->
 <div class="container text-center">
 <h5>Horarios clases:</h5>
@@ -150,7 +159,7 @@
                                 break; 
                             }
                         }
-                        $instructorSesion = $_SESSION['usuario'];
+                        
                         // Si el horario está ocupado, mostrar la actividad
                         if ($ocupado){ ?>
                           <?= esc($tipoActividad) ?>

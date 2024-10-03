@@ -51,7 +51,7 @@
             
             if($_SESSION['tipo']=='Usuario'){
              ?> 
-             <li><a class="dropdown-item" href="">Perfil</a></li>
+             <li><a class="dropdown-item" href="<?= base_url('/usuario/perfil'); ?>">Perfil</a></li>
              <li><a class="dropdown-item" href=""> Historial</a></li>
              <li><a class="dropdown-item" href=""> Cr&eacuteditos</a></li>
              <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>

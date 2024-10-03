@@ -73,7 +73,7 @@
   <input type="password" name="contra2" value="<?= old('contra2') ?>"required ><br><br> 
 <!-- Campo oculto -->
   <input type="hidden" name="tipo_usuario" value="instructor">
-    <input type="submit" name="noticia" value="REGISTRARSE" style="background-color: #df7718;">
+    <input type="submit" name="registro" value="REGISTRARSE" style="background-color: #df7718;">
   </form><br><br><br>
   <?php
     echo $this->include('plantilla/footer');

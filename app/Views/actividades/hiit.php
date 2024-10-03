@@ -80,7 +80,7 @@
       </thead>
       <tbody>
         <?php
-        $horas = ['8-9hs', '9-10hs','10-11hs','11-12hs', '15-16hs','16-17hs', '17-18','18-19hs', '19-20hs','20-21hs'];
+        $horas = ['8-9hs', '9-10hs','10-11hs','11-12hs', '15-16hs','16-17hs', '17-18hs','18-19hs', '19-20hs','20-21hs'];
         $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
         
         foreach ($horas as $hora): ?>

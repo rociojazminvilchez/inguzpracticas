@@ -98,7 +98,7 @@ foreach ($horas as $hora): ?>
                         <option value="-">-</option>
                     <?php endif; ?>
                 </select>
-                <input type="hidden" name="id_instructor_original" value="<?= esc($instructorActividad) ?>">
+                <input type="hidden" name="id_instructor_original" value="<?= $_SESSION['usuario'] ?>">
             <?php else: ?>
                 <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
                     <option value="">-</option>

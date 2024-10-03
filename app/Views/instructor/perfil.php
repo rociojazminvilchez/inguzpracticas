@@ -17,8 +17,19 @@
 ?>
 
 <body>
-    
-<form class="form" action="<?= base_url('instructor/perfil'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+<div class="alert alert-warning" role="alert">
+  <strong>Atención:</strong> Este panel es para actualizar informaci&oacuten.
+</div>
+<form class="form" action="<?= base_url('/instructor/perfil'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+<?php if (session()->get('errors')): ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php foreach (session()->get('errors') as $error): ?>
+                    <li><?= esc($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>  
 <p style="text-align:right;">
       <a href="<?php echo base_url('/inguz/index')?>">
         <button type="button" class="btn-close" aria-label="Close"> </button>
@@ -26,29 +37,25 @@
     </p>
 <?php foreach ($instructor as $inst):  
  ?>
-    <h4 style="text-align:center; color:red;"> Actualizar informaci&oacuten:</h4><br>
+    <h5 style="text-align:center; color:red;"> Actualizar informaci&oacuten:</h5><br>
    <h5 style="text-align:left;"> Datos personales </h5>
   <span class="error">*</span> Nombre: <br>   
     <input type="text" name="nombre" value="<?= esc($inst['nombre']) ?>" required ><br><br>
-    <?php
-    
-   endforeach;
-?>     
+       
   <span class="error">*</span> Apellido:<br>
     <input type="text" name="apellido" value="<?= esc($inst['apellido']) ?>" required></input><br><br>
        
   <span class="error">*</span> Edad:<br>
     <input type="number" name="edad" value="<?= esc($inst['edad']) ?>" required></input><br><br>
   
-  <span class="error">*</span> Tel&eacutefono:<br>
-    <input type="number" name="telefono" value="<?= esc($inst['telefono']) ?>" required></input><br><br>
+ Tel&eacutefono:<br>
+    <input type="number" name="telefono" value="<?= esc($inst['telefono']) ?>" ></input><br><br>
     
    <span class="error">*</span> Formaci&oacuten:<br>
      <textarea name="formacion" required><?= esc($inst['formacion']) ?></textarea><br>
      
- 
-   <span class="error">*</span> Tipo de pilates:<br>
-        <input value="<?= esc($inst['tipo']) ?>" > </input> 
+ Tipo de pilates:<br>
+    <strong>   <?= esc($inst['tipo']) ?> </strong>
     <br><br>
 
   <h5 style="text-align:left;"> Datos registro:</h5><br>  
@@ -60,7 +67,11 @@
   <input type="password" name="contra2" value="<?= esc($inst['contraseña2']) ?>"required ><br><br> 
 <!-- Campo oculto -->
   <input type="hidden" name="tipo_usuario" value="instructor">
-    <input type="submit" name="noticia" value="ACTUALIZAR" style="background-color: #df7718;">
+  <input type="hidden" name="correo" value="<?= esc($inst['correo'])?>">
+  <?php
+   endforeach;
+?> 
+      <input type="submit" name="perfil" value="ACTUALIZAR" style="background-color: #df7718;">
   </form><br><br><br>
   <?php
     echo $this->include('plantilla/footer');
