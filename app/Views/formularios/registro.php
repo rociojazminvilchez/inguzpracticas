@@ -16,7 +16,6 @@
     echo $this->include('plantilla/navbar');
 ?>
 
-<body>
 
 <form class="form" action="<?= base_url('usuario/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
 <?php if (session()->get('errors')): ?>

@@ -35,7 +35,8 @@ $routes->get('/formularios/recuperar_contra', 'Home::recuperarcontra');
 $routes->get('/inguz/informacion','Home::informacion');
 $routes->get('/inguz/actividades','Home::actividades');
 $routes->get('/inguz/reserva','Home::reserva');
-
+#CREDITOS
+$routes->get('/formularios/creditos', 'Home::creditos');
 #ACTIVIDADES
 $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');

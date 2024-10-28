@@ -66,15 +66,16 @@
     <?= esc($us['correo']); ?>
   </strong><br><br>
   <input type="hidden" name="correo" value="<?= esc($us['correo'])?>">
-  <?php
-   endforeach;
-  ?>
+  
   
   <span class="error">*</span> Contraseña: <br>   
   <input type="password" name="contra"  value="<?= esc($us['contraseña']) ?>" required ><br><br>  
   
   <span class="error">*</span> Confirmar contraseña: <br>   
   <input type="password" name="contra2"  value="<?= esc($us['contraseña2']) ?>"required ><br><br> 
+  <?php
+   endforeach;
+  ?>
   <!-- Campo oculto -->
   <input type="hidden" name="tipo_usuario" value="usuario">
   

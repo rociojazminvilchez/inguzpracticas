@@ -33,14 +33,12 @@ class Home extends BaseController
             $session = session();
             $session -> set($data);
             
-            return redirect()->to('inguz/index');
+            return redirect()->to('inguz/index')->with('mensaje', '¡Bienvenido nuevamente!');
         }else{
             ?>
-            <div class="alert alert-warning" role="alert" >
-                <strong>Atención:</strong> Datos incorrectos. Ingrese nuevamente
-            </div>
+            
             <?php
-           return redirect()->to('formularios/ingreso')->with('mensaje', '¡Bienvenido nuevamente!'); 
+           return redirect()->to('formularios/ingreso')->with('mensajeError', 'Datos incorrectos. Ingrese nuevamente'); 
         }
     }
 
@@ -84,7 +82,7 @@ class Home extends BaseController
             $session = session();
             $session -> set($data);
             
-            return redirect()->to('inguz/index');
+            return redirect()->to('inguz/index')->with('mensaje', '¡Bienvenido nuevamente!');;
 
         }else{
             ?>
@@ -92,7 +90,7 @@ class Home extends BaseController
                 <strong>Atención:</strong> Datos incorrectos. Ingrese nuevamente
             </div>
             <?php
-           return view('formularios/ingresoinstructor'); 
+            return redirect()->to('formularios/ingresoinstructor')->with('mensajeError', 'Datos incorrectos. Ingrese nuevamente'); ; 
         }
     }
 
@@ -118,6 +116,12 @@ class Home extends BaseController
     }
 
     public function reserva(){
+        $actividadesModel = new ActividadesModel();
+        $data = [
+            'actividades' => $actividadesModel->mostrarTodoActualizar(),
+            
+        ];
+        
         return view('inguz/reserva');
     }
 }

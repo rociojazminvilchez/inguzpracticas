@@ -17,6 +17,18 @@
 ?>
 
 <body>
+  
+<?php if (session()->getFlashdata('mensajeError')): ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('mensajeError') ?>
+    </div>
+<?php endif; ?>
+<?php if (session()->getFlashdata('mensaje')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('mensaje') ?>
+    </div>
+<?php endif; ?>
+
   <form class="form" action="<?php echo base_url('/home/login')?>" method="POST">
     
     <p style="text-align:right;">
@@ -35,7 +47,7 @@
           <span class="error"> </span><br>
                
       <input type="submit" name="ingresar" value="Ingresar" style="background-color: #df7718;"><br><br>
-      <a href="<?php echo base_url('formularios/recuperar_contra')?>"> ¿Olvidaste tu contrase&ntildea? </a>
+
   </form> 
 
 <?php

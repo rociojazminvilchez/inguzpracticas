@@ -7,7 +7,7 @@ class ActividadesModel extends Model {
     protected $useAutoIncrement = true; 
     protected $returnType = 'array';
     protected $useSoftDeletes = false; 
-    protected $allowedFields = ['Tipo', 'Dia', 'Horario', 'Instructor']; 
+    protected $allowedFields = ['Tipo', 'Dia', 'Horario','Cupo', 'Instructor']; 
     
     public function verificarCoincidenciaInstructor() {
         // Consulta SQL para verificar coincidencias
@@ -66,6 +66,11 @@ class ActividadesModel extends Model {
         return $this->where('id', $id)->first()['Tipo'] ?? null;
     }
     
+    public function getHorarioSemanal(){
+        $resultado = $this->db->table('informacion');
+        $resultado->orderBy("FIELD(dia, 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes')");
+        return $resultado->get()->getResultArray();
+    }
 }
 
 

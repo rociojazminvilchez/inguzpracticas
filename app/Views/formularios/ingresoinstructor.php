@@ -15,11 +15,18 @@
 <?php
     echo $this->include('plantilla/navbar');
 ?>
+
+<?php if (session()->getFlashdata('mensajeError')): ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('mensajeError') ?>
+    </div>
+<?php endif; ?>
 <?php if (session()->getFlashdata('mensaje')): ?>
     <div class="alert alert-success">
         <?= session()->getFlashdata('mensaje') ?>
     </div>
 <?php endif; ?>
+
     <div class="alert alert-warning" role="alert">
         <strong>Atención:</strong> Este inicio de sesi&oacuten es únicamente para instructores. Por favor, asegúrate de cumplir con los requisitos antes de continuar.
     </div>
@@ -41,7 +48,7 @@
           <span class="error"> </span><br>
                
       <input type="submit" name="ingresar" value="Ingresar" style="background-color: #df7718;"><br><br>
-      <a href="<?php echo base_url('formularios/recuperar_contra')?>"> ¿Olvidaste tu contrase&ntildea? </a>
+      
   </form> <br><br><br>
 
 <?php
