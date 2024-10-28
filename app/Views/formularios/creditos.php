@@ -42,7 +42,7 @@
     <strong>
     <?= $_SESSION['usuario'] ?>
   </strong><br><br>
-  <input type="hidden" name="correo" value="<?= $_SESSION['usuario'] ?>?>">
+  <input type="hidden" name="correo" value="<?= $_SESSION['usuario'] ?>">
 
     <span class="error">*</span>Actividad: <br>  
     <select name="actividad" id="act">

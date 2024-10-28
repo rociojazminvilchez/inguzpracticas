@@ -37,6 +37,7 @@ $routes->get('/inguz/actividades','Home::actividades');
 $routes->get('/inguz/reserva','Home::reserva');
 #CREDITOS
 $routes->get('/formularios/creditos', 'Home::creditos');
+$routes->post('/creditos/create', 'Creditos::create'); 
 #ACTIVIDADES
 $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');

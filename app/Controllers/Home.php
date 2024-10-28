@@ -121,7 +121,11 @@ class Home extends BaseController
             'actividades' => $actividadesModel->mostrarTodoActualizar(),
             
         ];
-        
         return view('inguz/reserva');
+    }
+#COMPRAR CREDITOS
+    public function creditos(){
+        
+        return view('formularios/creditos');
     }
 }
