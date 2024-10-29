@@ -15,7 +15,20 @@
     echo $this->include('plantilla/navbar');
 ?>
 
+<?php   
+    if (!session()->has('usuario')) {
+        ?>
 
+    <p style="text-align:center;">
+    <h4 style="text-align: center;"> Para comprar cr&eacuteditos, debes: </h4><br>
+          <p style="text-align: center;" >    
+    <a href="<?= base_url('/formularios/ingreso'); ?>" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none; ">Iniciar sesi&oacuten</a><br><br>
+    <a href="<?= base_url('/formularios/registro'); ?>"class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Crear cuenta</a>
+</p>
+  </form> 
+<?php
+    }else{    
+?><br>
 <div class="alert alert-warning" role="alert">
         <strong>Atención:</strong> Este panel es para comprar cr&eacuteditos.
     </div>
@@ -80,6 +93,7 @@
  
 
   <?php
+    }
     echo $this->include('plantilla/footer');
   ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

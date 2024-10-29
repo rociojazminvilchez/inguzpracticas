@@ -38,7 +38,7 @@ class Creditos extends BaseController{
                 'actividad' => $post['actividad'],
                 'cantidad' => $post['cantidad'],
                 'pago' => $post['pago'],
-                'estado' => 'En espera',
+                'estado_pago' => 'En espera',
                 'fecha_creada' => $fecha,
             ]);
             
@@ -93,8 +93,6 @@ class Creditos extends BaseController{
         return view('creditos/confirmacion', ['valor' => $valor]);
     }
     
-    
-
     public function creditosupdate($id) {
         $membresiaModel = new MembresiaModel();
     
@@ -116,9 +114,6 @@ class Creditos extends BaseController{
         ]);
     }
     
- 
-
-
     public function update($id) {
         // Obtiene los datos del formulario
         $formData = $this->request->getPost();
@@ -160,12 +155,10 @@ class Creditos extends BaseController{
         }
     
         $membresiaModel = new MembresiaModel();
-    
+         
         try {
             // Actualizar el estado de la membresía a 'Confirmado'
-            $membresiaModel->update($formData['id'], [
-                'estado' => 'Confirmado',
-            ]);
+           
             
             // Eliminar datos de la sesión
             session()->remove('form_data');
