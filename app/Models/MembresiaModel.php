@@ -8,7 +8,7 @@ class MembresiaModel extends Model {
     protected $useAutoIncrement = true; 
     protected $returnType = 'array';
     protected $useSoftDeletes = false; // Cómo se comporta la eliminación de registro
-    protected $allowedFields = ['correo', 'actividad', 'cantidad', 'pago', 'estado', 'fecha_creada', 'fecha_inicio', 'fecha_fin','estado_pago']; // Campos de la tabla
+    protected $allowedFields = ['fecha_creada','correo', 'actividad', 'cantidad', 'pago','estado_pago','fecha_inicio', 'fecha_fin','estado','pases','instructor']; // Campos de la tabla
     
     public function mostrarTodo() {
         $resultado = $this->db->table($this->table); // Usa el nombre de la tabla protegido

@@ -40,6 +40,7 @@ class Creditos extends BaseController{
                 'pago' => $post['pago'],
                 'estado_pago' => 'En espera',
                 'fecha_creada' => $fecha,
+                'pases' => $post['cantidad'],
             ]);
             
             // Obtener el ID de la última inserción
@@ -52,6 +53,7 @@ class Creditos extends BaseController{
                 'actividad' => $post['actividad'],
                 'cantidad' => $post['cantidad'],
                 'pago' => $post['pago'],
+                'pases' => $post['cantidad'],
             ]);
     
             // Redirigir a la página de confirmación
@@ -110,7 +112,8 @@ class Creditos extends BaseController{
             'actividad' => esc($membresia['actividad']), // Escapar la actividad
             'cantidad' => esc($membresia['cantidad']), // Escapar la cantidad
             'pago' => esc($membresia['pago']), // Escapar el medio de pago
-            'id' => esc($id) // Asegúrate de escapar el ID si lo vas a mostrar
+            'id' => esc($id), // Asegúrate de escapar el ID si lo vas a mostrar
+            'pases' => esc($membresia['cantidad']),
         ]);
     }
     
@@ -125,48 +128,39 @@ class Creditos extends BaseController{
             'cantidad' => 'required|is_natural_no_zero',
             'pago' => 'required',
         ])) {
-            // Redirigir con los errores encontrados
             return redirect()->to('/creditos/create')
                              ->with('errors', $this->validator->getErrors())
                              ->withInput();
         }
-    
-        // Asegúrate de que todos los campos son strings
+
         $membresiaModel = new MembresiaModel();
         $membresiaModel->update($id, [
             'correo' => (string)$formData['correo'],
             'actividad' => (string)$formData['actividad'],
-            'cantidad' => (int)$formData['cantidad'], // Cambié a int para asegurar que se almacene como número
+            'cantidad' => (int)$formData['cantidad'], 
             'pago' => (string)$formData['pago'],
+            'pases' => (int)$formData['cantidad'], 
         ]);
-    
-        // Redirigir a la confirmación con un mensaje de éxito
-        return redirect()->to('/creditos/confirmacion')->with('id', $id)->with('success', 'Membresía actualizada con éxito.');
+        return redirect()->to('/creditos/confirmacion')->with('id', $id)->with('mensaje', 'Membresía actualizada con éxito.');
     }
     
 
 
     public function guardar() {
         $formData = session()->get('form_data');
-    
-        // Verificar si hay datos en la sesión
+
         if (empty($formData)) {
             return redirect()->to('/creditos')->with('error', 'No se encontraron datos de compra.');
         }
     
         $membresiaModel = new MembresiaModel();
          
-        try {
-            // Actualizar el estado de la membresía a 'Confirmado'
-           
-            
+        try {     
             // Eliminar datos de la sesión
             session()->remove('form_data');
     
-            // Redirigir a la página principal con un mensaje de éxito
-            return redirect()->to('/inguz/index')->with('success', 'Compra confirmada con éxito.');
+            return redirect()->to('/inguz/index')->with('mensaje', 'Compra confirmada con éxito.');
         } catch (\Exception $e) {
-            // Redirigir en caso de error con un mensaje informativo
             return redirect()->to('/creditos')->with('error', 'Error al confirmar la compra: ' . esc($e->getMessage()));
         }
     }

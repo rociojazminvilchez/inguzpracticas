@@ -15,7 +15,12 @@
 <?php
     echo $this->include('plantilla/navbar');
 ?><br>
-<!-- confirmacion.php -->
+<?php if (session()->getFlashdata('mensaje')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('mensaje') ?>
+    </div>
+<?php endif; ?>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
