@@ -14,5 +14,11 @@ class MembresiaModel extends Model{
         $resultado = $this->db->table('membresia');
 		return  $resultado->get()->getResultArray();
    }
+
+   public function mostrarSoloID($id){
+    $resultado = $this->db->table('membresia');
+    $resultado->where($id);
+    return $resultado->get()->getResultArray();
+}
 }
 ?> 

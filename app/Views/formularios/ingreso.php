@@ -16,8 +16,7 @@
     echo $this->include('plantilla/navbar');
 ?>
 
-<body>
-  
+
 <?php if (session()->getFlashdata('mensajeError')): ?>
     <div class="alert alert-danger">
         <?= session()->getFlashdata('mensajeError') ?>
@@ -31,11 +30,7 @@
 
   <form class="form" action="<?php echo base_url('/home/login')?>" method="POST">
     
-    <p style="text-align:right;">
-      <a href="<?php echo base_url('/inguz/index')?>">
-        <button type="button" class="btn-close" aria-label="Close"> </button>
-      </a>
-    </p>
+    
 
     <h2> Iniciar sesi&oacuten:</h2><br>
       E-mail:<br>    

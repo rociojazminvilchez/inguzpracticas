@@ -26,6 +26,8 @@ $routes->get('/instructor/create', 'Instructor::create');
 $routes->post('/instructor/create', 'Instructor::create'); 
 $routes->get('/instructor/perfil', 'Instructor::perfil');
 $routes->post('/instructor/perfil', 'Instructor::update');
+#--PANEL 
+$routes->get('/instructor/panel', 'Instructor::reservas');
 
 #USUARIO - INSTRUCTOR
 $routes->get('/salir', 'Home::salir');
@@ -35,9 +37,13 @@ $routes->get('/formularios/recuperar_contra', 'Home::recuperarcontra');
 $routes->get('/inguz/informacion','Home::informacion');
 $routes->get('/inguz/actividades','Home::actividades');
 $routes->get('/inguz/reserva','Home::reserva');
+
 #CREDITOS
 $routes->get('/formularios/creditos', 'Home::creditos');
 $routes->post('/creditos/create', 'Creditos::create'); 
+$routes->get('/creditos/create', 'Creditos::create'); 
+$routes->get('/creditos/confirmacion', 'Creditos::confirmacion');
+
 #ACTIVIDADES
 $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');

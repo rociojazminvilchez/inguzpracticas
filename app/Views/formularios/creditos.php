@@ -19,7 +19,12 @@
 <div class="alert alert-warning" role="alert">
         <strong>Atención:</strong> Este panel es para comprar cr&eacuteditos.
     </div>
-    
+    <?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?>
+
 <form class="form" action="<?= base_url('creditos/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
 <?php if (session()->get('errors')): ?>
         <div class="alert alert-danger">
@@ -42,11 +47,14 @@
     <strong>
     <?= $_SESSION['usuario'] ?>
   </strong><br><br>
-  <input type="hidden" name="correo" value="<?= $_SESSION['usuario'] ?>">
+  
 
+
+  <input type="hidden" name="correo" value="<?= $_SESSION['usuario'] ?>">
+  
     <span class="error">*</span>Actividad: <br>  
     <select name="actividad" id="act">
-        <option value="seleccion">- Seleccione una actividad -</option>
+        <option value="">- Seleccione una actividad -</option>
         <option value="hiit">Pilates HIIT</option>
         <option value="terapeutico">Pilates Terapeutico</option>
         <option value="reformer">Pilates Reformer</option>
@@ -54,7 +62,7 @@
     
     <span class="error">*</span>Cantidad de clases: <br>  
     <select name="cantidad" id="cant">
-    <option value="seleccion">- Seleccione cantidad -</option>
+    <option value="">- Seleccione cantidad -</option>
         <option value="4">4</option>
         <option value="8">8</option>
         <option value="12">12</option>
@@ -62,14 +70,14 @@
    
     <span class="error">*</span>Medio de pago: <br>  
     <select name="pago" id="pago">
-        <option value="seleccion">- Seleccione medio de pago -</option>
+        <option value="">- Seleccione medio de pago -</option>
         <option value="Efectivo">Efectivo</option>
         <option value="Transferencia">Transferencia</option>
     </select><br><br>
-
+  
     <input type="submit" name="confirmar" value="Confirmar" style="background-color: #df7718;">
   </form><br><br><br>
-
+ 
 
   <?php
     echo $this->include('plantilla/footer');

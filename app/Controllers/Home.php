@@ -8,6 +8,9 @@ use App\Models\InformacionModel;
 class Home extends BaseController
 {
     public function index(){
+        if ($this->request->getGet('confirmar')) {
+            session()->setFlashdata('mensaje', '¡Compra realizada con éxito!');
+        }
         return view('inguz/index');
     }
 
@@ -118,14 +121,12 @@ class Home extends BaseController
     public function reserva(){
         $actividadesModel = new ActividadesModel();
         $data = [
-            'actividades' => $actividadesModel->mostrarTodoActualizar(),
-            
+            'actividades' => $actividadesModel->mostrarTodoActualizar(),   
         ];
         return view('inguz/reserva');
     }
 #COMPRAR CREDITOS
     public function creditos(){
-        
         return view('formularios/creditos');
     }
 }

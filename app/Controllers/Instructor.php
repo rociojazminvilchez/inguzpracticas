@@ -198,4 +198,9 @@ class Instructor extends BaseController{
        
         return redirect()->to('inguz/index')->with('mensaje', 'Instructor actualizado exitosamente.');
    }
+   #PANEL - RESERVAS | MEMBRESIAS
+   public function panel(){
+    return view('instructor/panel');
+   }
+   
 }
