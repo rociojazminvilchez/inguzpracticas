@@ -50,28 +50,30 @@
 
   <input type="hidden" name="correo" value="<?= $_SESSION['usuario'] ?>">
   
-    <span class="error">*</span>Actividad: <br>  
+    
+  <span class="error">*</span>Actividad: <br>  
     <select name="actividad" id="act">
         <option value="">- Seleccione una actividad -</option>
-        <option value="hiit">Pilates HIIT</option>
-        <option value="terapeutico">Pilates Terapeutico</option>
-        <option value="reformer">Pilates Reformer</option>
+        <option value="hiit" <?= isset($actividad) && $actividad == 'hiit' ? 'selected' : '' ?>>Pilates HIIT</option>
+        <option value="terapeutico" <?= isset($actividad) && $actividad == 'terapeutico' ? 'selected' : '' ?>>Pilates Terapeutico</option>
+        <option value="reformer" <?= isset($actividad) && $actividad == 'reformer' ? 'selected' : '' ?>>Pilates Reformer</option>
     </select><br><br>
-    
+
     <span class="error">*</span>Cantidad de clases: <br>  
     <select name="cantidad" id="cant">
-    <option value="">- Seleccione cantidad -</option>
-        <option value="4">4</option>
-        <option value="8">8</option>
-        <option value="12">12</option>
+        <option value="">- Seleccione cantidad -</option>
+        <option value="4" <?= isset($cantidad) && $cantidad == '4' ? 'selected' : '' ?>>4</option>
+        <option value="8" <?= isset($cantidad) && $cantidad == '8' ? 'selected' : '' ?>>8</option>
+        <option value="12" <?= isset($cantidad) && $cantidad == '12' ? 'selected' : '' ?>>12</option>
     </select><br><br>
-   
+
     <span class="error">*</span>Medio de pago: <br>  
     <select name="pago" id="pago">
         <option value="">- Seleccione medio de pago -</option>
-        <option value="Efectivo">Efectivo</option>
-        <option value="Transferencia">Transferencia</option>
+        <option value="Efectivo" <?= isset($pago) && $pago == 'Efectivo' ? 'selected' : '' ?>>Efectivo</option>
+        <option value="Transferencia" <?= isset($pago) && $pago == 'Transferencia' ? 'selected' : '' ?>>Transferencia</option>
     </select><br><br>
+
   
     <input type="submit" name="confirmar" value="Confirmar" style="background-color: #df7718;">
   </form><br><br><br>

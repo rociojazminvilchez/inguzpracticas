@@ -15,44 +15,35 @@
 <?php
     echo $this->include('plantilla/navbar');
 ?><br>
-
-<?php foreach ($valor as $v): 
-    $id_buscar = session()->getFlashdata('id');
-    if ($v['id'] == $id_buscar) {
-?>
+<!-- confirmacion.php -->
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6"> <!-- Ajusta el tamaño de la columna según sea necesario -->
+        <div class="col-md-6">
             <div class="card" style="width: 100%;">
                 <div class="card-body">
-                <p style="text-align:right;">
-                    
-                    <a href="<?php echo base_url('/formularios/creditos')?>" class="btn btn-secondary" style="background-color: #df7718; border: none;">Volver</a>
-                    
-                </p>
-                    <h5 class="card-title" style="text-align: center";>FINALIZAR COMPRA</h5>
-                    <p class="card-text">Actividad seleccionada: <strong><?= strtoupper($v['actividad'])?></strong></p>
-                    <p class="card-text">Cantidad de clases: <strong><?= $v['cantidad'] ?></strong></p>
-                    <p class="card-text">Medio de pago: <strong><?= $v['pago'] ?></strong></p>
-                    <?php 
-                         if ($v['pago'] == 'Transferencia') { 
-                    ?>
-                    <strong>Estimado/a cliente,</strong><br> 
-                        Le informamos que el siguiente enlace lo redirigirá al sitio de Mercado Pago para que pueda abonar su membresía de manera segura y rápida. Agradecemos su preferencia y quedamos a su disposición para cualquier consulta adicional. <br>
-                        <a href= "https://link.mercadopago.com.ar/inguzpilates" target="_blank" style="text-align: center;">Realizar pago</a><br>
-                    <?php 
-                        }
-                    }
-                endforeach;
-                    ?>
+                    <h5 class="card-title" style="text-align: center;">FINALIZAR COMPRA</h5>
+                    <p class="card-text">Actividad seleccionada: <strong><?= strtoupper($valor[0]['actividad']) ?></strong></p>
+                    <p class="card-text">Cantidad de clases: <strong><?= $valor[0]['cantidad'] ?></strong></p>
+                    <p class="card-text">Medio de pago: <strong><?= $valor[0]['pago'] ?></strong></p>
+
+                    <?php if ($valor[0]['pago'] == 'Transferencia'): ?>
+                        <strong>Estimado/a cliente,</strong><br>
+                        Le informamos que el siguiente enlace lo redirigirá al sitio de Mercado Pago para que pueda abonar su membresía de manera segura y rápida. Agradecemos su preferencia y quedamos a su disposición para cualquier consulta adicional.<br>
+                        <a href="https://link.mercadopago.com.ar/inguzpilates" target="_blank" style="text-align: center;">Realizar pago</a><br>
+                    <?php endif; ?>
+
                     <p style="text-align:center;">
-                    <a href="<?php echo base_url('/inguz/index?confirmar=true')?>" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR</a>
-                  </p>
+                        <a href="<?php echo base_url('/creditos/update') ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Modificar</a>
+                    </p>
+                    <p style="text-align:center;">
+                        <a href="<?php echo base_url('/creditos/guardar') ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR COMPRA</a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-</div><br><br><br><br>
+</div>
+<br><br><br><br><br>
  
 <?php
     echo $this->include('plantilla/footer');

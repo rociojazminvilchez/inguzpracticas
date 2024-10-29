@@ -43,7 +43,10 @@ $routes->get('/formularios/creditos', 'Home::creditos');
 $routes->post('/creditos/create', 'Creditos::create'); 
 $routes->get('/creditos/create', 'Creditos::create'); 
 $routes->get('/creditos/confirmacion', 'Creditos::confirmacion');
-$routes->put('/creditos/(:num)/update', 'Creditos::update/$1');
+$routes->get('/creditos/update/(:num)', 'Creditos::update/$1'); // Para mostrar el formulario de actualización
+$routes->post('/creditos/update/(:num)', 'Creditos::update/$1'); // Para procesar la actualización
+$routes->get('/creditos/guardar', 'Creditos::guardar'); 
+
 #ACTIVIDADES
 $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');

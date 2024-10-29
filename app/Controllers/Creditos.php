@@ -30,42 +30,59 @@ class Creditos extends BaseController{
                 'estado' => 'En espera',    
                 'fecha_creada' => $fecha,
             ]);
-        // Obtener el ID autogenerado
-       $id = $membresiaModel->insertID();
-       return redirect()->to('/creditos/confirmacion')->with('id', $id);
-      
-   }
-
-   public function confirmacion(){
-    $membresiaModel = new MembresiaModel();
-    $data = [
-        'valor' => $membresiaModel->mostrarTodo()
-    ];
-    return view('creditos/confirmacion', $data);
-   }
-
-   public function update(){
-     $post = $this->request->getPost(['id', 'correo', 'actividad', 'cantidad', 'pago']);
-
-    // Verificar que los campos obligatorios no estén vacíos
-    if (empty($post['actividad']) || empty($post['cantidad']) || empty($post['pago'])) {
-        // Redirigir con mensaje de error si algún campo está vacío
-        return redirect()->back()->with('error', 'Todos los campos son obligatorios.')
-            ->withInput();
-    }
-
-    $membresiaModel = new MembresiaModel();
-
-    // Actualiza el registro en la base de datos
-    $membresiaModel->update($post['id'], [
+             
+            $id = $membresiaModel->insertID();
+            // Guardar los datos en la sesión para mostrarlos en la confirmación
+    session()->set('form_data', [
+        'id' => $id,
         'correo' => $post['correo'],
         'actividad' => $post['actividad'],
         'cantidad' => $post['cantidad'],
         'pago' => $post['pago'],
-        'estado' => 'En espera',
-        // Otros campos si es necesario
     ]);
 
-    return redirect()->to('/creditos/confirmacion')->with('success', 'Registro actualizado con éxito.');
+        // Obtener el ID autogenerado
+      
+       
+       return redirect()->to('/creditos/confirmacion');
+      
    }
+
+   public function confirmacion(){
+    $formData = session()->get('form_data');
+
+    // Si no hay datos, redirigir de vuelta al formulario
+    if (empty($formData)) {
+        return redirect()->to('formularios/creditos');
+    }
+    return view('creditos/confirmacion',['valor' => [$formData]]);
+   }
+
+
+   public function update($id) {
+   
+   }
+
+    public function guardar() {
+        $formData = session()->get('form_data');
+    
+        if (empty($formData)) {
+            return redirect()->to('/creditos');
+        }
+    
+        $membresiaModel = new MembresiaModel();
+    
+        // Actualiza o inserta en la base de datos según sea necesario
+        $membresiaModel->update($formData['id'], [
+            'estado' => 'Confirmado', // O cualquier otro campo que necesites
+        ]);
+    
+        // Limpiar la sesión después de confirmar
+        session()->remove('form_data');
+    
+        return redirect()->to('/inguz/index')->with('success', 'Compra confirmada con éxito.');
+    }
+    
+
+   
 }
