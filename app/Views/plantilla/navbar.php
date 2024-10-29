@@ -61,7 +61,7 @@
               <li><a class="dropdown-item">Instructor</a></li>
               <hr>
               <li><a class="dropdown-item" href="<?= base_url('/instructor/perfil'); ?>">Perfil</a></li>
-              <li><a class="dropdown-item" href="<?= base_url('/instructor/membresias'); ?>"> Membresias </a></li>
+              <li><a class="dropdown-item" href="<?= base_url('/creditos/membresia_espera'); ?>"> Membresias </a></li>
              <li><a class="dropdown-item" href="<?= base_url('/instructor/reservas'); ?>"> Reservas </a></li>
              <li><a class="dropdown-item" href="<?= base_url('/actualizar/actualizar_reformer'); ?>"> Actualizar </a></li>
              <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>

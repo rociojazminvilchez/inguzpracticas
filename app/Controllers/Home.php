@@ -130,7 +130,6 @@ class Home extends BaseController
         $data = [
             'membresia' => $membresiaActiva,
         ];
-        
         return view('inguz/reserva', $data);
     }
     

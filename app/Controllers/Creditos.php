@@ -165,5 +165,49 @@ class Creditos extends BaseController{
         }
     }
     
-   
+   //MEMBRESIAS - ACTUALIZAR ESTADOS
+   public function pago_espera(){
+    $membresiaModel = new MembresiaModel();
+    $data = [
+        'espera' => $membresiaModel->membresia_espera(),
+        'activa' => $membresiaModel ->membresia_activa() ,
+        'rechazada' => $membresiaModel ->membresia_rechazada(),
+        'vencida' => $membresiaModel ->membresia_vencida()
+    ]; 
+    return view('/creditos/membresia_espera' , $data);
+   }
+
+   #MODIFICAR ESTADO PAGO
+   public function aprobar_pago($id){
+    $estado_pago='Aprobado';
+    $estado = 'Activa'; 
+    $membresiaModel = new MembresiaModel();
+
+    try{
+    $membresiaModel->update($id, [
+        'estado_pago' => $estado_pago,
+        'estado' => $estado,
+    ]);
+    return redirect()->to('/creditos/membresia_espera')->with('mensaje', 'Pago actualizado con exito.');
+   }catch (\Exception $e) {
+    return redirect()->to('/creditos')->with('error', 'Error al actualizar el pago: ' . esc($e->getMessage())); 
+   }
+ }
+
+ public function rechazar_pago($id){
+    $estado_pago='Rechazado';
+    $estado = 'Rechazada'; 
+    $membresiaModel = new MembresiaModel();
+
+    try{
+    $membresiaModel->update($id, [
+        'estado_pago' => $estado_pago,
+        'estado' => $estado,
+    ]);
+    return redirect()->to('/creditos/membresia_espera')->with('mensaje', 'Pago rechazado con exito.');
+   }catch (\Exception $e) {
+    return redirect()->to('/creditos')->with('error', 'Error al actualizar el pago: ' . esc($e->getMessage())); 
+   }
+    
+   }
 }

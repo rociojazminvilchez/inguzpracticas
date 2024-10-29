@@ -16,6 +16,7 @@ $routes->get('/usuario/create', 'Usuario::create');
 $routes->post('/usuario/create', 'Usuario::create'); 
 $routes->get('/usuario/perfil', 'Usuario::perfil'); 
 $routes->post('/usuario/perfil', 'Usuario::update'); 
+
 #INSTRUCTOR
 $routes->get('/formularios/opc_instructor', 'Home::instructor');
 $routes->get('/formularios/ingresoinstructor', 'Home::ingreso_instructor');
@@ -45,6 +46,11 @@ $routes->get('/creditos/confirmacion', 'Creditos::confirmacion');
 $routes->get('/creditos/update/(:num)', 'Creditos::creditosupdate/$1'); // Para mostrar el formulario de actualización
 $routes->post('/creditos/update/(:num)', 'Creditos::update/$1'); // Para procesar la actualización
 $routes->get('/creditos/guardar', 'Creditos::guardar'); 
+
+#ACTUALIZAR ESTADO CREDITOS
+$routes->get('/creditos/membresia_espera', 'Creditos::pago_espera');
+$routes->get('creditos/aprobar_pago/(:num)', 'Creditos::aprobar_pago/$1');
+$routes->get('creditos/rechazar_pago/(:num)', 'Creditos::rechazar_pago/$1');
 #ACTIVIDADES
 $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');

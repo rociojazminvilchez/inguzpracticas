@@ -21,6 +21,13 @@
     </div>
 <?php endif; ?>
 
+<?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?>
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
