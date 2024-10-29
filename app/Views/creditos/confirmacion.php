@@ -33,7 +33,10 @@
                     <?php endif; ?>
 
                     <p style="text-align:center;">
-                        <a href="<?php echo base_url('/creditos/update') ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Modificar</a>
+                        <?php
+                         $id = $valor[0]['id'];
+                        ?>
+                        <a href="<?php echo base_url('/formularios/creditosupdate/' . $id); ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Modificar</a>
                     </p>
                     <p style="text-align:center;">
                         <a href="<?php echo base_url('/creditos/guardar') ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR COMPRA</a>

@@ -44,7 +44,7 @@ class Creditos extends BaseController{
         // Obtener el ID autogenerado
       
        
-       return redirect()->to('/creditos/confirmacion');
+       return redirect()->to('/creditos/confirmacion')->with('id', $id);
       
    }
 
@@ -59,9 +59,53 @@ class Creditos extends BaseController{
    }
 
 
-   public function update($id) {
-   
+   public function creditosupdate($id) {
+    $membresiaModel = new MembresiaModel();
+
+         // Recuperar la membresía específica usando el ID
+    $membresia = $membresiaModel->find($id);
+
+    // Si no se encuentra la membresía, redirigir o mostrar un mensaje de error
+    if (!$membresia) {
+        return redirect()->to('/creditos')->with('error', 'Membresía no encontrada.');
+    }
+
+    // Pasar los datos de la membresía a la vista
+    return view('formularios/creditosupdate', [
+        'correo' => $membresia['correo'],
+        'actividad' => $membresia['actividad'],
+        'cantidad' => $membresia['cantidad'],
+        'pago' => $membresia['pago'],
+        'id' => $id // Asegúrate de pasar el ID a la vista si lo necesitas
+    ]);
    }
+
+   public function update($id) {
+    // Obtiene los datos del formulario
+    $formData = $this->request->getPost();
+
+    // Validar los datos (opcional)
+    if (!$this->validate([
+        'correo' => 'required|valid_email',
+        'actividad' => 'required',
+        'cantidad' => 'required|is_natural_no_zero',
+        'pago' => 'required',
+    ])) {
+        return redirect()->to('/creditos/create')->with('errors', $this->validator->getErrors())->withInput();
+    }
+
+    // Crea una instancia del modelo y actualiza la base de datos
+    $membresiaModel = new MembresiaModel();
+    $membresiaModel->update($id, [
+        'correo' => $formData['correo'],
+        'actividad' => $formData['actividad'],
+        'cantidad' => $formData['cantidad'],
+        'pago' => $formData['pago'],
+    ]);
+
+    // Redirigir a la página de confirmación o donde desees
+    return redirect()->to('/creditos/confirmacion')->with('id', $id);
+}
 
     public function guardar() {
         $formData = session()->get('form_data');
