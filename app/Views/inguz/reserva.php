@@ -28,55 +28,52 @@
 <?php
     echo $this->include('plantilla/navbar');
 ?>
+
 <?php   
-    if (!session()->has('usuario')) {
-        ?>
+$mensaje = "";  // Variable para almacenar el mensaje de éxito
+$mensajeError = "";  // Variable para almacenar el mensaje de error
 
-    <p style="text-align:center;">
-    <h4 style="text-align: center;"> Para realizar una reserva, debes: </h4><br>
-          <p style="text-align: center;" >    
-    <a href="<?= base_url('/formularios/ingreso'); ?>" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Iniciar sesi&oacuten</a><br><br>
-    <a href="<?= base_url('/formularios/registro'); ?>" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Registrarse</a>
-</p>
-  </form> 
-
-<?php
+if (!session()->has('usuario')) {
+    $mensajeError = "Para realizar una reserva, debe iniciar sesión o registrarse.";
+} else {
+    if (count($membresia) != 0) {
+        $mensaje = "Usted posee una membresía activa.";
+        // Agregar el mensaje flash si existe
+        if (session()->getFlashdata('mensaje')) {
+            $mensaje .= "<br>" . session()->getFlashdata('mensaje');
+        }
+    } else {
+        $mensajeError = "Usted no registra membresías activas.";
+        if (session()->getFlashdata('mensaje')) {
+            $mensajeError .= "<br>" . session()->getFlashdata('mensaje');
+        }
     }
-?><br>
-
-<label for="act" class="inline-text">Seleccione actividad:</label>
-<select name="actividad" id="act" class="select-tamano" onchange="cargarCalendario()">
-  <option value="hiit">Pilates HIIT</option>
-  <option value="terapeutico">Pilates Terapeutico</option>
-  <option value="reformer">Pilates Reformer</option>
-</select>
-
-<!-- Div para el calendario -->
-<div id="calendario"></div>
-
-<script>
-function cargarCalendario() {
-  // Obtener el valor seleccionado
-  const actividad = document.getElementById('act').value;
-
-  // Enviar la solicitud usando fetch
-  if (actividad) {
-    fetch(`<?php echo base_url('HorarioController/cargarCalendario'); ?>/${actividad}`)
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('calendario').innerHTML = data;
-      });
-  } else {
-    document.getElementById('calendario').innerHTML = ''; // Limpiar si no hay selección
-  }
 }
-</script>
-
-
-<?php
-    echo $this->include('plantilla/footer');
 ?>
 
+<div style="text-align: left;">
+    <?php if (!empty($mensaje)): ?>
+        <div class="alert alert-success">
+            <h6><?= $mensaje ?></h6>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($mensajeError)): ?>
+        <div class="alert alert-danger">
+            <h6><?= $mensajeError ?></h6>
+        </div>
+    <?php endif; ?>
+    
+    <?php if (!session()->has('usuario')): ?>
+      <div style="text-align: center;">
+        <a href="<?= base_url('/formularios/ingreso'); ?>" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Iniciar sesión</a><br><br>
+        <a href="<?= base_url('/formularios/registro'); ?>" class="btn btn-primary btn-lg" style="background-color: #df7718; border: none;">Registrarse</a>
+    </div>
+      <?php endif; ?>
+</div>
+<?php
+   echo $this->include('plantilla/footer');
+?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>

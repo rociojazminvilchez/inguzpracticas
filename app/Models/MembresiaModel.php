@@ -11,13 +11,19 @@ class MembresiaModel extends Model {
     protected $allowedFields = ['fecha_creada','correo', 'actividad', 'cantidad', 'pago','estado_pago','fecha_inicio', 'fecha_fin','estado','pases','instructor']; // Campos de la tabla
     
     public function mostrarTodo() {
-        $resultado = $this->db->table($this->table); // Usa el nombre de la tabla protegido
+        $resultado = $this->db->table($this->table);
         return $resultado->get()->getResultArray();
     }
 
     public function mostrarSoloID($id) {
-        $resultado = $this->db->table($this->table); // Usa el nombre de la tabla protegido
-        $resultado->where('id', $id); // Especifica que busque donde 'id' es igual a $id
+        $resultado = $this->db->table($this->table); 
+        $resultado->where('id', $id); 
+        return $resultado->get()->getResultArray();
+    }
+
+    public function mostrar_membresia_activa($correo){
+        $resultado = $this->db->table($this->table); 
+        $resultado->where(['correo' => $correo, 'estado' => 'Activa']);
         return $resultado->get()->getResultArray();
     }
 }

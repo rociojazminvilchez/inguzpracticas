@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\IngresoModel;
 use App\Models\ActividadesModel;
 use App\Models\InformacionModel;
+use App\Models\MembresiaModel;
 
 class Home extends BaseController
 {
@@ -118,13 +119,22 @@ class Home extends BaseController
         return view('inguz/actividades');
     }
 
-    public function reserva(){
-        $actividadesModel = new ActividadesModel();
+    public function reserva() {
+        $membresiaModel = new MembresiaModel();
+        if (session()->has('usuario')) {
+            $correo = session('usuario');  
+            $membresiaActiva = $membresiaModel->mostrar_membresia_activa($correo);
+        } else {
+            $membresiaActiva = [];  
+        }
         $data = [
-            'actividades' => $actividadesModel->mostrarTodoActualizar(),   
+            'membresia' => $membresiaActiva,
         ];
-        return view('inguz/reserva');
+        
+        return view('inguz/reserva', $data);
     }
+    
+
 #COMPRAR CREDITOS
     public function creditos(){
         return view('formularios/creditos');

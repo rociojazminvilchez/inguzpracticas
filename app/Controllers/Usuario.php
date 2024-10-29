@@ -196,8 +196,6 @@ if ($this->request->getFile('image')->isValid() && !$this->request->getFile('ima
     // Mover el archivo a la carpeta deseada
     $file->move(WRITEPATH . 'uploads', $newName); // Guarda en la carpeta `writable/uploads`
 }
-
-
     $registroUsuarioModel->update($id,[
             'nombre' => ucfirst(trim($post['nombre'])),
             'apellido' => ucfirst(trim($post['apellido'])),
