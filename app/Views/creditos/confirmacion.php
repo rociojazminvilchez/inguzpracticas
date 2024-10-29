@@ -26,9 +26,9 @@
             <div class="card" style="width: 100%;">
                 <div class="card-body">
                 <p style="text-align:right;">
-                    <a href="<?php echo base_url('/creditos/update')?>">
-                        <button type="button" class="btn-close" aria-label="Close"> </button>
-                     </a>
+                    
+                    <a href="<?php echo base_url('/formularios/creditos')?>" class="btn btn-secondary" style="background-color: #df7718; border: none;">Volver</a>
+                    
                 </p>
                     <h5 class="card-title" style="text-align: center";>FINALIZAR COMPRA</h5>
                     <p class="card-text">Actividad seleccionada: <strong><?= strtoupper($v['actividad'])?></strong></p>

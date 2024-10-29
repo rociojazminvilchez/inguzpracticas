@@ -47,8 +47,6 @@
     <strong>
     <?= $_SESSION['usuario'] ?>
   </strong><br><br>
-  
-
 
   <input type="hidden" name="correo" value="<?= $_SESSION['usuario'] ?>">
   
