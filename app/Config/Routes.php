@@ -41,14 +41,10 @@ $routes->get('/inguz/reserva','Home::reserva');
 #CREDITOS
 $routes->get('/formularios/creditos', 'Home::creditos');
 $routes->post('/creditos/create', 'Creditos::create'); 
-$routes->get('/creditos/create', 'Creditos::create'); 
 $routes->get('/creditos/confirmacion', 'Creditos::confirmacion');
-$routes->get('/creditos/update/(:num)', 'Creditos::update/$1'); // Para mostrar el formulario de actualización
+$routes->get('/creditos/update/(:num)', 'Creditos::creditosupdate/$1'); // Para mostrar el formulario de actualización
 $routes->post('/creditos/update/(:num)', 'Creditos::update/$1'); // Para procesar la actualización
-$routes->get('/formularios/creditosupdate/(:num)', 'Creditos::creditosupdate/$1');
 $routes->get('/creditos/guardar', 'Creditos::guardar'); 
-$routes->post('/creditos/update/(:num)', 'Creditos::update/$1');
-
 #ACTIVIDADES
 $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');

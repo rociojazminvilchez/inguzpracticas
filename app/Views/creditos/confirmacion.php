@@ -22,30 +22,30 @@
             <div class="card" style="width: 100%;">
                 <div class="card-body">
                     <h5 class="card-title" style="text-align: center;">FINALIZAR COMPRA</h5>
-                    <p class="card-text">Actividad seleccionada: <strong><?= strtoupper($valor[0]['actividad']) ?></strong></p>
-                    <p class="card-text">Cantidad de clases: <strong><?= $valor[0]['cantidad'] ?></strong></p>
-                    <p class="card-text">Medio de pago: <strong><?= $valor[0]['pago'] ?></strong></p>
+                    <p class="card-text">Actividad seleccionada: <strong><?= strtoupper(esc($valor['actividad'])) ?></strong></p>
+                    <p class="card-text">Cantidad de clases: <strong><?= esc($valor['cantidad']) ?></strong></p>
+                    <p class="card-text">Medio de pago: <strong><?= esc($valor['pago']) ?></strong></p>
 
-                    <?php if ($valor[0]['pago'] == 'Transferencia'): ?>
+                    <?php if (isset($valor['pago']) && $valor['pago'] === 'Transferencia'): ?>
                         <strong>Estimado/a cliente,</strong><br>
                         Le informamos que el siguiente enlace lo redirigirá al sitio de Mercado Pago para que pueda abonar su membresía de manera segura y rápida. Agradecemos su preferencia y quedamos a su disposición para cualquier consulta adicional.<br>
                         <a href="https://link.mercadopago.com.ar/inguzpilates" target="_blank" style="text-align: center;">Realizar pago</a><br>
                     <?php endif; ?>
-
                     <p style="text-align:center;">
-                        <?php
-                         $id = $valor[0]['id'];
-                        ?>
-                        <a href="<?php echo base_url('/formularios/creditosupdate/' . $id); ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Modificar</a>
+                        <a href="<?= base_url('/creditos/update/' . esc($valor['id'])) ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Modificar</a>
                     </p>
+
+                    
                     <p style="text-align:center;">
-                        <a href="<?php echo base_url('/creditos/guardar') ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR COMPRA</a>
+                        <a href="<?= base_url('/creditos/guardar') ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR COMPRA</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <br><br><br><br><br>
  
 <?php

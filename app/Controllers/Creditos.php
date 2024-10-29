@@ -7,126 +7,176 @@ use App\Models\MembresiaModel;
 
 class Creditos extends BaseController{
 
-    public function create(){
-        $post = $this->request->getPost(['correo','actividad', 'cantidad', 'pago']);
-        // Verificar que los campos obligatorios no estén vacíos
-       if (empty($post['actividad']) || empty($post['cantidad']) || empty($post['pago'])) {
-        // Redirigir con mensaje de error si algún campo está vacío
-        return redirect()->back()->with('error', 'Todos los campos son obligatorios.');
-       }
-       // Almacena los datos en la sesión para usarlos más tarde
-    session()->set('form_data', $post);
-
+    public function create() {
+        // Obtener los datos del formulario
+        $post = $this->request->getPost(['correo', 'actividad', 'cantidad', 'pago']);
+    
+        // Validar los datos
+        if (!$this->validate([
+            'correo' => 'required|valid_email',
+            'actividad' => 'required',
+            'cantidad' => 'required|is_natural_no_zero',
+            'pago' => 'required',
+        ])) {
+            // Redirigir con mensajes de error si algún campo no es válido
+            return redirect()->back()->with('errors', $this->validator->getErrors())->withInput();
+        }
+    
+        // Almacena los datos en la sesión para usarlos más tarde
+        session()->set('form_data', $post);
+    
+        // Instanciar el modelo
         $membresiaModel = new MembresiaModel();
-     
+        
+        // Obtener la fecha actual
         $fecha = date('Y-m-d');
-       
-        $membresiaModel->insert([
-              
+    
+        // Intentar insertar los datos en la base de datos
+        try {
+            $membresiaModel->insert([
                 'correo' => $post['correo'],
                 'actividad' => $post['actividad'],
                 'cantidad' => $post['cantidad'],
                 'pago' => $post['pago'],
-                'estado' => 'En espera',    
+                'estado' => 'En espera',
                 'fecha_creada' => $fecha,
             ]);
-             
+            
+            // Obtener el ID de la última inserción
             $id = $membresiaModel->insertID();
+            
             // Guardar los datos en la sesión para mostrarlos en la confirmación
-    session()->set('form_data', [
-        'id' => $id,
-        'correo' => $post['correo'],
-        'actividad' => $post['actividad'],
-        'cantidad' => $post['cantidad'],
-        'pago' => $post['pago'],
-    ]);
-
-        // Obtener el ID autogenerado
-      
-       
-       return redirect()->to('/creditos/confirmacion')->with('id', $id);
-      
-   }
-
-   public function confirmacion(){
-    $formData = session()->get('form_data');
-
-    // Si no hay datos, redirigir de vuelta al formulario
-    if (empty($formData)) {
-        return redirect()->to('formularios/creditos');
+            session()->set('form_data', [
+                'id' => $id,
+                'correo' => $post['correo'],
+                'actividad' => $post['actividad'],
+                'cantidad' => $post['cantidad'],
+                'pago' => $post['pago'],
+            ]);
+    
+            // Redirigir a la página de confirmación
+            return redirect()->to('/creditos/confirmacion')->with('id', $id);
+            
+        } catch (\Exception $e) {
+            // Manejo de errores al intentar insertar en la base de datos
+            log_message('error', 'Error al insertar en la base de datos: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error al procesar la solicitud.')->withInput();
+        }
     }
-    return view('creditos/confirmacion',['valor' => [$formData]]);
-   }
+    
 
-
-   public function creditosupdate($id) {
-    $membresiaModel = new MembresiaModel();
-
-         // Recuperar la membresía específica usando el ID
-    $membresia = $membresiaModel->find($id);
-
-    // Si no se encuentra la membresía, redirigir o mostrar un mensaje de error
-    if (!$membresia) {
-        return redirect()->to('/creditos')->with('error', 'Membresía no encontrada.');
+    public function confirmacion() {
+        // Verificar si hay datos en la sesión
+        $formData = session()->get('form_data');
+        
+        // Verificar que hay datos de formulario y que el ID está definido
+        if (empty($formData) || !isset($formData['id'])) {
+            return redirect()->to('/creditos')->with('error', 'No se encontró información de compra.');
+        }
+    
+        $id = $formData['id'];
+        $membresiaModel = new MembresiaModel();
+    
+        // Obtener los datos de la base de datos por ID
+        $valor = $membresiaModel->mostrarSoloID($id);
+        
+        // Verificar si hay resultados
+        if (empty($valor)) {
+            return redirect()->to('/creditos')->with('error', 'Membresía no encontrada.');
+        }
+    
+        // Eliminar el índice adicional que puede estar en el resultado
+        // Si `mostrarSoloID` devuelve un array de resultados, deberías obtener el primer elemento
+        $valor = $valor[0]; // Asumiendo que `mostrarSoloID` devuelve un array de resultados
+    
+        // Pasar los datos a la vista
+        return view('creditos/confirmacion', ['valor' => $valor]);
     }
+    
+    
 
-    // Pasar los datos de la membresía a la vista
-    return view('formularios/creditosupdate', [
-        'correo' => $membresia['correo'],
-        'actividad' => $membresia['actividad'],
-        'cantidad' => $membresia['cantidad'],
-        'pago' => $membresia['pago'],
-        'id' => $id // Asegúrate de pasar el ID a la vista si lo necesitas
-    ]);
-   }
-
-   public function update($id) {
-    // Obtiene los datos del formulario
-    $formData = $this->request->getPost();
-
-    // Validar los datos (opcional)
-    if (!$this->validate([
-        'correo' => 'required|valid_email',
-        'actividad' => 'required',
-        'cantidad' => 'required|is_natural_no_zero',
-        'pago' => 'required',
-    ])) {
-        return redirect()->to('/creditos/create')->with('errors', $this->validator->getErrors())->withInput();
+    public function creditosupdate($id) {
+        $membresiaModel = new MembresiaModel();
+    
+        // Recuperar la membresía específica usando el ID
+        $membresia = $membresiaModel->find($id);
+    
+        // Si no se encuentra la membresía, redirigir o mostrar un mensaje de error
+        if (!$membresia) {
+            return redirect()->to('/creditos')->with('error', 'Membresía no encontrada.');
+        }
+    
+        // Pasar los datos de la membresía a la vista
+        return view('formularios/creditosupdate', [
+            'correo' => esc($membresia['correo']), // Escapar el correo
+            'actividad' => esc($membresia['actividad']), // Escapar la actividad
+            'cantidad' => esc($membresia['cantidad']), // Escapar la cantidad
+            'pago' => esc($membresia['pago']), // Escapar el medio de pago
+            'id' => esc($id) // Asegúrate de escapar el ID si lo vas a mostrar
+        ]);
     }
+    
+ 
 
-    // Crea una instancia del modelo y actualiza la base de datos
-    $membresiaModel = new MembresiaModel();
-    $membresiaModel->update($id, [
-        'correo' => $formData['correo'],
-        'actividad' => $formData['actividad'],
-        'cantidad' => $formData['cantidad'],
-        'pago' => $formData['pago'],
-    ]);
 
-    // Redirigir a la página de confirmación o donde desees
-    return redirect()->to('/creditos/confirmacion')->with('id', $id);
-}
+    public function update($id) {
+        // Obtiene los datos del formulario
+        $formData = $this->request->getPost();
+    
+        // Validar los datos
+        if (!$this->validate([
+            'correo' => 'required|valid_email',
+            'actividad' => 'required',
+            'cantidad' => 'required|is_natural_no_zero',
+            'pago' => 'required',
+        ])) {
+            // Redirigir con los errores encontrados
+            return redirect()->to('/creditos/create')
+                             ->with('errors', $this->validator->getErrors())
+                             ->withInput();
+        }
+    
+        // Asegúrate de que todos los campos son strings
+        $membresiaModel = new MembresiaModel();
+        $membresiaModel->update($id, [
+            'correo' => (string)$formData['correo'],
+            'actividad' => (string)$formData['actividad'],
+            'cantidad' => (int)$formData['cantidad'], // Cambié a int para asegurar que se almacene como número
+            'pago' => (string)$formData['pago'],
+        ]);
+    
+        // Redirigir a la confirmación con un mensaje de éxito
+        return redirect()->to('/creditos/confirmacion')->with('id', $id)->with('success', 'Membresía actualizada con éxito.');
+    }
+    
+
 
     public function guardar() {
         $formData = session()->get('form_data');
     
+        // Verificar si hay datos en la sesión
         if (empty($formData)) {
-            return redirect()->to('/creditos');
+            return redirect()->to('/creditos')->with('error', 'No se encontraron datos de compra.');
         }
     
         $membresiaModel = new MembresiaModel();
     
-        // Actualiza o inserta en la base de datos según sea necesario
-        $membresiaModel->update($formData['id'], [
-            'estado' => 'Confirmado', // O cualquier otro campo que necesites
-        ]);
+        try {
+            // Actualizar el estado de la membresía a 'Confirmado'
+            $membresiaModel->update($formData['id'], [
+                'estado' => 'Confirmado',
+            ]);
+            
+            // Eliminar datos de la sesión
+            session()->remove('form_data');
     
-        // Limpiar la sesión después de confirmar
-        session()->remove('form_data');
-    
-        return redirect()->to('/inguz/index')->with('success', 'Compra confirmada con éxito.');
+            // Redirigir a la página principal con un mensaje de éxito
+            return redirect()->to('/inguz/index')->with('success', 'Compra confirmada con éxito.');
+        } catch (\Exception $e) {
+            // Redirigir en caso de error con un mensaje informativo
+            return redirect()->to('/creditos')->with('error', 'Error al confirmar la compra: ' . esc($e->getMessage()));
+        }
     }
     
-
    
 }

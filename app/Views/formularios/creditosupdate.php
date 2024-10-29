@@ -17,16 +17,17 @@
 
 
 <div class="alert alert-warning" role="alert">
-        <strong>Atención:</strong> Este panel es para MODIFICAR la compra de cr&eacuteditos.
-    </div>
-    <?php if (session()->getFlashdata('error')): ?>
+    <strong>Atención:</strong> Este panel es para MODIFICAR la compra de créditos.
+</div>
+
+<?php if (session()->getFlashdata('error')): ?>
     <div class="alert alert-danger">
         <?= session()->getFlashdata('error') ?>
     </div>
 <?php endif; ?>
 
-<form class="form" action="<?= base_url('creditos/update/' . $id); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
-    <h4 style="text-align:center;">Modificar Cr&eacuteditos</h4><br>
+<form class="form" action="<?= base_url('creditos/update/' . esc($id)); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+    <h4 style="text-align:center;">Modificar Créditos</h4><br>
 
     E-mail: <br>  
     <strong><?= esc($correo) ?></strong><br><br>
@@ -34,7 +35,7 @@
     <input type="hidden" name="correo" value="<?= esc($correo) ?>">
 
     <span class="error">*</span>Actividad: <br>  
-    <select name="actividad" id="act">
+    <select name="actividad" id="act" required>
         <option value="">- Seleccione una actividad -</option>
         <option value="hiit" <?= ($actividad == 'hiit') ? 'selected' : '' ?>>Pilates HIIT</option>
         <option value="terapeutico" <?= ($actividad == 'terapeutico') ? 'selected' : '' ?>>Pilates Terapeutico</option>
@@ -42,7 +43,7 @@
     </select><br><br>
     
     <span class="error">*</span>Cantidad de clases: <br>  
-    <select name="cantidad" id="cant">
+    <select name="cantidad" id="cant" required>
         <option value="">- Seleccione cantidad -</option>
         <option value="4" <?= ($cantidad == 4) ? 'selected' : '' ?>>4</option>
         <option value="8" <?= ($cantidad == 8) ? 'selected' : '' ?>>8</option>
@@ -50,7 +51,7 @@
     </select><br><br>
    
     <span class="error">*</span>Medio de pago: <br>  
-    <select name="pago" id="pago">
+    <select name="pago" id="pago" required>
         <option value="">- Seleccione medio de pago -</option>
         <option value="Efectivo" <?= ($pago == 'Efectivo') ? 'selected' : '' ?>>Efectivo</option>
         <option value="Transferencia" <?= ($pago == 'Transferencia') ? 'selected' : '' ?>>Transferencia</option>
@@ -58,7 +59,8 @@
   
     <input type="submit" name="confirmar" value="Modificar" style="background-color: #df7718;">
 </form>
-br><br><br>
+<br><br><br>
+
  
 
   <?php
