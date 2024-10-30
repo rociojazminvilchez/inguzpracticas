@@ -170,9 +170,6 @@ class Creditos extends BaseController{
     $membresiaModel = new MembresiaModel();
     $data = [
         'espera' => $membresiaModel->membresia_espera(),
-        'activa' => $membresiaModel ->membresia_activa() ,
-        'rechazada' => $membresiaModel ->membresia_rechazada(),
-        'vencida' => $membresiaModel ->membresia_vencida()
     ]; 
     return view('/creditos/membresia_espera' , $data);
    }
@@ -181,12 +178,19 @@ class Creditos extends BaseController{
    public function aprobar_pago($id){
     $estado_pago='Aprobado';
     $estado = 'Activa'; 
+    $fecha = date('Y-m-d');
+
+    $fecha_vencimiento = date('Y-m-d', strtotime($fecha . ' + 30 days'));
+
     $membresiaModel = new MembresiaModel();
 
     try{
     $membresiaModel->update($id, [
         'estado_pago' => $estado_pago,
         'estado' => $estado,
+        'fecha_inicio' => $fecha,
+        'fecha_fin' => $fecha_vencimiento,
+        'fecha_actualizacion' => $fecha,
     ]);
     return redirect()->to('/creditos/membresia_espera')->with('mensaje', 'Pago actualizado con exito.');
    }catch (\Exception $e) {
@@ -198,16 +202,41 @@ class Creditos extends BaseController{
     $estado_pago='Rechazado';
     $estado = 'Rechazada'; 
     $membresiaModel = new MembresiaModel();
-
+    $fecha = date('Y-m-d');
     try{
     $membresiaModel->update($id, [
         'estado_pago' => $estado_pago,
         'estado' => $estado,
+        'pases' => '0',
+        'fecha_actualizacion' => $fecha,
     ]);
     return redirect()->to('/creditos/membresia_espera')->with('mensaje', 'Pago rechazado con exito.');
    }catch (\Exception $e) {
     return redirect()->to('/creditos')->with('error', 'Error al actualizar el pago: ' . esc($e->getMessage())); 
    }
-    
+   }
+
+   public function membresia_activa(){
+    $membresiaModel = new MembresiaModel();
+    $data = [
+        'activa' => $membresiaModel ->membresia_activa() ,
+    ]; 
+    return view('/creditos/membresia_activa' , $data);
+    }
+
+   public function membresia_rechazada(){
+    $membresiaModel = new MembresiaModel();
+    $data = [
+        'rechazada' => $membresiaModel ->membresia_rechazada() ,
+    ]; 
+    return view('/creditos/membresia_rechazada' , $data);
+   }
+
+   public function membresia_vencida(){
+     $membresiaModel = new MembresiaModel();
+    $data = [
+        'vencida' => $membresiaModel ->membresia_vencida() ,
+    ]; 
+    return view('/creditos/membresia_vencida' , $data);
    }
 }

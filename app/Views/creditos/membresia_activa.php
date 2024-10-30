@@ -13,40 +13,29 @@
 <?php
     echo $this->include('plantilla/navbar');
 ?>
-<?php if (session()->getFlashdata('mensaje')): ?>
-    <div class="alert alert-success">
-        <?= session()->getFlashdata('mensaje') ?>
-    </div>
-<?php endif; ?>
-
-<?php if (session()->getFlashdata('error')): ?>
-    <div class="alert alert-danger">
-        <?= session()->getFlashdata('error') ?>
-    </div>
-<?php endif; ?>
 
 <br>
 <div class="alert alert-warning" role="alert">
-  <strong>Atención:</strong> Este panel es para actualizar el estado de la membresia.
+  <strong>Atención:</strong> Este panel es para visualizar el estado de la membresia.
 </div>
 <div class="card text-center">
 <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/creditos/membresia_espera'); ?>><label style="color:red; font-weight: bold;">*En espera</label></a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/creditos/membresia_espera'); ?>> En espera</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/creditos/membresia_activa'); ?>>Activas</a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/creditos/membresia_activa'); ?>> <label style="color:red; font-weight: bold;">*Activas</label></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/creditos/membresia_rechazada'); ?>>Rechazadas</a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/creditos/membresia_rechazada'); ?>> Rechazadas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/creditos/membresia_vencida'); ?>>Vencidas</label></a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/creditos/membresia_vencida'); ?>> Vencidas</label></a>
       </li>
     </ul>
   </div><br>
-  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> Actualizar estado de pago </h3> 
+  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> Membresias activas </h3> 
 
 <table class="table table-hover table-bordered my-3" aria-describedby="titulo">
     <thead class="table-dark">
@@ -57,15 +46,15 @@
             <th scope="col">Actividad</th>
             <th scope="col">Cant. clases</th>
             <th scope="col">Medio de pago</th>
-            <th scope="col">Estado pago</th>
+            <th scope="col">Alta</th>
+            <th scope="col">Vencimiento</th>
+            <th scope="col">Reservas disponibles</th>
         </tr>
     </thead>
 
     <tbody>
-        <?php foreach ($espera as $espe) : 
-            $id= $espe['id']; 
-            $clases = $espe['cantidad'];
-            ?>
+        <?php foreach ($activa as $espe) : 
+            $id= $espe['id']; ?>
             <tr>
               <td><?= $espe['id']; ?></td>
               <td><?= $espe['fecha_creada']; ?></td>
@@ -73,11 +62,9 @@
               <td><?= ucfirst($espe['actividad']); ?></td>
               <td><?= $espe['cantidad']; ?></td>
               <td><?= $espe['pago']; ?></td>
-              
-              <td>
-                <a href="<?= base_url('creditos/aprobar_pago/'.$id) ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Aprobar</a>
-                <a href="<?= base_url('creditos/rechazar_pago/'.$id) ?>" class="btn btn-primary" style="background-color: #df7718; border: none;">Rechazar</a>
-              </td>
+              <td><?= $espe['fecha_inicio']; ?></td>
+              <td><?= $espe['fecha_fin']; ?></td>
+              <td><?= $espe['pases']; ?></td>
             </tr>
         <?php 
             endforeach; 

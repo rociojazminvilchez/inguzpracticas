@@ -8,7 +8,7 @@ class MembresiaModel extends Model {
     protected $useAutoIncrement = true; 
     protected $returnType = 'array';
     protected $useSoftDeletes = false; // Cómo se comporta la eliminación de registro
-    protected $allowedFields = ['fecha_creada','correo', 'actividad', 'cantidad', 'pago','estado_pago','fecha_inicio', 'fecha_fin','estado','pases','instructor']; // Campos de la tabla
+    protected $allowedFields = ['fecha_creada','correo', 'actividad', 'cantidad', 'pago','estado_pago','fecha_inicio', 'fecha_fin','estado','pases','instructor','fecha_actualizacion']; // Campos de la tabla
     
     public function mostrarTodo() {
         $resultado = $this->db->table($this->table);
@@ -36,18 +36,19 @@ class MembresiaModel extends Model {
     public function membresia_activa(){
         $resultado = $this->db->table($this->table); 
         $resultado->where(['estado' => 'Activa']);
+        $resultado->where('pases !=', '0');
         return $resultado->get()->getResultArray();
     }
 
     public function membresia_rechazada(){
         $resultado = $this->db->table($this->table); 
-        $resultado->where(['estado' => 'Rechazada']);
+        $resultado->where(['estado_pago' => 'Rechazado']);
         return $resultado->get()->getResultArray();
     }
 
     public function membresia_vencida(){
         $resultado = $this->db->table($this->table); 
-        $resultado->where(['estado' => 'Vencida']);
+        $resultado->where(['estado' => 'Vencida', 'estado_pago'=>'Aprobado']);
         return $resultado->get()->getResultArray();
     }
 }

@@ -51,6 +51,10 @@ $routes->get('/creditos/guardar', 'Creditos::guardar');
 $routes->get('/creditos/membresia_espera', 'Creditos::pago_espera');
 $routes->get('creditos/aprobar_pago/(:num)', 'Creditos::aprobar_pago/$1');
 $routes->get('creditos/rechazar_pago/(:num)', 'Creditos::rechazar_pago/$1');
+
+$routes->get('/creditos/membresia_activa', 'Creditos::membresia_activa');
+$routes->get('/creditos/membresia_rechazada', 'Creditos::membresia_rechazada');
+$routes->get('/creditos/membresia_vencida', 'Creditos::membresia_vencida');
 #ACTIVIDADES
 $routes->get('/actividades/reformer','Actividades::reformer');
 $routes->get('/actividades/hiit','Actividades::hiit');
