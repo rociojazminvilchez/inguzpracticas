@@ -38,7 +38,6 @@
             <th scope="col">Fecha</th>
             <th scope="col">Horario</th>
             <th scope="col">Actividad</th>
-            <th scope="col">Alumno</th>
             <th scope="col">Instructor a cargo</th>
         </tr>
     </thead>
@@ -49,7 +48,6 @@
               <td><?= $espe['fecha']; ?></td>
               <td><?= $espe['horario']; ?></td>
               <td><?= ucfirst($espe['actividad']); ?></td>
-              <td><?= ucfirst($espe['alumno']); ?></td>
               <td><?= ucfirst($espe['instructor']); ?></td>
             </tr>
         <?php 
