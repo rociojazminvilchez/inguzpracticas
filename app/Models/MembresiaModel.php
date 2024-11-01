@@ -21,6 +21,12 @@ class MembresiaModel extends Model {
         return $resultado->get()->getResultArray();
     }
 
+    public function mostrar_membresia_correo($correo){
+        $resultado = $this->db->table($this->table); 
+        $resultado->where('correo', $correo);
+        return $resultado->get()->getResultArray();
+    }
+    
     public function mostrar_membresia_activa($correo){
         $resultado = $this->db->table($this->table); 
         $resultado->where(['correo' => $correo, 'estado' => 'Activa']);

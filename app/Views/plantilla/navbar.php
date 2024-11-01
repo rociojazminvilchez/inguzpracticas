@@ -52,8 +52,7 @@
             if($_SESSION['tipo']=='Usuario'){
              ?> 
              <li><a class="dropdown-item" href="<?= base_url('/usuario/perfil'); ?>">Perfil</a></li>
-             <li><a class="dropdown-item" href="#"> Historial</a></li>
-             <li><a class="dropdown-item" href="#"> Cr&eacuteditos</a></li>
+             <li><a class="dropdown-item" href="<?= base_url('/usuario/membresias');?>"> Historial</a></li>
              <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>
              <?php
             }else{
@@ -62,7 +61,7 @@
               <hr>
               <li><a class="dropdown-item" href="<?= base_url('/instructor/perfil'); ?>">Perfil</a></li>
               <li><a class="dropdown-item" href="<?= base_url('/creditos/membresia_espera'); ?>"> Membresias </a></li>
-             <li><a class="dropdown-item" href="<?= base_url('/instructor/reservas'); ?>"> Reservas </a></li>
+             <li><a class="dropdown-item" href="<?= base_url('/reservas/reservas'); ?>"> Reservas </a></li>
              <li><a class="dropdown-item" href="<?= base_url('/actualizar/actualizar_reformer'); ?>"> Actualizar </a></li>
              <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>
             

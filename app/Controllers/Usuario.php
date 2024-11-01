@@ -2,8 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\MembresiaModel;
 use App\Models\RegistroUsuarioModel;
-
+use App\Models\ReservaModel;
 
 class Usuario extends BaseController{
 
@@ -210,4 +211,29 @@ if ($this->request->getFile('image')->isValid() && !$this->request->getFile('ima
        
         return redirect()->to('inguz/index')->with('mensaje', 'Usuario actualizado exitosamente.');
 }
+
+#HISTORIAL USUARIO
+    public function membresia(){
+        $membresiaModel = new MembresiaModel();
+
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+          }
+
+        $data = [
+            'membresia' => $membresiaModel->mostrar_membresia_correo($correo)
+        ];
+        return view('usuario/membresias',$data);
+    }
+
+    public function reserva(){
+        $reservaModel = new ReservaModel();
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+          }
+        $data = [
+            'reservas' => $reservaModel->mostrarSoloCorreo($correo)
+        ];
+        return view('usuario/reservas', $data);
+    }
 }

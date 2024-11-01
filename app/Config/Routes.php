@@ -16,7 +16,9 @@ $routes->get('/usuario/create', 'Usuario::create');
 $routes->post('/usuario/create', 'Usuario::create'); 
 $routes->get('/usuario/perfil', 'Usuario::perfil'); 
 $routes->post('/usuario/perfil', 'Usuario::update'); 
-
+#HISTORIAL USUARIO
+$routes->get('/usuario/membresias', 'Usuario::membresia');
+$routes->get('/usuario/reservas', 'Usuario::reserva');
 #INSTRUCTOR
 $routes->get('/formularios/opc_instructor', 'Home::instructor');
 $routes->get('/formularios/ingresoinstructor', 'Home::ingreso_instructor');
@@ -72,3 +74,6 @@ $routes->post('/actualizar/terapeutico', 'Actividades::updateTerapeutico');
 #INFORMACION
 $routes->get('/actualizar/informacion','Actividades::informacion');
 $routes->post('/actualizar/informacion', 'Actividades::updateInformacion');
+
+#RESERVAS
+$routes->get('/reservas/reservas', 'Reserva::reserva');

@@ -233,7 +233,7 @@ class Creditos extends BaseController{
    }
 
    public function membresia_vencida(){
-     $membresiaModel = new MembresiaModel();
+    $membresiaModel = new MembresiaModel();
     $data = [
         'vencida' => $membresiaModel ->membresia_vencida() ,
     ]; 
