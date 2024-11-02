@@ -174,12 +174,15 @@ if (!session()->has('usuario')) {
 <?php
 setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
 
-// Definir los días de la semana en español
-$diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+// Obtener la fecha de hoy
+$hoy = strtotime(date('Y-m-d'));
 
-// Obtener las fechas de lunes a viernes de la semana actual
-$inicioSemana = strtotime('monday this week');
+// Inicializar el arreglo para las fechas de la semana
 $fechasSemana = [];
+// Obtener la fecha del lunes de la próxima semana
+$inicioSemana = strtotime('next monday');
+
+// Calcular las fechas de lunes a viernes de la próxima semana
 for ($i = 0; $i < 5; $i++) {
     $fecha = strtotime("+$i day", $inicioSemana);
     $fechasSemana[] = [
@@ -189,96 +192,59 @@ for ($i = 0; $i < 5; $i++) {
 }
 ?>
 
-<!-- Vista del calendario -->
-<?php
-setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
-
-// Definir los días de la semana en español
-$diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-
-// Obtener las fechas de lunes a viernes de la semana actual
-$inicioSemana = strtotime('monday this week');
-$fechasSemana = [];
-for ($i = 0; $i < 5; $i++) {
-    $fecha = strtotime("+$i day", $inicioSemana);
-    $fechasSemana[] = [
-        'fecha' => date('Y-m-d', $fecha),
-        'dia' => ucfirst(strftime('%A', $fecha))
-    ];
-}
-
-
-?>
-
-<?php
-setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
-
-// Array de traducción de días en inglés a español
-function traducirDia($diaEnIngles) {
-    $traducciones = [
-        'Monday' => 'Lunes',
-        'Tuesday' => 'Martes',
-        'Wednesday' => 'Miércoles',
-        'Thursday' => 'Jueves',
-        'Friday' => 'Viernes',
-    ];
-    return $traducciones[$diaEnIngles] ?? $diaEnIngles;
-}
-
-// Obtener las fechas de lunes a viernes de la semana actual
-$inicioSemana = strtotime('monday this week');
-$fechasSemana = [];
-for ($i = 0; $i < 5; $i++) {
-    $fecha = strtotime("+$i day", $inicioSemana);
-    $fechasSemana[] = [
-        'fecha' => date('Y-m-d', $fecha),
-        'dia' => traducirDia(strftime('%A', $fecha)) // Traduce el día al español
-    ];
-}
-?>
-
-<form action="tu_ruta_de_procesamiento" method="post">
-    <table>
-        <thead>
-            <tr>
-                <th>Hora</th>
-                <?php foreach ($fechasSemana as $fechaInfo): ?>
-                    <th><?php echo $fechaInfo['dia'] . " " . date('d-m-Y', strtotime($fechaInfo['fecha'])); ?></th>
-                <?php endforeach; ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php 
-            foreach ($horas as $hora) {
-                echo "<tr><td>{$hora}</td>";
-                foreach ($fechasSemana as $fechaInfo) {
-                    $actividadEncontrada = false;
-                    foreach ($actividades as $actividad) {
-                        // Verifica que el día y la hora coincidan y que haya cupo
-                        if ($actividad['Dia'] == $fechaInfo['dia'] && $actividad['Horario'] == $hora && $actividad['Cupo'] > 0) {
-                            $actividadEncontrada = true;
-                            echo "<td>
-                                    <label>
-                                        <input class='checkbox' type='radio' name='seleccionar[" . htmlspecialchars($fechaInfo['fecha']) . "]' value='" . htmlspecialchars($actividad['Tipo']) . "'>
-                                        Cupos Disponibles: " . htmlspecialchars($actividad['Cupo']) . "
-                                    </label>
-                                  </td>";
-                            break;
+<!-- Mensaje de fin de semana -->
+<?php if (date('N') >= 6): ?>
+    <div style="background-color: #ffdddd; padding: 10px; border: 1px solid #ff0000; text-align: center;">
+        <strong>Nota:</strong> Las reservas solo están disponibles a partir del próximo lunes (<?php echo date('d-m-Y', strtotime('next monday')); ?>).
+    </div>
+<?php else: ?>
+    <!-- Vista del calendario -->
+    <form action="tu_ruta_de_procesamiento" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <?php foreach ($fechasSemana as $fechaInfo): ?>
+                        <th><?php echo $fechaInfo['dia'] . " " . date('d-m-Y', strtotime($fechaInfo['fecha'])); ?></th>
+                    <?php endforeach; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                foreach ($horas as $hora) {
+                    echo "<tr><td>{$hora}</td>";
+                    foreach ($fechasSemana as $fechaInfo) {
+                        $actividadEncontrada = false;
+                        foreach ($actividades as $actividad) {
+                            // Verifica que el día y la hora coincidan y que haya cupo
+                            if ($actividad['Dia'] == $fechaInfo['dia'] && $actividad['Horario'] == $hora && $actividad['Cupo'] > 0) {
+                                $actividadEncontrada = true;
+                                echo "<td>
+                                        <label>
+                                            <input class='checkbox' type='radio' name='seleccionar[" . htmlspecialchars($fechaInfo['fecha']) . "]' value='" . htmlspecialchars($actividad['Tipo']) . "'>
+                                            Cupos Disponibles: " . htmlspecialchars($actividad['Cupo']) . "
+                                        </label>
+                                      </td>";
+                                break;
+                            }
+                        }
+                        if (!$actividadEncontrada) {
+                            echo "<td>-</td>"; // Espacio vacío si no hay actividad o no hay cupo
                         }
                     }
-                    if (!$actividadEncontrada) {
-                        echo "<td>-</td>"; // Espacio vacío si no hay actividad o no hay cupo
-                    }
+                    echo "</tr>";
                 }
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
-    </table>
-    <p style="text-align: center;">
-        <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR RESERVA</button>
-    </p>
-</form>
+                ?>
+            </tbody>
+        </table>
+        <p style="text-align: center;">
+            <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR RESERVA</button>
+        </p>
+    </form>
+<?php endif; ?>
+
+
+
 
 
 <?php
