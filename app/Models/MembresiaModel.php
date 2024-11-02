@@ -57,4 +57,11 @@ class MembresiaModel extends Model {
         $resultado->where(['estado' => 'Vencida', 'estado_pago'=>'Aprobado']);
         return $resultado->get()->getResultArray();
     }
+
+    public function membresia_activa_segunID($correo){
+        $resultado = $this->db->table($this->table); 
+        $resultado->where(['correo' => $correo]);
+        $resultado->where('estado', 'Activa');
+        return $resultado->get()->getResultArray();
+    }
 }

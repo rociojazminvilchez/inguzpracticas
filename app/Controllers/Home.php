@@ -121,15 +121,16 @@ class Home extends BaseController
 
     public function reserva() {
         $membresiaModel = new MembresiaModel();
+
         if (session()->has('usuario')) {
             $correo = session('usuario');  
-            $membresiaActiva = $membresiaModel->mostrar_membresia_activa($correo);
-        } else {
-            $membresiaActiva = [];  
-        }
+        } 
+
         $data = [
-            'membresia' => $membresiaActiva,
+            'membresia' => $membresiaModel ->mostrar_membresia_activa($correo), 
+            'actividades' => $membresiaModel-> membresia_activa_segunID($correo)
         ];
+
         return view('inguz/reserva', $data);
     }
     
