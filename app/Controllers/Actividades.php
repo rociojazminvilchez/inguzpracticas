@@ -17,7 +17,8 @@ class Actividades extends BaseController
     
         $data = [
             'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'Reformer']),
-            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Reformer'])
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Reformer']),
+            'horas' => $actividadesModel->obtenerHorariosREFORMER2()
         ];
         
         return view('actividades/reformer', $data); 
@@ -29,7 +30,8 @@ class Actividades extends BaseController
     
         $data = [
             'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'HIIT']),
-            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'HIIT'])
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'HIIT']),
+            'horas' => $actividadesModel->obtenerHorariosHIIT2()
         ];
         
         return view('actividades/hiit',$data);
@@ -41,7 +43,8 @@ class Actividades extends BaseController
     
         $data = [
             'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'Terapeutico']),
-            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Terapeutico'])
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'Terapeutico']),
+            'horas' => $actividadesModel->obtenerHorariosTERAPEUTICO2()
         ];
         return view('actividades/terapeutico', $data);
     }

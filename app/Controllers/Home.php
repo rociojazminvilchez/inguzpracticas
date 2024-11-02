@@ -5,6 +5,7 @@ use App\Models\IngresoModel;
 use App\Models\ActividadesModel;
 use App\Models\InformacionModel;
 use App\Models\MembresiaModel;
+use App\Models\PilatesModel;
 
 class Home extends BaseController
 {
@@ -121,16 +122,36 @@ class Home extends BaseController
 
     public function reserva() {
         $membresiaModel = new MembresiaModel();
+        $actividadesModel = new ActividadesModel();
+        $pilatesModel = new PilatesModel();
 
         if (session()->has('usuario')) {
             $correo = session('usuario');  
-        } 
+            $data = [
+            'membresia' => $membresiaModel -> mostrar_membresia_activa($correo), 
+            'actividades2' => $membresiaModel-> membresia_activa_segunID($correo),
+            'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'HIIT']),
+            'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'HIIT']),
+             'horas' => $actividadesModel->obtenerHorariosHIIT()
 
-        $data = [
-            'membresia' => $membresiaModel ->mostrar_membresia_activa($correo), 
-            'actividades' => $membresiaModel-> membresia_activa_segunID($correo)
         ];
 
+  setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
+
+// Calcular las fechas de lunes a viernes de la semana actual
+$inicioSemana = strtotime('monday this week');
+$data['fechasSemana'] = [];
+for ($i = 0; $i < 5; $i++) {
+    $fecha = strtotime("+$i day", $inicioSemana);
+    $data['fechasSemana'][] = [
+        'fecha' => date('Y-m-d', $fecha),           // Fecha en formato Y-m-d
+        'dia' => ucfirst(strftime('%A', $fecha))     // Día de la semana en español, con la primera letra en mayúscula
+    ];
+}
+
+        }else{
+            return redirect()->to('inguz/index');
+        }
         return view('inguz/reserva', $data);
     }
     

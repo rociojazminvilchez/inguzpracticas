@@ -71,6 +71,65 @@ class ActividadesModel extends Model {
         $resultado->orderBy("FIELD(dia, 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes')");
         return $resultado->get()->getResultArray();
     }
+
+
+    public function obtenerHorariosHIIT() {
+        $resultado = $this->db->table('informacion');
+        $resultado->select('Horario');
+        $resultado->where('Tipo', 'HIIT'); // Filtrar por tipo HIIT
+        $resultado->where('Cupo >', 0); // Asegurarse de que hay cupo disponible
+        $resultado->groupBy('Horario'); // Evitar duplicados
+        $query = $resultado->get(); // Ejecutar la consulta
+    return array_column($query->getResultArray(), 'Horario');
+    }
+
+    public function obtenerHorariosREFORMER() {
+        $resultado = $this->db->table('informacion');
+        $resultado->select('Horario');
+        $resultado->where('Tipo', 'Reformer'); // Filtrar por tipo HIIT
+        $resultado->where('Cupo >', 0); // Asegurarse de que hay cupo disponible
+        $resultado->groupBy('Horario'); // Evitar duplicados
+        $query = $resultado->get(); // Ejecutar la consulta
+    return array_column($query->getResultArray(), 'Horario');
+    } 
+
+    public function obtenerHorariosTERAPEUTICO() {
+        $resultado = $this->db->table('informacion');
+        $resultado->select('Horario');
+        $resultado->where('Tipo', 'Terapeutico'); // Filtrar por tipo HIIT
+        $resultado->where('Cupo >', 0); // Asegurarse de que hay cupo disponible
+        $resultado->groupBy('Horario'); // Evitar duplicados
+        $query = $resultado->get(); // Ejecutar la consulta
+    return array_column($query->getResultArray(), 'Horario');
+    }
+    
+    #HORARIOS SIN TENER EN CUENTA CUPOS
+    public function obtenerHorariosHIIT2() {
+        $resultado = $this->db->table('informacion');
+        $resultado->select('Horario');
+        $resultado->where('Tipo', 'HIIT'); // Filtrar por tipo HIIT
+        $resultado->groupBy('Horario'); // Evitar duplicados
+        $query = $resultado->get(); // Ejecutar la consulta
+    return array_column($query->getResultArray(), 'Horario');
+    }
+
+    public function obtenerHorariosREFORMER2() {
+        $resultado = $this->db->table('informacion');
+        $resultado->select('Horario');
+        $resultado->where('Tipo', 'Reformer'); // Filtrar por tipo HIIT
+        $resultado->groupBy('Horario'); // Evitar duplicados
+        $query = $resultado->get(); // Ejecutar la consulta
+    return array_column($query->getResultArray(), 'Horario');
+    }
+
+    public function obtenerHorariosTERAPEUTICO2() {
+        $resultado = $this->db->table('informacion');
+        $resultado->select('Horario');
+        $resultado->where('Tipo', 'Terapeutico'); // Filtrar por tipo HIIT
+        $resultado->groupBy('Horario'); // Evitar duplicados
+        $query = $resultado->get(); // Ejecutar la consulta
+    return array_column($query->getResultArray(), 'Horario');
+    }
 }
 
 

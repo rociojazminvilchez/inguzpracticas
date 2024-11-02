@@ -9,7 +9,8 @@ class Reserva extends BaseController
         $reservaModel = new ReservaModel();
 
         $data = [
-            'reservas' => $reservaModel->mostrarTodo()
+            'reservas' => $reservaModel->mostrarTodo(),
+            
         ];
         return view('reservas/reservas', $data);
     }

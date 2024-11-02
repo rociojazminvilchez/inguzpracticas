@@ -30,6 +30,21 @@
     align-items: center; /* Alinea verticalmente al centro */
 }
 
+table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .checkbox {
+            margin: 0;
+        }
     </style>
 <body>
 <?php
@@ -87,8 +102,8 @@ if (!session()->has('usuario')) {
 <div style="display: flex; align-items: center;">
     <label for="actividades">Actividad - Pilates:</label>
     <select id="actividades" name="act" class="select-actividades">
-        <?php if (!empty($actividades)) : ?>
-            <?php foreach ($actividades as $actividad) : ?>
+        <?php if (!empty($actividades2)) : ?>
+            <?php foreach ($actividades2 as $actividad) : ?>
                 <option value="<?php echo htmlspecialchars($actividad['actividad']); ?>">
                     <?php echo htmlspecialchars(strtoupper($actividad['actividad'])); ?>
                 </option>
@@ -100,52 +115,118 @@ if (!session()->has('usuario')) {
 </div><br>
 
 
+<?php
+setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
 
-          <div id="calendar"></div>
-          <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
+// Definir los días de la semana en español
+$diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek', // Vista semanal con horas
-            selectable: true,            // Habilitar selección de eventos
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'timeGridWeek,timeGridDay'
-            },
-            events: '/obtener_eventos.php', // Ruta para cargar eventos desde tu base de datos
-            select: function(info) {
-                // Acción al seleccionar un horario en el calendario
-                let confirmar = confirm(`¿Reservar el horario desde ${info.startStr} hasta ${info.endStr}?`);
-                if (confirmar) {
-                    // Aquí podrías hacer una petición AJAX para guardar la reserva
-                    fetch('/reservar.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            start: info.startStr,
-                            end: info.endStr
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Reserva confirmada');
-                            calendar.refetchEvents(); // Recargar eventos
-                        } else {
-                            alert('Error en la reserva');
+// Obtener las fechas de lunes a viernes de la semana actual
+$inicioSemana = strtotime('monday this week');
+$fechasSemana = [];
+for ($i = 0; $i < 5; $i++) {
+    $fecha = strtotime("+$i day", $inicioSemana);
+    $fechasSemana[] = [
+        'fecha' => date('Y-m-d', $fecha),
+        'dia' => ucfirst(strftime('%A', $fecha))
+    ];
+}
+?>
+
+<!-- Vista del calendario -->
+<?php
+setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
+
+// Definir los días de la semana en español
+$diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+
+// Obtener las fechas de lunes a viernes de la semana actual
+$inicioSemana = strtotime('monday this week');
+$fechasSemana = [];
+for ($i = 0; $i < 5; $i++) {
+    $fecha = strtotime("+$i day", $inicioSemana);
+    $fechasSemana[] = [
+        'fecha' => date('Y-m-d', $fecha),
+        'dia' => ucfirst(strftime('%A', $fecha))
+    ];
+}
+
+
+?>
+
+<?php
+setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
+
+// Array de traducción de días en inglés a español
+function traducirDia($diaEnIngles) {
+    $traducciones = [
+        'Monday' => 'Lunes',
+        'Tuesday' => 'Martes',
+        'Wednesday' => 'Miércoles',
+        'Thursday' => 'Jueves',
+        'Friday' => 'Viernes',
+    ];
+    return $traducciones[$diaEnIngles] ?? $diaEnIngles;
+}
+
+// Obtener las fechas de lunes a viernes de la semana actual
+$inicioSemana = strtotime('monday this week');
+$fechasSemana = [];
+for ($i = 0; $i < 5; $i++) {
+    $fecha = strtotime("+$i day", $inicioSemana);
+    $fechasSemana[] = [
+        'fecha' => date('Y-m-d', $fecha),
+        'dia' => traducirDia(strftime('%A', $fecha)) // Traduce el día al español
+    ];
+}
+?>
+
+<!-- Vista del calendario -->
+<form action="tu_ruta_de_procesamiento" method="post"> <!-- Ajusta la ruta de procesamiento -->
+    <table border="1"> <!-- Añadido borde para ver mejor la tabla -->
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <?php foreach ($fechasSemana as $fechaInfo): ?>
+                    <th><?php echo $fechaInfo['dia'] . " " . date('d-m-Y', strtotime($fechaInfo['fecha'])); ?></th>
+                <?php endforeach; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            //$horas = ['8-9hs', '9-10hs', '10-11hs', '11-12hs', '15-16hs', '16-17hs', '17-18hs', '18-19hs', '19-20hs', '20-21hs'];
+            foreach ($horas as $hora) {
+                echo "<tr><td>{$hora}</td>";
+                foreach ($fechasSemana as $fechaInfo) {
+                    $actividadEncontrada = false;
+                    foreach ($actividades as $actividad) {
+                        // Verifica que el día y la hora coincidan y que haya cupo
+                        if ($actividad['Dia'] == $fechaInfo['dia'] && $actividad['Horario'] == $hora && $actividad['Cupo'] > 0) {
+                            $actividadEncontrada = true;
+                            echo "<td>
+                                    <label>
+                                        <input class='checkbox' type='checkbox' name='seleccionar[]' value='" . htmlspecialchars($actividad['Tipo']) . "'>
+                                        " . htmlspecialchars($actividad['Tipo']) . "
+                                    </label>
+                                  </td>";
+                            break;
                         }
-                    });
+                    }
+                    if (!$actividadEncontrada) {
+                        echo "<td>-</td>"; // Espacio vacío si no hay actividad o no hay cupo
+                    }
                 }
+                echo "</tr>";
             }
-        });
+            ?>
+        </tbody>
+    </table>
+    <button type="submit">Enviar Selección</button>
+</form>
 
-        calendar.render();
-    });
-</script>
+
+
+</body>
 
 <?php
    }
