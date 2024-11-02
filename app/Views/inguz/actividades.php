@@ -53,7 +53,7 @@ Este es el momento perfecto para ejercitar tu cuerpo de manera entretenida y con
           <h5 class="card-title">Pilates Terap&eacuteutico</h5>
           <p class="card-text">Rehabilitación y tratamiento de lesiones, mejora de la postura y alivio del dolor.</p>
           <p style="text-align: center;">
-            <a href="<?= base_url('/actividades/terapeutico'); ?>" class="btn btn-primary" style="background-color: #df7718;  border: none;">Ver m&aacutes informaci&oacuten</a>
+            <a href="<?= base_url('/actividades/terapeutico'); ?>" class="btn btn-primary btn-lg" style="background-color: #df7718;  border: none;">Ver m&aacutes informaci&oacuten</a>
           </p>
         </div>
       </div>

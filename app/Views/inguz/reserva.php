@@ -14,6 +14,28 @@
 
   </head>
   <style>
+    html, body {
+    height: 100%; /* Asegúrate de que el body ocupe el 100% de la altura de la ventana */
+    margin: 0; /* Elimina el margen por defecto */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en una columna */
+}
+
+.main-content {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio restante */
+    padding: 20px; /* Espaciado alrededor del contenido */
+}
+
+footer {
+    background-color: #f2f2f2; /* Color de fondo del footer */
+    text-align: center; /* Centrar el texto del footer */
+    padding: 10px; /* Espaciado interno del footer */
+    position: relative; /* Posición relativa para evitar que cubra el contenido */
+}
+
     .inline-text, .select-tamano {
   display: inline-block;
   vertical-align: middle; /* Alinea verticalmente ambos elementos */
@@ -31,20 +53,53 @@
 }
 
 table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .checkbox {
-            margin: 0;
-        }
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+td {
+    background-color: #fff;
+}
+
+td:hover {
+    background-color: #f9f9f9;
+}
+
+.checkbox {
+    margin: 0;
+}
+
+/* Estilo para botones, si los necesitas */
+input[type="submit"] {
+    background-color: #df7718; /* Color del botón */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+input[type="submit"]:hover {
+    background-color: #c75d15; /* Color más oscuro al hacer hover */
+}
+
+
     </style>
 <body>
 <?php
@@ -59,7 +114,7 @@ if (!session()->has('usuario')) {
     $mensajeError = "Para realizar una reserva, debe iniciar sesión o registrarse.";
 } else {
     if (count($membresia) != 0) {
-        $mensaje = "Usted posee una membresía activa.";
+        $mensaje = "Solo puede reservar una actividad POR DIA";
         // Agregar el mensaje flash si existe
         if (session()->getFlashdata('mensaje')) {
             $mensaje .= "<br>" . session()->getFlashdata('mensaje');
@@ -97,6 +152,7 @@ if (!session()->has('usuario')) {
 
 <?php
    if($mostrar==='1'){
+   
     ?>
 
 <div style="display: flex; align-items: center;">
@@ -181,9 +237,8 @@ for ($i = 0; $i < 5; $i++) {
 }
 ?>
 
-<!-- Vista del calendario -->
-<form action="tu_ruta_de_procesamiento" method="post"> <!-- Ajusta la ruta de procesamiento -->
-    <table border="1"> <!-- Añadido borde para ver mejor la tabla -->
+<form action="tu_ruta_de_procesamiento" method="post">
+    <table>
         <thead>
             <tr>
                 <th>Hora</th>
@@ -194,7 +249,6 @@ for ($i = 0; $i < 5; $i++) {
         </thead>
         <tbody>
             <?php 
-            //$horas = ['8-9hs', '9-10hs', '10-11hs', '11-12hs', '15-16hs', '16-17hs', '17-18hs', '18-19hs', '19-20hs', '20-21hs'];
             foreach ($horas as $hora) {
                 echo "<tr><td>{$hora}</td>";
                 foreach ($fechasSemana as $fechaInfo) {
@@ -205,8 +259,8 @@ for ($i = 0; $i < 5; $i++) {
                             $actividadEncontrada = true;
                             echo "<td>
                                     <label>
-                                        <input class='checkbox' type='checkbox' name='seleccionar[]' value='" . htmlspecialchars($actividad['Tipo']) . "'>
-                                        " . htmlspecialchars($actividad['Tipo']) . "
+                                        <input class='checkbox' type='radio' name='seleccionar[" . htmlspecialchars($fechaInfo['fecha']) . "]' value='" . htmlspecialchars($actividad['Tipo']) . "'>
+                                        Cupos Disponibles: " . htmlspecialchars($actividad['Cupo']) . "
                                     </label>
                                   </td>";
                             break;
@@ -221,12 +275,11 @@ for ($i = 0; $i < 5; $i++) {
             ?>
         </tbody>
     </table>
-    <button type="submit">Enviar Selección</button>
+    <p style="text-align: center;">
+        <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR RESERVA</button>
+    </p>
 </form>
 
-
-
-</body>
 
 <?php
    }
