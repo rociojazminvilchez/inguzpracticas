@@ -27,6 +27,11 @@
         <?= session()->getFlashdata('mensaje') ?>
     </div>
 <?php endif; ?>
+<?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?>
 
   <form class="form" action="<?php echo base_url('/home/login')?>" method="POST">
     

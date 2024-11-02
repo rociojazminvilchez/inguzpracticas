@@ -119,41 +119,53 @@ class Home extends BaseController
     public function actividades(){
         return view('inguz/actividades');
     }
-
+    
     public function reserva() {
+        // Instancias de los modelos
         $membresiaModel = new MembresiaModel();
         $actividadesModel = new ActividadesModel();
         $pilatesModel = new PilatesModel();
-
-        if (session()->has('usuario')) {
-            $correo = session('usuario');  
-            $data = [
-            'membresia' => $membresiaModel -> mostrar_membresia_activa($correo), 
-            'actividades2' => $membresiaModel-> membresia_activa_segunID($correo),
+    
+        // Verificar si el usuario tiene una sesión activa
+        if (!session()->has('usuario')) {
+            return redirect()->to('/formularios/ingreso')->with('error', 'Por favor, inicie sesión para realizar una reserva.');
+        }
+    
+        // Obtener el correo del usuario en sesión
+        $correo = session('usuario');  
+    
+        // Recopilación de datos
+        $data = [
+            'membresia' => $membresiaModel->mostrar_membresia_activa($correo), 
+            'actividades2' => $membresiaModel->membresia_activa_segunID($correo),
             'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'HIIT']),
             'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'HIIT']),
-             'horas' => $actividadesModel->obtenerHorariosHIIT()
-
+            'horas' => $actividadesModel->obtenerHorariosHIIT()
         ];
-
-  setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
-
-// Calcular las fechas de lunes a viernes de la semana actual
-$inicioSemana = strtotime('monday this week');
-$data['fechasSemana'] = [];
-for ($i = 0; $i < 5; $i++) {
-    $fecha = strtotime("+$i day", $inicioSemana);
-    $data['fechasSemana'][] = [
-        'fecha' => date('Y-m-d', $fecha),           // Fecha en formato Y-m-d
-        'dia' => ucfirst(strftime('%A', $fecha))     // Día de la semana en español, con la primera letra en mayúscula
-    ];
-}
-
-        }else{
-            return redirect()->to('inguz/index');
+    
+        // Configuración de idioma a español
+        setlocale(LC_TIME, 'es_ES.UTF-8');
+    
+        // Obtener la fecha de hoy
+        $hoy = strtotime(date('Y-m-d'));
+    
+        // Calcular las fechas de lunes a viernes de la próxima semana
+        $inicioSemana = strtotime('next monday');
+        $data['fechasSemana'] = [];
+        for ($i = 0; $i < 5; $i++) {
+            $fecha = strtotime("+$i day", $inicioSemana);
+            $data['fechasSemana'][] = [
+                'fecha' => date('Y-m-d', $fecha),           // Fecha en formato Y-m-d
+                'dia' => ucfirst(strftime('%A', $fecha))     // Día de la semana en español, con la primera letra en mayúscula
+            ];
         }
+    
+        // Devolver la vista con los datos recopilados
         return view('inguz/reserva', $data);
     }
+    
+    
+    
     
 
 #COMPRAR CREDITOS
