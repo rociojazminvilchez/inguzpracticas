@@ -172,22 +172,43 @@ if (!session()->has('usuario')) {
 
 
 <?php
-setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura el idioma a español
+setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
+
+// Array de días en español para comparar con la base de datos
+$diasBD = [
+    'Monday' => 'Lunes',
+    'Tuesday' => 'Martes',
+    'Wednesday' => 'Miércoles',
+    'Thursday' => 'Jueves',
+    'Friday' => 'Viernes',
+    'Saturday' => 'Sábado',
+    'Sunday' => 'Domingo'
+];
 
 // Obtener la fecha de hoy
 $hoy = strtotime(date('Y-m-d'));
 
 // Inicializar el arreglo para las fechas de la semana
 $fechasSemana = [];
-// Obtener la fecha del lunes de la próxima semana
-$inicioSemana = strtotime('next monday');
 
-// Calcular las fechas de lunes a viernes de la próxima semana
+// Determinar el inicio de la semana:
+// Si hoy es sábado o domingo, establecer el lunes de la próxima semana;
+// de lo contrario, establecer el lunes de la misma semana.
+if (date('N') >= 6) { // Sábado (6) o domingo (7)
+    $inicioSemana = strtotime('next monday');
+} else {
+    $inicioSemana = strtotime('last monday', strtotime('tomorrow'));
+}
+
+// Calcular las fechas de lunes a viernes de la semana correspondiente
 for ($i = 0; $i < 5; $i++) {
     $fecha = strtotime("+$i day", $inicioSemana);
+    $nombreDiaIngles = date('l', $fecha); // Nombre del día en inglés
+    $nombreDiaEspanol = $diasBD[$nombreDiaIngles]; // Convertir al nombre en español
+
     $fechasSemana[] = [
         'fecha' => date('Y-m-d', $fecha),
-        'dia' => ucfirst(strftime('%A', $fecha))
+        'dia' => $nombreDiaEspanol
     ];
 }
 ?>
@@ -242,6 +263,7 @@ for ($i = 0; $i < 5; $i++) {
         </p>
     </form>
 <?php endif; ?>
+
 
 
 
