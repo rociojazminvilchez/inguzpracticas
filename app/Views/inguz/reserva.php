@@ -153,10 +153,10 @@ if (!session()->has('usuario')) {
 <?php
    if($mostrar==='1'){
    
-    ?>
+?>
 
 <div style="display: flex; align-items: center;">
-    <label for="actividades">Actividad - Pilates:</label>
+   <h4> <label for="actividades" style="padding-left: 40px;">Actividad - Pilates:</label></h4>
     <select id="actividades" name="act" class="select-actividades">
         <?php if (!empty($actividades2)) : ?>
             <?php foreach ($actividades2 as $actividad) : ?>
@@ -243,7 +243,7 @@ for ($i = 0; $i < 5; $i++) {
                                 echo "<td>
                                         <label>
                                             <input class='checkbox' type='radio' name='seleccionar[" . htmlspecialchars($fechaInfo['fecha']) . "]' value='" . htmlspecialchars($actividad['Tipo']) . "'>
-                                            Cupos Disponibles: " . htmlspecialchars($actividad['Cupo']) . "
+                                            Lugares disponibles: " . htmlspecialchars($actividad['Cupo']) . "
                                         </label>
                                       </td>";
                                 break;
@@ -259,7 +259,7 @@ for ($i = 0; $i < 5; $i++) {
             </tbody>
         </table>
         <p style="text-align: center;">
-            <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">CONFIRMAR RESERVA</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #df7718; border: none;">RESERVAR</button>
         </p>
     </form>
 <?php endif; ?>

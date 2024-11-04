@@ -8,7 +8,7 @@ class ReservaModel extends Model{
     protected $useAutoIncrement = true; 
     protected $returnType = 'array';
     protected $useSoftDeletes = false; //Como se comporta la eliminacion de registro
-    protected $allowedFields = ['fecha', 'horario','actividad','alumno','instructor']; //Van los campos de la tabla
+    protected $allowedFields = ['fecha', 'horario','actividad','alumno','instructor','estado']; //Van los campos de la tabla
     
     public function mostrarTodo() {
         $resultado = $this->db->table($this->table);

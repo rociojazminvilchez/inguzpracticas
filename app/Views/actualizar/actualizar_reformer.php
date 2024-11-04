@@ -15,7 +15,7 @@
 ?>
 <br>
 <div class="alert alert-warning" role="alert">
-  <strong>Atención:</strong> Este panel es para actualizar informaci&oacuten.
+  <strong>Atención:</strong> En este panel SOLO puede modificar los días | horarios de las clases que administra.
 </div>
 <div class="card text-center">
 <div class="card-header">
@@ -80,7 +80,7 @@ foreach ($horas as $hora): ?>
               $ocupado = false;
               $tipoActividad = '';
               $instructorActividad = '';
-
+              $tipoActividadPanel = 'Reformer';
               // Recorrer las actividades para verificar si hay una asignada en este horario y día
               foreach ($actividades as $actividad) {
                 
@@ -97,7 +97,7 @@ foreach ($horas as $hora): ?>
                 <select name="horarios[<?= esc($hora) ?>][<?= esc($dia) ?>]" class="form-select">
                     <option value="<?= esc($tipoActividad) ?>"><?= esc($tipoActividad) ?></option>
                     <?php
-                    if ($instructorSesion === $instructorActividad): ?>
+                    if ($instructorSesion === $instructorActividad && $tipoActividadPanel=== $tipoActividad): ?>
                         <option value="-">-</option>
                     <?php endif; ?>
                 </select>

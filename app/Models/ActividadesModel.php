@@ -7,7 +7,7 @@ class ActividadesModel extends Model {
     protected $useAutoIncrement = true; 
     protected $returnType = 'array';
     protected $useSoftDeletes = false; 
-    protected $allowedFields = ['Tipo', 'Dia', 'Horario','Cupo', 'Instructor']; 
+    protected $allowedFields = ['Tipo', 'Dia', 'Horario','hora_inicio','hora_fin','Cupo', 'Instructor']; 
     
     public function verificarCoincidenciaInstructor() {
         // Consulta SQL para verificar coincidencias
