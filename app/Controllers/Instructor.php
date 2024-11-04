@@ -44,12 +44,6 @@ class Instructor extends BaseController{
                     'min_length[3]' => 'Debe tener al menos 3 caracteres'
                 ]
             ],
-            'tipo_clase' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => 'Debes seleccionar un tipo de pilates.'
-            ]
-            ],
             'email' => [
                 'rules' => 'required|valid_email|is_unique[registroinstructor.correo]',
                 'errors' => [
@@ -81,12 +75,7 @@ class Instructor extends BaseController{
         
         $post = $this->request->getPost(['email','nombre', 'apellido', 'edad', 'telefono','formacion','contra','contra2','tipo_usuario']);
         
-        $tiposClaseSeleccionados = $this->request->getPost('tipo_clase'); 
-        if ($tiposClaseSeleccionados) {
-            $tiposClaseString = implode(", ", $tiposClaseSeleccionados); 
-        } else {
-            $tiposClaseString = ''; 
-        }
+
         
         $registroInstructorModel = new RegistroInstructorModel();
 
@@ -98,7 +87,7 @@ class Instructor extends BaseController{
                 'edad' => $post['edad'],
                 'telefono' => $post['telefono'],
                 'formacion'=> ucfirst(trim($post['formacion'])),
-                'tipo' => $tiposClaseString,
+                'tipo' => 'Reformer, Terapeutico , HIIT',
                 'contraseña' => $post['contra'],
                 'contraseña2' => $post['contra2'],
                 'tipo_usuario' => $post['tipo_usuario'],

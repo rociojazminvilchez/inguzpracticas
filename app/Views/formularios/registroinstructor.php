@@ -54,14 +54,7 @@
     
    <span class="error">*</span> Formaci&oacuten:<br>
      <textarea name="formacion" required><?= old('formacion') ?></textarea><br>
-     
- 
-   <span class="error">*</span> Tipo de pilates:<br>
-        <input type="checkbox" name="tipo_clase[]" value="Reformer"> Reformer 
-        <input type="checkbox" name="tipo_clase[]" value="HIIT"> Hiit 
-        <input type="checkbox" name="tipo_clase[]" value="Terapeutico" > Terap&eacuteutico 
-    <br><br>
-
+    
   <h4 style="text-align:left;"> Datos registro:</h4><br>  
   <span class="error">*</span> E-mail: <br>   
   <input type="text" name="email" value="<?= old('email') ?>" required ><br><br>  

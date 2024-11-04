@@ -109,7 +109,7 @@ input[type="submit"]:hover {
 <?php   
 $mensaje = "";  // Variable para almacenar el mensaje de éxito
 $mensajeError = "";  // Variable para almacenar el mensaje de error
-
+$mostrar = "";
 if (!session()->has('usuario')) {
     $mensajeError = "Para realizar una reserva, debe iniciar sesión o registrarse.";
 } else {
@@ -125,6 +125,7 @@ if (!session()->has('usuario')) {
         if (session()->getFlashdata('mensaje')) {
             $mensajeError .= "<br>" . session()->getFlashdata('mensaje');
         }
+        $mostrar='2';
     }
 }
 ?>
