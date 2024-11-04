@@ -77,3 +77,7 @@ $routes->post('/actualizar/informacion', 'Actividades::updateInformacion');
 
 #RESERVAS
 $routes->get('/reservas/reservas', 'Reserva::reserva');
+$routes->get('/reserva/create', 'Reserva::create');
+$routes->post('/reserva/create', 'Reserva::create'); 
+$routes->get('/reserva/update', 'Reserva::update');
+$routes->post('/reserva/update', 'Reserva::update'); 

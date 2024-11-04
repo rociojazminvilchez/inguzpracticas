@@ -136,11 +136,11 @@ class Home extends BaseController
 
     // Recopilación de datos
     $data = [
-        'membresia' => $membresiaModel->mostrar_membresia_activa($correo),
-        'actividades2' => $membresiaModel->membresia_activa_segunID($correo),
-        'actividades' => $actividadesModel->mostrarTodo(['Tipo' => 'HIIT']),
-        'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'HIIT']),
-        'horas' => $actividadesModel->obtenerHorariosHIIT()
+        //'membresia' => $membresiaModel->mostrar_membresia_activa($correo),
+        'membresia' => $membresiaModel->membresia_activa_segunID($correo),
+        'actividades' => $actividadesModel->mostrarTodaBD(),
+       // 'pilates' => $pilatesModel->mostrarTodo(['Tipo' => 'HIIT']),
+        //'horas' => $actividadesModel->obtenerHorariosHIIT()
     ];
 
     // Configuración de idioma a español
@@ -166,10 +166,6 @@ class Home extends BaseController
     return view('inguz/reserva', $data);
 }
 
-    
-    
-    
-    
 
 #COMPRAR CREDITOS
     public function creditos(){

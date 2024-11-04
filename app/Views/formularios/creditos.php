@@ -67,9 +67,9 @@
   <span class="error">*</span>Actividad: <br>  
     <select name="actividad" id="act">
         <option value="">- Seleccione una actividad -</option>
-        <option value="hiit" <?= isset($actividad) && $actividad == 'hiit' ? 'selected' : '' ?>>Pilates HIIT</option>
-        <option value="terapeutico" <?= isset($actividad) && $actividad == 'terapeutico' ? 'selected' : '' ?>>Pilates Terapeutico</option>
-        <option value="reformer" <?= isset($actividad) && $actividad == 'reformer' ? 'selected' : '' ?>>Pilates Reformer</option>
+        <option value="HIIT" <?= isset($actividad) && $actividad == 'hiit' ? 'selected' : '' ?>>Pilates HIIT</option>
+        <option value="Terapeutico" <?= isset($actividad) && $actividad == 'terapeutico' ? 'selected' : '' ?>>Pilates Terapeutico</option>
+        <option value="Reformer" <?= isset($actividad) && $actividad == 'reformer' ? 'selected' : '' ?>>Pilates Reformer</option>
     </select><br><br>
 
     <span class="error">*</span>Cantidad de clases: <br>  

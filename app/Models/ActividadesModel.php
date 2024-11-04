@@ -25,7 +25,10 @@ class ActividadesModel extends Model {
             return "no coincide"; // No hay resultados
         }
     }
-
+    public function mostrarTodaBD() {
+        $resultado = $this->db->table('informacion');
+        return $resultado->get()->getResultArray();
+    }
     public function mostrarTodo($data) {
         $resultado = $this->db->table('informacion');
         $resultado->where($data);
@@ -37,6 +40,13 @@ class ActividadesModel extends Model {
         $resultado->where($data);
         return $resultado->get()->getResultArray();
     }
+
+    public function mostrarSoloHorarios() {
+        $resultado = $this->db->table('informacion');
+        $resultado->select('Horario');
+        return $resultado->get()->getResultArray();
+    }
+
 #Metodos para actualizar datos
     public function mostrarTodoActualizar() {
         $resultado = $this->db->table('informacion');

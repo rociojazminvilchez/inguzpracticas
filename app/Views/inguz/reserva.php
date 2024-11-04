@@ -99,8 +99,7 @@ input[type="submit"]:hover {
     background-color: #c75d15; /* Color más oscuro al hacer hover */
 }
 
-
-    </style>
+</style>
 <body>
 <?php
     echo $this->include('plantilla/navbar');
@@ -110,6 +109,7 @@ input[type="submit"]:hover {
 $mensaje = "";  // Variable para almacenar el mensaje de éxito
 $mensajeError = "";  // Variable para almacenar el mensaje de error
 $mostrar = "";
+
 if (!session()->has('usuario')) {
     $mensajeError = "Para realizar una reserva, debe iniciar sesión o registrarse.";
 } else {
@@ -156,26 +156,60 @@ if (!session()->has('usuario')) {
    
 ?>
 
+<?php 
+$actividades_pagadas = [];
+$informacion_actividades = [];
+
+// Obtener actividades pagadas y sus horarios
+foreach ($actividades as $act) {
+    foreach ($membresia as $mebre) {
+        if ($act['Tipo'] === $mebre['actividad']) {
+            $actividades_pagadas[] = $mebre['actividad'];
+            $informacion_actividades[] = [
+                'id' => $act['id'],
+                'tipo' => $act['Tipo'],
+                'dia' => $act['Dia'],
+                'horario' => $act['Horario'],
+                'hora_inicio' => $act['hora_inicio'],
+                'hora_fin' => $act['hora_fin'],
+                'cupo' => $act['Cupo'], 
+                'instructor' => $act['Instructor'] 
+            ];
+        }
+    }
+}
+
+$actividades_pagadas = array_unique($actividades_pagadas);
+
+// Crear un array con los horarios únicos
+$horarios_array = [];
+foreach ($informacion_actividades as $info) {
+    $horarios_array[$info['horario']] = true; // Usamos un array asociativo para obtener solo los horarios únicos
+}
+
+// Ordenar los horarios
+$horarios_array = array_keys($horarios_array);
+usort($horarios_array, function($a, $b) {
+    list($a_inicio) = explode('-', $a);
+    list($b_inicio) = explode('-', $b);
+    return $a_inicio <=> $b_inicio; // Ordenar de menor a mayor
+});
+?>
+
 <div style="display: flex; align-items: center;">
-   <h4> <label for="actividades" style="padding-left: 40px;">Actividad - Pilates:</label></h4>
+    <h4><label for="actividades" style="padding-left: 40px;">Actividad - Pilates:</label></h4>
     <select id="actividades" name="act" class="select-actividades">
-        <?php if (!empty($actividades2)) : ?>
-            <?php foreach ($actividades2 as $actividad) : ?>
-                <option value="<?php echo htmlspecialchars($actividad['actividad']); ?>">
-                    <?php echo htmlspecialchars(strtoupper($actividad['actividad'])); ?>
-                </option>
-            <?php endforeach; ?>
-        <?php else : ?>
-            <option value="">NO HAY ACTIVIDADES DISPONIBLES</option>
-        <?php endif; ?>
+        <?php foreach ($actividades_pagadas as $actividad) : ?>
+            <option value="<?php echo htmlspecialchars($actividad); ?>">
+                <?php echo htmlspecialchars(strtoupper($actividad)); ?>
+            </option>
+        <?php endforeach; ?>
     </select>
 </div><br>
-
 
 <?php
 setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
 
-// Array de días en español para comparar con la base de datos
 $diasBD = [
     'Monday' => 'Lunes',
     'Tuesday' => 'Martes',
@@ -186,16 +220,12 @@ $diasBD = [
     'Sunday' => 'Domingo'
 ];
 
-// Obtener la fecha de hoy
+// Fecha de hoy
 $hoy = strtotime(date('Y-m-d'));
-
-// Inicializar el arreglo para las fechas de la semana
 $fechasSemana = [];
 
-// Determinar el inicio de la semana:
-// Si hoy es sábado o domingo, establecer el lunes de la próxima semana;
-// de lo contrario, establecer el lunes de la misma semana.
-if (date('N') >= 6) { // Sábado (6) o domingo (7)
+// Si hoy es sábado o domingo, establecer el lunes de la próxima semana, de lo contrario, establecer el lunes de la misma semana.
+if (date('N') >= 6) { 
     $inicioSemana = strtotime('next monday');
 } else {
     $inicioSemana = strtotime('last monday', strtotime('tomorrow'));
@@ -204,8 +234,8 @@ if (date('N') >= 6) { // Sábado (6) o domingo (7)
 // Calcular las fechas de lunes a viernes de la semana correspondiente
 for ($i = 0; $i < 5; $i++) {
     $fecha = strtotime("+$i day", $inicioSemana);
-    $nombreDiaIngles = date('l', $fecha); // Nombre del día en inglés
-    $nombreDiaEspanol = $diasBD[$nombreDiaIngles]; // Convertir al nombre en español
+    $nombreDiaIngles = date('l', $fecha); 
+    $nombreDiaEspanol = $diasBD[$nombreDiaIngles]; 
 
     $fechasSemana[] = [
         'fecha' => date('Y-m-d', $fecha),
@@ -220,8 +250,7 @@ for ($i = 0; $i < 5; $i++) {
         <strong>Nota:</strong> Las reservas solo están disponibles a partir del próximo lunes (<?php echo date('d-m-Y', strtotime('next monday')); ?>).
     </div>
 <?php else: ?>
-    <!-- Vista del calendario -->
-    <form action="tu_ruta_de_procesamiento" method="post">
+    <form action="<?= base_url('reserva/create'); ?>" method="post">
         <table>
             <thead>
                 <tr>
@@ -233,20 +262,24 @@ for ($i = 0; $i < 5; $i++) {
             </thead>
             <tbody>
                 <?php 
-                foreach ($horas as $hora) {
+                foreach ($horarios_array as $hora) {
                     echo "<tr><td>{$hora}</td>";
                     foreach ($fechasSemana as $fechaInfo) {
                         $actividadEncontrada = false;
-                        foreach ($actividades as $actividad) {
+                        foreach ($informacion_actividades as $info) {
+                            
                             // Verifica que el día y la hora coincidan y que haya cupo
-                            if ($actividad['Dia'] == $fechaInfo['dia'] && $actividad['Horario'] == $hora && $actividad['Cupo'] > 0) {
+                            if ($info['dia'] == $fechaInfo['dia'] && $info['horario'] == $hora && $info['cupo'] > 0) {
                                 $actividadEncontrada = true;
                                 echo "<td>
                                         <label>
-                                            <input class='checkbox' type='radio' name='seleccionar[" . htmlspecialchars($fechaInfo['fecha']) . "]' value='" . htmlspecialchars($actividad['Tipo']) . "'>
-                                            Lugares disponibles: " . htmlspecialchars($actividad['Cupo']) . "
+                                            <input class='checkbox' type='radio' name='seleccionar[{$fechaInfo['fecha']}_{$hora}]' value='" . htmlspecialchars($info['tipo']) . "'>
+                                            Lugares disponibles: " . htmlspecialchars($info['cupo']) . "
                                         </label>
                                       </td>";
+                                // Campos ocultos deben estar fuera del ciclo anidado
+                                echo "<input type='hidden' name='instructor' value='" . htmlspecialchars($info['instructor']) . "'>";
+                                echo "<input type='hidden' name='hora_inicio' value='" . htmlspecialchars($info['hora_inicio']) . "'>";
                                 break;
                             }
                         }
@@ -264,6 +297,9 @@ for ($i = 0; $i < 5; $i++) {
         </p>
     </form>
 <?php endif; ?>
+
+
+
 
 
 
