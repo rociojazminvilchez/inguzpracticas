@@ -64,4 +64,13 @@ class MembresiaModel extends Model {
         $resultado->where('estado', 'Activa');
         return $resultado->get()->getResultArray();
     }
+
+    public function restarPase($correo,$id) {
+        
+        return $this->db->table($this->table)
+                        ->set('pases', 'pases - 1', false) // Resta 1 al campo 'pases'
+                        ->where('correo', $correo)
+                        ->where('id', $id)  // O el campo que estés utilizando para identificar al usuario
+                        ->update();
+    }
 }

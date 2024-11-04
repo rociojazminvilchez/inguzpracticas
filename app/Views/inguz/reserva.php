@@ -1,3 +1,6 @@
+<?php
+use App\Models\ReservaModel;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -159,10 +162,13 @@ if (!session()->has('usuario')) {
 <?php 
 $actividades_pagadas = [];
 $informacion_actividades = [];
+$informacion_membresias = [];
+$id_membresia="";
 
 // Obtener actividades pagadas y sus horarios
 foreach ($actividades as $act) {
     foreach ($membresia as $mebre) {
+        $id_membresia = $mebre['id'];
         if ($act['Tipo'] === $mebre['actividad']) {
             $actividades_pagadas[] = $mebre['actividad'];
             $informacion_actividades[] = [
@@ -194,6 +200,9 @@ usort($horarios_array, function($a, $b) {
     list($b_inicio) = explode('-', $b);
     return $a_inicio <=> $b_inicio; // Ordenar de menor a mayor
 });
+
+// Supongamos que tienes acceso al modelo de reserva
+$reservaModel = new ReservaModel();
 ?>
 
 <div style="display: flex; align-items: center;">
@@ -267,14 +276,20 @@ for ($i = 0; $i < 5; $i++) {
                     foreach ($fechasSemana as $fechaInfo) {
                         $actividadEncontrada = false;
                         foreach ($informacion_actividades as $info) {
-                            
-                            // Verifica que el día y la hora coincidan y que haya cupo
-                            if ($info['dia'] == $fechaInfo['dia'] && $info['horario'] == $hora && $info['cupo'] > 0) {
+                            // Contar reservas existentes para esta combinación
+                            $cantidadReservas = $reservaModel->where('fecha', $fechaInfo['fecha'])
+                                                              ->where('horario', $hora)
+                                                              ->where('actividad', htmlspecialchars($info['tipo']))
+                                                              ->countAllResults(); // Contar el número de reservas
+
+                            // Verifica que el día y la hora coincidan, que haya cupo y que no haya alcanzado el límite de reservas
+                            if ($info['dia'] == $fechaInfo['dia'] && $info['horario'] == $hora && $info['cupo'] > 0 && $cantidadReservas < 7) {
                                 $actividadEncontrada = true;
+                                echo "<input type='hidden' name='membresia' value='" . htmlspecialchars($id_membresia) . "'>";
                                 echo "<td>
                                         <label>
                                             <input class='checkbox' type='radio' name='seleccionar[{$fechaInfo['fecha']}_{$hora}]' value='" . htmlspecialchars($info['tipo']) . "'>
-                                            Lugares disponibles: " . htmlspecialchars($info['cupo']) . "
+                                            Disponible". "
                                         </label>
                                       </td>";
                                 // Campos ocultos deben estar fuera del ciclo anidado

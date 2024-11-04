@@ -21,5 +21,8 @@ class ReservaModel extends Model{
         return $resultado->get()->getResultArray();
     }
 
+    public function mostrarReservas(){
+        
+    }
 }
 ?>
